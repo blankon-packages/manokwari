@@ -16,6 +16,7 @@ Build-Depends: autotools-dev,
                libvala-0.12-dev,
                libwnck-3-dev,
 	       libwebkitgtk-3.0-dev,
+	       libjavascriptcoregtk-3.0-dev,
                valac
 Uploaders: Aji Kisworo Mukti <adzy@di.blankon.in>
 Standards-Version: 3.9.2
