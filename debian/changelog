@@ -1,0 +1,328 @@
+manokwari (0.1.1) rote; urgency=low
+
+  * Transitions from blankon-panel to manokwari
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Tue, 06 Mar 2012 23:43:18 +0700
+
+blankon-panel (0.4.6) rote; urgency=low
+
+  * Changes: remove synapse from depends
+
+ -- Aji Kisworo Mukti <adzy@idiotable>  Sat, 04 Feb 2012 20:11:07 +0700
+
+blankon-panel (0.4.5) rote; urgency=low
+
+  * New upstream release:
+    - Changes: Register panel to GNOME session manager
+  
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 05 Jan 2012 22:17:15 +0700
+
+blankon-panel (0.4.4) rote; urgency=low
+
+  * New upstream release:
+    - Fix FTBFS witch GCC-4.6 Wno-format-security Bug: #948
+  * debian/control:
+    - Uploader -> Uploaders
+    - Website -> Homepage
+    - Add Cvs-Browser field
+    - Bump Standard-Version to 3.9.2
+    - desktop -> gnome
+    - wrap-and-sort
+
+ -- Mahyuddin Susanto <udienz@ubuntu.com>  Sun, 01 Jan 2012 19:12:44 +0700
+
+blankon-panel (0.4.3) rote; urgency=low
+
+  * Fixes: BlankOn#948: blankon-panel gagal dibangun di irgsh 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sun, 01 Jan 2012 07:49:36 +0700
+
+blankon-panel (0.4.2) rote; urgency=low
+
+  * Changes: Using the correct gnome-session's keyword    
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 06 Dec 2011 05:34:42 +0700
+
+blankon-panel (0.4.1) rote; urgency=low
+
+  * Changes: Only accept click if it was pressed and released on the very ...	.
+  * New: User icon and name in menu box
+  * Changes: Only accept click if it was pressed and released on the ...
+  * Changes: Removed debug string
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 11 Oct 2011 22:30:37 +0700
+
+blankon-panel (0.3.5) pattimura; urgency=low
+
+  * New upstream changes
+
+ -- Mohammad Anwari <mdamt@di.blankon.in>  Sun, 14 Aug 2011 23:00:05 +0300
+
+blankon-panel (0.3.4) pattimura; urgency=low
+
+  * Workaround ticket #843 
+
+ -- Mohammad Anwari <mdamt@di.blankon.in>  Sun, 14 Aug 2011 21:59:51 +0300
+
+blankon-panel (0.3.3) pattimura; urgency=low
+
+  * Changes: Keep own's account of the window list
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 14 Aug 2011 18:55:18 +0700
+
+blankon-panel (0.3.2) pattimura; urgency=low
+
+  * Fixes: BlankOn#836
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 14 Aug 2011 04:45:30 +0700
+
+blankon-panel (0.3.1) pattimura; urgency=low
+
+  * Changes: Down scale and move clock down
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sat, 13 Aug 2011 10:50:12 +0700
+
+blankon-panel (0.3.0) pattimura; urgency=low
+
+  * Changes: Always resize when entered
+  * Changes: Make a single instance, depends on libunique-3.0
+  * Changes: Show label always
+  * Changes: Shift Clock to the Side
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Wed, 10 Aug 2011 11:38:24 +0700
+
+blankon-panel (0.2.19) pattimura; urgency=low
+
+  * Changes: Give menu box a title
+  * Fixes: BlankOn#825 - [blankon-panel]
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Tue, 09 Aug 2011 04:32:56 +0700
+
+blankon-panel (0.2.18) pattimura; urgency=low
+
+  * Changes: New PanelSessionManager class and PrintScreen event handler
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 07 Aug 2011 17:24:19 +0700
+
+blankon-panel (0.2.17) pattimura; urgency=low
+
+  * Changes: Show menu box without tricks 
+  * Changes: Properly show the widgets 
+  * Changes: Regrab device after dismissing popup menu from menu content 
+  * Fixes: BlankOn#703
+  * Changes: Keyboard interaction on menu box 
+  * Fixes: BlankOn#814
+  * Changes: transform into themable panel 
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 07 Aug 2011 01:15:17 +0700
+
+blankon-panel (0.2.16) pattimura; urgency=low
+
+  * Changes: Draw information when a new window is opened while window list...
+  * Changes: Properly move the menu box window to north west when shown
+  * Changes: Better opening animation
+  * Changes: Removed crufts
+  * Changes: Only hide content when necessary
+  * Changes: Only put separator when there's at least one mount item
+  * Adding background behind clock
+  * Fixes: BlankOn#804 - [BlankOn Panel] Tombol Kunci
+  * Revert "Fix background behind clock"
+  * Changes: Update javanese translation
+  * Changes: Update indonesian translation
+  * Changes: Add more contrast to clock
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Fri, 05 Aug 2011 00:52:58 +0700
+
+blankon-panel (0.2.15) pattimura; urgency=low
+
+  * Changes: Resize correctly on dual monitor setup
+  * Changes: Draw information when a new window is opened while window list in big mode
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Thu, 04 Aug 2011 12:15:44 +0700
+
+blankon-panel (0.2.14) pattimura; urgency=low
+
+  * Changes: Shorter window list height 
+  * Changes: Update Indonesian translation
+  * Changes: Update Javanese translation
+  * Changes: Bring back device grabbing instead of having a big invisible bo...
+  * Changes: Move tray to window list 
+  * Changes: Animation on showing menu box 
+  * Changes: Added padding for tray 
+  * Changes: Handling windows asking attention 
+  * Changes: Updated theme
+  * Fixes: BlankOn#792 - Icon tidak diketahui di blankon panel
+  * Changes: Don't limit workspace+desktop combo window height 
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Wed, 03 Aug 2011 17:08:59 +0700
+
+blankon-panel (0.2.13) pattimura; urgency=low
+
+  * New: Add/remove to/from Favorites 
+  * Fixes: BlankOn#778 - gak ada scroll di blankon panel 
+  * Fixes: BlankOn#777 - [blankon-panel] tulisan menu dan tray aplikasi
+  * New: Add to Desktop
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Tue, 02 Aug 2011 09:24:52 +0700
+
+blankon-panel (0.2.12) pattimura; urgency=low
+
+  * Changes: CSS update containing the image
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Fri, 29 Jul 2011 23:44:11 +0700
+
+blankon-panel (0.2.11) pattimura; urgency=low
+
+  * Changes: Simplifications of the layouts
+  * Changes: Use PanelScreen.* helper functions for window management
+  * Changes: Use graphics for menu entries
+  * Changes: Reacts better on monitor changes 
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Thu, 28 Jul 2011 18:36:42 +0700
+
+blankon-panel (0.2.10) pattimura; urgency=low
+
+  * Changes: Adding synapse to depends
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Tue, 26 Jul 2011 18:57:03 +0700
+
+blankon-panel (0.2.9) pattimura; urgency=low
+
+  * Fixes: BlankOn#765 - Usulan Workspace di Panel
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 24 Jul 2011 22:34:34 +0700
+
+blankon-panel (0.2.8) pattimura; urgency=low
+
+  * Changes: Adding gettext in panel-clock.vala 
+  * Changes: Spinoff the xdg menu loader into a new class 
+  * Changes: Fix vala's compilation warnings
+  * Fixes: BlankOn#761 - Aplikasi baru tidak tampak di blankon-panel 
+  * Fixes: BlankOn#763 - jendela shutdown tidak langsung aktif saat klik menu "matikan..."
+  * Changes: Show workspace switcher only when pressing with mouse
+  * Changes: Reacts to drag-and-drop, activating target window
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 24 Jul 2011 08:00:35 +0700
+
+blankon-panel (0.2.7) pattimura; urgency=low
+
+  * Changes: New theme colors
+  * Changes: Enable active window state
+  * Changes: Handle workspace changed in a window
+  * Changes: Not autoexpanding anymore
+  * Changes: Translate 'Places'
+  * Changes: Justify center
+  * Changes: Move after show
+  * Update javanese language
+  * New: Gayonese translation
+  * Change: Update Gayonese translation
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Thu, 21 Jul 2011 03:53:35 +0000
+
+blankon-panel (0.2.6) pattimura; urgency=low
+
+  * Changes: Adding Date in Panel Clock
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Wed, 20 Jul 2011 11:10:06 +0000
+
+blankon-panel (0.2.5) pattimura; urgency=low
+
+  * Changes: Register self as the owner of org.gnome.Panel
+  * Fixes: BlankOn#756
+  * Changes: Make gettext works
+  * Changes: Updated Indonesian translation
+  * Changes: Adding Rabitya
+  * New: Javanese and Sundanese translation
+  * Fixes: BlankOn#747
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Wed, 20 Jul 2011 03:11:53 +0000
+
+blankon-panel (0.2.4) pattimura; urgency=low
+
+  * Fixes: BlankOn#746
+  * New: Show desktop button in the pager
+  * Changes: Only sets the struts during construction
+  * Changes: Set struts also when dismissing window entry
+  * New: autostar at desktop
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 18 Jul 2011 16:25:49 +0700
+
+blankon-panel (0.2.3) pattimura; urgency=low
+
+  * Update from git, Fix some Tickets.
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 17 Jul 2011 20:21:10 +0700
+
+blankon-panel (0.2.2) pattimura; urgency=low
+
+  * Update version
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sat, 16 Jul 2011 17:16:18 +0700
+
+blankon-panel (0.2.1) pattimura; urgency=low
+
+  * Update from upstream
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sat, 16 Jul 2011 14:54:03 +0700
+
+blankon-panel (0.1.8) pattimura; urgency=low
+
+  * New Upstream
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Thu, 14 Jul 2011 17:04:58 +0700
+
+blankon-panel (0.1.7) pattimura; urgency=low
+
+  * Added blankon-panel.desktop
+  * install 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 13 Jul 2011 00:17:31 +0700
+
+blankon-panel (0.1.6) pattimura; urgency=low
+
+  * debian/control 
+    - added ${shlibs:Depends}, 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 12 Jul 2011 06:46:26 +0700
+
+blankon-panel (0.1.5) pattimura; urgency=low
+
+  * New Upstream authors
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 11 Jul 2011 21:59:58 +0700
+
+blankon-panel (0.1.4) pattimura; urgency=low
+
+  * New Updates from Author
+    - CHanges: Draw arrow instead of distribution logo on the second column 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 06 Jul 2011 16:42:25 +0700
+
+blankon-panel (0.1.3) pattimura; urgency=low
+
+  * New Updates from Author
+    - CHanges: Replaced menu interaction with sliding columns
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 06 Jul 2011 05:46:10 +0700
+
+blankon-panel (0.1.2) pattimura; urgency=low
+
+  * install 
+    - blankon-panel   /usr/bin/
+    - blankon-panel.css /usr/share/blankon-panel/
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 29 Jun 2011 20:55:50 +0700
+
+blankon-panel (0.1.1) pattimura; urgency=low
+
+  * New upstream update
+  
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 24 Jun 2011 05:39:38 +0700
+
+blankon-panel (0.1) pattimura; urgency=low
+
+  * Initial release
+  
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 18 Apr 2011 21:28:19 +0700
+
+

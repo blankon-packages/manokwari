@@ -1,0 +1,4 @@
+[encoding: UTF-8]
+# List of source files which contain translatable strings.
+src/panel-menu-box.vala
+src/panel-places.vala

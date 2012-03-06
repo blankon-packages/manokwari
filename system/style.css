@@ -1,0 +1,219 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+    font-family: Cantarell, sans-serif;
+}
+
+.ui-page, .ui-content {
+    color: #aaaaaa;
+    background-color: #101010;
+    margin: 0px;
+    padding: 0px;
+}
+
+.ui-page {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.ui-mobile-viewport {
+}
+
+.ui-animation-slide {
+    -webkit-transition: left 0.3s ease-out;
+}
+
+.ui-listview {
+    list-style:none;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    vertical-align: middle;
+    padding: 0px;
+}
+
+
+.ui-listview li {
+    width: 100%;
+    min-height: 40px;
+
+    text-align: center; 
+    vertical-align: middle; 
+    color: white;
+    background-image: -webkit-linear-gradient(#505050 /*{e-bup-background-start}*/, #101010 /*{e-bup-background-end}*/);
+
+}
+
+.ui-content {
+    margin: 5px;
+}
+
+.ui-listview-item-icon {
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-left: -20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.ui-listview-item-text {
+    vertical-align: middle;
+    text-align: left; 
+    margin: auto;
+}
+
+.ui-listview-item-pressed {
+    background-image: -webkit-linear-gradient(#c0c0b0 /*{e-bup-background-start}*/, #b0b0b0 /*{e-bup-background-end}*/);
+}
+
+.ui-listview-item-normal {
+    background-image: -webkit-linear-gradient(#b0b0b0 /*{e-bup-background-start}*/, #a0a0a0 /*{e-bup-background-end}*/);
+}
+
+.ui-listview-item {
+    vertical-align: middle;
+    display: block;
+    min-height: 40px;
+    text-align: left; 
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: inherit;
+    cursor: pointer;
+
+}
+
+.ui-listview-header {
+    border-radius: inherit;
+    color: white;
+    text-align: center;
+    background-image: -webkit-linear-gradient(#505050 /*{e-bup-background-start}*/, #101010 /*{e-bup-background-end}*/);
+
+}
+
+.ui-listview-first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.ui-listview-last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.ui-link {
+    text-decoration: none;
+    color: black; 
+    vertical-align: middle;
+}
+
+span {
+    vertical-align: middle;
+}
+
+.ui-collapsible {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.ui-collapsible-header {
+    margin: 0px;
+    padding: 10px;
+    display: block;
+    color: black;
+    background-image: -webkit-linear-gradient(#d0d0d0 /*{e-bup-background-start}*/, #b0b0b0 /*{e-bup-background-end}*/);
+    cursor: pointer;
+}
+
+.ui-collapsible-header-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.ui-collapsible-header-bottom {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.ui-collapsible-control-group {
+    overflow: hidden;
+    margin: 10px;
+    -webkit-transition: height 0.2s ease-out;
+}
+
+.ui-back-button {
+    background-image: url("/usr/share/icons/gnome/24x24/actions/back.png");
+    background-repeat: no-repeat;
+    color: red;
+    width: 24px;
+    height: 24px; 
+    margin: 0;
+    padding: 0;
+}
+
+.ui-header {
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.ui-button {
+    display: block;
+    color: white;
+    text-align:center;
+    padding: 5px;
+    border-radius: 5px;
+    background-image: -webkit-linear-gradient(#505050 /*{e-bup-background-start}*/, #000000 /*{e-bup-background-end}*/);
+}
+
+.ui-popup {
+    height: 0;
+    background-color: blue;
+    border-radius: 5px;
+    background-image: -webkit-linear-gradient(#202020 /*{e-bup-background-start}*/, #101010 /*{e-bup-background-end}*/);
+    -webkit-transition: height 0.5s ease-out;
+}
+
+#popup-pool {
+    display: none;
+}
+
+#userAccount {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 300; 
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+
+    background-image: -webkit-linear-gradient(#505050 /*{e-bup-background-start}*/, #101010 /*{e-bup-background-end}*/);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap; 
+
+
+}
+
+#userAccount img {
+    border-radius: 5px;
+    float: left;
+    width: 48;
+    height: 48;
+    margin-right: 5px;
+}
+
+#userAccount h1 {
+    font-size: 20px;
+    margin: 0px;
+}
+
+#userAccount span {
+    font-size: 12px;
+}
+
+
