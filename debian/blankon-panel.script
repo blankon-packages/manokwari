@@ -1,5 +1,0 @@
-#!/bin/bash
-
-#Workaround ticket #843
-sleep 5
-blankon-panel.bin
