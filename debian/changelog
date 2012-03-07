@@ -1,3 +1,12 @@
+manokwari (0.1.2) rote; urgency=low
+
+  * debian/manokwari.script:
+    - rename from blankon-panel.script 
+  * debian/control:
+    - add libsoup2.4-dev to build-dep
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Wed, 07 Mar 2012 14:48:48 +0700
+
 manokwari (0.1.1) rote; urgency=low
 
   * Transitions from blankon-panel to manokwari

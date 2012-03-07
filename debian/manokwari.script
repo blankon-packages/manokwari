@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Workaround ticket #843
+sleep 5
+manokwari.bin
