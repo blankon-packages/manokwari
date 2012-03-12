@@ -1,86 +1,86 @@
 manokwari (0.1.3) rote; urgency=low
 
   * New Upstream Release:
-	- Rebrand to manokwari
-	- Change: remove data/blankon-panel
-	- Change: Use manokwari brand
-	- Changes: Desktop implementation
-	- Changes: Use manokwari brand
-	- Changes: Delay xdg updates for a minute
-	- Changes: Less memory leaks
-	- Changes: Move clock to panel
-	- Changes: Removed crufts
-	- Changes: Move menu button to panel
-	- Changes: Style for listview item
-	- Changes: Reset expandable icon style when changing pages
-	- Changes: Revert the mousepress style change
-	- New: Expandable icon
-	- Changes: Style for user name
-	- Changes: Style for listview item and collapsible header when hovered
-	- Changes: Round borders for listview inside a collapsible group
-	- Changes: New style for button and popup
-	- Changes: Give impression that back button is clickable
-	- Changes: Hide collapsible group when changing pages
-	- Changes: Use default cursor
-	- Changes: Disable selection
-	- Changes: Resize control group height when a popup is displayed
-	- Changes: No wrapping on overflowed text
-	- Changes: Only add scrollbar when needed
-	- Changes: Add scrollbar when menu-box content overflow
-	- Changes: Give impression that buttons are clickable
-	- Changes: Give impression that collapsible headers are clickable
-	- Changes: Give impression that list items are clickable
-	- Changes: Give impression that the user account info is clickable
-	- Changes: Prepare assests before showing menu box
-	- Changes: Put # in href so the changePage wouldn't react
-	- Changes: Hide menu box when a dialog is shown
-	- Changes: Hide panel when any windows is invoked
-	- Changes: Move window panel up
-	- Changes: Displays user's info in menu-box
-	- Changes: Dismiss menu-box when esc no longer processed
-	- Changes: Simple Esc handler
-	- Changes: Removed crufts
-	- Changes: Animate while hidden menu-box
-	- Changes: Smooth show/hide animation
-	- Changes: Style for collapsible
-	- Changes: Style for button pressed state
-	- Changes: Style for listview headers
-	- Changes: Not using <ul>+<li> for listview
-	- Changes: Rewires mouse events after updated
-	- Changes: Popup
-	- Changes: Remove object instead of hiding it when the data-visibility functio
-	- Changes: Only call the function if it is a function
-	- Changes: Setup object visibility if it is specified to hide based on a funct
-	- Changes: Support calling function as defined in the button
-	- Changes: More robust invalidPage handler
-	- Changes: Missing bracket
-	- Changes: Handle invalid page in changePage
-	- Changes: Put a hack to an animation anomaly
-	- Changes: Apply animation class to first page
-	- Changes: Always consider activePage as first when it's null
-	- Changes: Added documentation about translations
-	- Changes: Added documentation about refreshStyle
-	- Changes: Prevent abruptly sent mouse events on mousedown
-	- Changes: Added documentation about mouse event handling
-	- Changes: Removed jquerymobile as it leaks memory heavily (part 2)
-	- Changes: Removed jquerymobile as it leaks memory heavily
-	- Changes: Fixes mixed up between URI and path in Places
-	- Changes: Settings should not have icon
-	- Changes: Init data before kicking JavaScript
-	- Fixes: BlankOn#984 - BlankOn Panel tidak dapat dimatikan saat proses logout
-	- Changes: Auto register to GNOME session manager
-	- Changes: Expose SessionManager
-	- Changes: Can run settings
-	- Changes: Places part 3
-	- Changes: Places part 2
-	- New: Places part 1
-	- Changes: Attach monitor to xdg
-	- Changes: Resets UI when menu is reshown
-	- Changes: Favorites
-	- Changes: Check for session validity before registering
+    -  Rebrand to manokwari
+    - Change: remove data/blankon-panel
+    - Change: Use manokwari brand
+    - Changes: Desktop implementation
+    - Changes: Use manokwari brand
+    - Changes: Delay xdg updates for a minute
+    - Changes: Less memory leaks
+    - Changes: Move clock to panel
+    - Changes: Removed crufts
+    - Changes: Move menu button to panel
+    - Changes: Style for listview item
+    - Changes: Reset expandable icon style when changing pages
+    - Changes: Revert the mousepress style change
+    - New: Expandable icon
+    - Changes: Style for user name
+    - Changes: Style for listview item and collapsible header when hovered
+    - Changes: Round borders for listview inside a collapsible group
+    - Changes: New style for button and popup
+    - Changes: Give impression that back button is clickable
+    - Changes: Hide collapsible group when changing pages
+    - Changes: Use default cursor
+    - Changes: Disable selection
+    - Changes: Resize control group height when a popup is displayed
+    - Changes: No wrapping on overflowed text
+    - Changes: Only add scrollbar when needed
+    - Changes: Add scrollbar when menu-box content overflow
+    - Changes: Give impression that buttons are clickable
+    - Changes: Give impression that collapsible headers are clickable
+    - Changes: Give impression that list items are clickable
+    - Changes: Give impression that the user account info is clickable
+    - Changes: Prepare assests before showing menu box
+    - Changes: Put # in href so the changePage wouldn't react
+    - Changes: Hide menu box when a dialog is shown
+    - Changes: Hide panel when any windows is invoked
+    - Changes: Move window panel up
+    - Changes: Displays user's info in menu-box
+    - Changes: Dismiss menu-box when esc no longer processed
+    - Changes: Simple Esc handler
+    - Changes: Removed crufts 
+    - Changes: Animate while hidden menu-box
+    - Changes: Smooth show/hide animation
+    - Changes: Style for collapsible
+    - Changes: Style for button pressed state
+    - Changes: Style for listview headers
+    - Changes: Not using <ul>+<li> for listview
+    - Changes: Rewires mouse events after updated
+    - Changes: Popup
+    - Changes: Remove object instead of hiding it when the data-visibility functio
+    - Changes: Only call the function if it is a function
+    - Changes: Setup object visibility if it is specified to hide based on a funct
+    - Changes: Support calling function as defined in the button
+    - Changes: More robust invalidPage handler
+    - Changes: Missing bracket
+    - Changes: Handle invalid page in changePage
+    - Changes: Put a hack to an animation anomaly
+    - Changes: Apply animation class to first page
+    - Changes: Always consider activePage as first when it's null
+    - Changes: Added documentation about translations
+    - Changes: Added documentation about refreshStyle
+    - Changes: Prevent abruptly sent mouse events on mousedown
+    - Changes: Added documentation about mouse event handling
+    - Changes: Removed jquerymobile as it leaks memory heavily (part 2)
+    - Changes: Removed jquerymobile as it leaks memory heavily
+    - Changes: Fixes mixed up between URI and path in Places
+    - Changes: Settings should not have icon
+    - Changes: Init data before kicking JavaScript
+    - Fixes: BlankOn#984 - BlankOn Panel tidak dapat dimatikan saat proses logout
+    - Changes: Auto register to GNOME session manager
+    - Changes: Expose SessionManager
+    - Changes: Can run settings
+    - Changes: Places part 3
+    - Changes: Places part 2
+    - New: Places part 1
+    - Changes: Attach monitor to xdg
+    - Changes: Resets UI when menu is reshown
+    - Changes: Favorites
+    - Changes: Check for session validity before registering
     - Changes: Depends on webkitgtk
 
- -- Aji Kisworo Mukti <adzy@di.blankon.in>  Mon, 12 Mar 2012 16:52:08 +0700
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 12 Mar 2012 19:44:21 +0700
 
 manokwari (0.1.2) rote; urgency=low
 
