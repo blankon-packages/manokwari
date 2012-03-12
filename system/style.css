@@ -16,6 +16,14 @@ body {
     position: absolute;
     height: 100%;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+html {
+    overflow: hidden;
+    -webkit-user-select: none;
+    cursor: default;
 }
 
 .ui-mobile-viewport {
@@ -36,54 +44,42 @@ body {
 }
 
 
-.ui-listview li {
-    width: 100%;
-    min-height: 40px;
-
-    text-align: center; 
-    vertical-align: middle; 
-    color: white;
-    background-image: -webkit-linear-gradient(#505050 /*{e-bup-background-start}*/, #101010 /*{e-bup-background-end}*/);
-
-}
-
 .ui-content {
     margin: 5px;
 }
 
 .ui-listview-item-icon {
     vertical-align: middle;
-    margin-top: 10px;
-    margin-left: -20px;
     margin-right: 10px;
-    margin-bottom: 10px;
 }
 
 .ui-listview-item-text {
     vertical-align: middle;
     text-align: left; 
-    margin: auto;
 }
 
-.ui-listview-item-pressed {
-    background-image: -webkit-linear-gradient(#c0c0b0 /*{e-bup-background-start}*/, #b0b0b0 /*{e-bup-background-end}*/);
-}
-
-.ui-listview-item-normal {
-    background-image: -webkit-linear-gradient(#b0b0b0 /*{e-bup-background-start}*/, #a0a0a0 /*{e-bup-background-end}*/);
+.ui-listview-item:hover {
+    color: white;
+    text-shadow: 0 1px 1px #222;
+    background-image: -webkit-linear-gradient(#b0b0b0 /*{e-bup-background-start}*/, #909090 /*{e-bup-background-end}*/);
 }
 
 .ui-listview-item {
+    background-image: -webkit-linear-gradient(#b0b0b0 /*{e-bup-background-start}*/, #a0a0a0 /*{e-bup-background-end}*/);
+    color: black;
     vertical-align: middle;
     display: block;
-    min-height: 40px;
+    min-height: 30px;
     text-align: left; 
-    padding-right: 20px;
-    padding-left: 20px;
     border-radius: inherit;
     cursor: pointer;
-
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    margin: 0px;
+    white-space: nowrap;
 }
+
 
 .ui-listview-header {
     border-radius: inherit;
@@ -105,9 +101,10 @@ body {
 
 .ui-link {
     text-decoration: none;
-    color: black; 
+    color: inherit; 
     vertical-align: middle;
 }
+
 
 span {
     vertical-align: middle;
@@ -125,6 +122,13 @@ span {
     color: black;
     background-image: -webkit-linear-gradient(#d0d0d0 /*{e-bup-background-start}*/, #b0b0b0 /*{e-bup-background-end}*/);
     cursor: pointer;
+}
+
+
+.ui-collapsible-header:hover {
+    color: white;
+    text-shadow: 0 1px 1px #222;
+    background-image: -webkit-linear-gradient(#c0c0c0 /*{e-bup-background-start}*/, #b0b0b0 /*{e-bup-background-end}*/);
 }
 
 .ui-collapsible-header-top {
@@ -151,6 +155,7 @@ span {
     height: 24px; 
     margin: 0;
     padding: 0;
+    cursor: pointer;
 }
 
 .ui-header {
@@ -164,15 +169,24 @@ span {
     color: white;
     text-align:center;
     padding: 5px;
-    border-radius: 5px;
+    font-weight: bold;
+    line-height: 1;
+    border-radius: 10px;
     background-image: -webkit-linear-gradient(#505050 /*{e-bup-background-start}*/, #000000 /*{e-bup-background-end}*/);
+    text-shadow: 0 -1px 1px #222;
+    border-bottom: 1px solid #222;
+    margin-bottom: 5px;
+}
+
+
+.ui-button:hover {
+    background-image: -webkit-linear-gradient(#707070 /*{e-bup-background-start}*/, #000000 /*{e-bup-background-end}*/);
 }
 
 .ui-popup {
     height: 0;
-    background-color: blue;
-    border-radius: 5px;
-    background-image: -webkit-linear-gradient(#202020 /*{e-bup-background-start}*/, #101010 /*{e-bup-background-end}*/);
+    border-radius: 10px;
+    padding-bottom: 5px;
     -webkit-transition: height 0.5s ease-out;
 }
 
@@ -195,8 +209,11 @@ span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap; 
+    cursor: pointer;
+}
 
-
+#userAccount:hover {
+    background-image: -webkit-linear-gradient(#707070 /*{e-bup-background-start}*/, #101010 /*{e-bup-background-end}*/);
 }
 
 #userAccount img {
@@ -209,6 +226,7 @@ span {
 
 #userAccount h1 {
     font-size: 20px;
+    color: white;
     margin: 0px;
 }
 
@@ -216,4 +234,29 @@ span {
     font-size: 12px;
 }
 
+::-webkit-scrollbar {
+    width: 12px;
+    }
 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(128,128,128,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+.ui-expandable-icon {
+    background-image: url("/usr/share/icons/gnome/22x22/actions/stock_right.png");
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 22px;
+    float: right;
+}
+
+.ui-expandable-icon-expanded {
+    background-image: url("/usr/share/icons/gnome/22x22/actions/stock_down.png");
+}
