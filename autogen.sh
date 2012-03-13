@@ -4,6 +4,6 @@
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
-PKG_NAME="manokwari"
+PKG_NAME="blankon-panel"
 
 . gnome-autogen.sh

@@ -3,13 +3,14 @@ NULL =
 #Build in these directories:
 
 SUBDIRS = \
+	system \
 	data \
 	src \
 	po \
 	$(NULL)
 
-manokwaridocdir = ${prefix}/doc/manokwari
-manokwaridoc_DATA = \
+blankon_paneldocdir = ${prefix}/doc/blankon_panel
+blankon_paneldoc_DATA = \
 	ChangeLog \
 	README \
 	COPYING \
@@ -19,7 +20,7 @@ manokwaridoc_DATA = \
 	$(NULL)
 
 EXTRA_DIST = \
-	$(manokwaridoc_DATA) \
+	$(blankon_paneldoc_DATA) \
 	intltool-extract.in \
 	intltool-merge.in \
 	intltool-update.in\

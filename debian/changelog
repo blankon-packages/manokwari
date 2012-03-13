@@ -1,3 +1,10 @@
+manokwari (0.1.4) rote; urgency=low
+
+  * New Upstream Release:
+    - Changes: new Makefile.am for system dir 
+
+ -- Aji Kisworo Mukti <adzy@di.blankon.in>  Tue, 13 Mar 2012 16:09:59 +0700
+
 manokwari (0.1.3) rote; urgency=low
 
   * New Upstream Release:
