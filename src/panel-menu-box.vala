@@ -9,6 +9,19 @@ public class PanelMenuBox : PanelAbstractWindow {
     PanelMenuHTML view;
 
     public PanelMenuBox () {
+        try {
+        var bus = Bus.get_sync (GLib.BusType.SESSION);
+        bus.signal_subscribe (null,
+                "org.gtk.gio.DesktopAppInfo",
+                "Launched",
+                "/org/gtk/gio/DesktopAppInfo",
+                null,
+                0,
+                dismiss);
+        } catch (Error e) {
+            stderr.printf ("Unable to subscribe to desktop launcher's \"Launched\" signal: %s\n", e.message);
+        }
+
         view = new PanelMenuHTML ();
         view.show_all ();
         add (view);
@@ -24,13 +37,14 @@ public class PanelMenuBox : PanelAbstractWindow {
         override_background_color(StateFlags.NORMAL, c);
         set_app_paintable(true);
 
-
         PanelScreen.move_window (this, Gdk.Gravity.NORTH_WEST);
         view.start();
 
         hide ();
 
         button_press_event.connect((event) => {
+
+        stdout.printf("xxx\n");
             // Only dismiss if within the area
             // TODO: multihead
             if (event.x > get_window().get_width ()) {
@@ -44,7 +58,6 @@ public class PanelMenuBox : PanelAbstractWindow {
             PanelScreen.move_window (this, Gdk.Gravity.NORTH_WEST);
             queue_resize ();
         });
-        
 
         map_event.connect (() => {
             shown ();
@@ -79,9 +92,11 @@ public class PanelMenuBox : PanelAbstractWindow {
     }
 
     private void dismiss () {
-        stdout.printf("Menu box dismissed \n");
-        Utils.ungrab (this);
-        try_hide ();
+        if (visible) {
+            stdout.printf("Menu box dismissed \n");
+            Utils.ungrab (this);
+            try_hide ();
+        }
     }
 
     bool real_hide () {

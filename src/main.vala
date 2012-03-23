@@ -12,16 +12,14 @@ int main (string[] args) {
 
     Gtk.init (ref args);
 
-    var app = new Unique.App ("id.or.blankonlinux.Panel", null);
+    var id = GLib.Environment.get_variable("DESKTOP_AUTOSTART_ID");
+    var app = new Unique.App ("id.or.blankonlinux.Manokwari", id);
     if (app.is_running ()) {
-        stdout.printf ("BlankOn Panel is already running.\n");
+        stdout.printf ("Manokwari is already running.\n");
         return 0;    
     }
 
-
-    var m = new PanelButtonWindow();
-    m.show_all();
-
+    PanelSessionManager.getInstance ();
     try {
         XDGDBus session =  Bus.get_proxy_sync (BusType.SESSION, 
             "org.freedesktop.DBus", "/org/freedesktop/DBus");
@@ -38,6 +36,45 @@ int main (string[] args) {
     } catch (Error e) {
         stdout.printf ("Unable to claim Panel to gnome-session");
     }
+
+
+    // Desktop
+    var d = new PanelDesktop ();
+    d.show ();
+
+    // Window 
+    var w = new PanelWindowHost ();
+    w.show();
+
+    var menu_box = new PanelMenuBox();
+    // SIGNALS
+    w.menu_clicked.connect (() => {
+        if (menu_box.visible) {
+            menu_box.try_hide ();
+        } else {
+            // Otherwise we want to show it
+            menu_box.show ();
+        }
+    });
+
+    w.dialog_opened.connect (() => {
+        if (menu_box.visible) {
+            menu_box.try_hide ();
+        }
+    });
+
+    d.desktop_clicked.connect (() => {
+        if (menu_box.visible) {
+            menu_box.try_hide ();
+        }
+    });
+
+    w.windows_visible.connect (() => {
+        if (menu_box.visible) {
+            menu_box.try_hide ();
+        }
+    });
+
 
     Gtk.main ();
     return 0;

@@ -3,9 +3,9 @@ NULL =
 #Build in these directories:
 
 SUBDIRS = \
-	system \
 	data \
 	src \
+	system \
 	po \
 	$(NULL)
 

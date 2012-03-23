@@ -1,8 +1,10 @@
-systemdir = $(libdir)/blankon-panel/system
+systemdir = $(libdir)/manokwari/system
 
 system_DATA = \
+	desktop.css \
+	desktop.html \
+	desktop.js \
 	jq.js \
-	Makefile.am \
 	menu.html \
 	menu.js \
 	style.css \

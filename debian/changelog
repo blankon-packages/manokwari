@@ -1,3 +1,36 @@
+manokwari (0.1.5) rote; urgency=low
+
+  * New upstream release:
+    - Changes: Check data-tap-handler in 'click' signal
+    - Changes: Make session manager a singleton
+    - Changes: Remove orphan file
+    - Changes: Remove idle handling
+    - Changes: Fix compilation error on Valac 0.14
+    - Changes: Fix compilation warnings
+    - Changes: Basic calendar support
+    - Changes: Deactivate idle screen when clicked
+    - Changes: Disabls JS window opening
+    - Changes: Disable context menu
+    - Changes: Fixed width of collapsible
+    - Fixes: BlankOn#1016 - [manokwari] mempercepat manokwari sembunyi setelah
+    - Changes: Set background at correct time
+    - Changes: Make background cover the div
+    - Changes: Idle screen
+    - Changes: Added missing div end tag
+    - Changes: Removed unnecessary calling back and forth from JS/backend
+    - Changes: Animates user account info when show/hiding
+    - Changes: Hide menu box when desktop is clicked
+    - Changes: Remove panel-button.vala
+    - Changes: Run launcher when clicked
+    - Changes: Remove favorites, replace with desktop launcher
+    - Changes: Use a centered image for the trash bin
+    - Changes: Display trash bin icon when dragging
+  * debian/control
+    - Changes: url to BlankOn
+    - Added blankon-session
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 23 Mar 2012 14:39:55 +0000
+
 manokwari (0.1.4) rote; urgency=low
 
   * New Upstream Release:

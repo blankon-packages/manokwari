@@ -2,20 +2,23 @@ using Gtk;
 using WebKit;
 using JSCore;
 
-public class PanelDesktopHTML: WebView {
-    string background_image = "cc";
-    unowned JSCore.GlobalContext context = null;
-    bool lastBgInitialized = false;
 
+public class PanelDesktopHTML: WebView {
     string translate_uri (string old) {
         var uri = old.replace("http://system", "file://" + Config.SYSTEM_PATH + "/");
         return uri;
     }
 
     public PanelDesktopHTML () {
+        set_transparent (true);
+
+
+
         var settings = new WebSettings();
         settings.enable_file_access_from_file_uris = true;
         settings.enable_universal_access_from_file_uris = true;
+        settings.javascript_can_open_windows_automatically = true;
+        settings.enable_default_context_menu = false;
         set_settings(settings);
 
 
@@ -25,33 +28,11 @@ public class PanelDesktopHTML: WebView {
         });
 
         window_object_cleared.connect ((frame, context) => {
-            this.context = (JSCore.GlobalContext) context;
-            set_background(background_image);
+            PanelDesktopData.setup_js_class ((JSCore.GlobalContext) context);
+            Utils.setup_js_class ((JSCore.GlobalContext) context);
         });
 
-
         load_uri ("http://system/desktop.html");
-    }
-
-    public void set_background (string? bg) {
-        if (bg == null) {
-            return;
-        }
-        if (context != null) {
-            if (lastBgInitialized == false) {
-                var g = context.get_global_object ();
-                var key = new String.with_utf8_c_string ("lastBg");
-                var value = new String.with_utf8_c_string (bg);
-                var js_value = new JSCore.Value.string (context, value);
-                g.set_property (context, key, js_value, 0, null);
-                lastBgInitialized = true;
-            }
-
-            var s = new String.with_utf8_c_string ("updateBackground('%s');".printf(bg));
-
-            context.evaluate_script (s, null, null, 0, null);
-        }
-        background_image = bg;
     }
 }
  

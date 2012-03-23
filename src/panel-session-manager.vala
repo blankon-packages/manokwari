@@ -21,8 +21,17 @@ public class PanelSessionManager {
     static ObjectPath session_id = null;
     private SessionManager session = null;
     private ClientPrivate client = null;
+    static PanelSessionManager instance = null;
 
-    public PanelSessionManager () {
+    public static PanelSessionManager getInstance () {
+        if (instance == null) {
+            instance = new PanelSessionManager ();
+        }
+
+        return instance;
+    }
+
+    private PanelSessionManager () {
         try {
             session =  Bus.get_proxy_sync (BusType.SESSION,
                                            "org.gnome.SessionManager", "/org/gnome/SessionManager");
@@ -43,16 +52,26 @@ public class PanelSessionManager {
                     client =  Bus.get_proxy_sync (BusType.SESSION,
                                                    "org.gnome.SessionManager", session_id);
                     client.end_session.connect((flags)=> {
-                        client.end_session_response(true, "");
+                        send_end_response ();
                         Gtk.main_quit();
                     });
                     client.query_end_session.connect((flags)=> {
-                        client.end_session_response(true, "");
+                        send_end_response ();
                     });
 
                 }
             } catch (Error e) {
-                throw e;
+                stderr.printf ("Unable to register session: %s\n", e.message);
+            }
+        }
+    }
+
+    void send_end_response () {
+        if (client != null) {
+            try {
+                client.end_session_response(true, "");
+            } catch (IOError e) {
+                stderr.printf ("Unable to send data to session manager: %s\n", e.message);
             }
         }
     }
@@ -62,7 +81,7 @@ public class PanelSessionManager {
             try {
                 session.logout (0);
             } catch (Error e) {
-                throw e;
+                stderr.printf("Unable to logout: %s\n", e.message);
             }
         }
     }
@@ -72,7 +91,7 @@ public class PanelSessionManager {
             try {
                 session.shutdown ();
             } catch (Error e) {
-                throw e;
+                stderr.printf("Unable to shutdown: %s\n", e.message);
             }
         }
     }
@@ -92,6 +111,7 @@ public class PanelSessionManager {
             JSCore.Value[] arguments,
             out JSCore.Value exception) {
 
+        exception = null;
         var c = new Class (js_class);
         var o = new JSCore.Object (ctx, c, null);
         var s = new String.with_utf8_c_string ("canShutdown");
@@ -104,7 +124,7 @@ public class PanelSessionManager {
         f = new JSCore.Object.function_with_callback (ctx, s, js_shutdown);
         o.set_property (ctx, s, f, 0, null);
 
-        PanelSessionManager* i = new PanelSessionManager ();
+        PanelSessionManager* i = PanelSessionManager.getInstance ();
         o.set_private (i);
         return o;
     }
@@ -116,6 +136,7 @@ public class PanelSessionManager {
 
             out JSCore.Value exception) {
 
+        exception = null;
         var i = thisObject.get_private() as PanelSessionManager; 
         if (i != null) {
             return new JSCore.Value.boolean (ctx, i.can_shutdown()); 
@@ -130,6 +151,7 @@ public class PanelSessionManager {
 
             out JSCore.Value exception) {
 
+        exception = null;
         var i = thisObject.get_private() as PanelSessionManager; 
         if (i != null) {
             i.shutdown(); 
@@ -144,6 +166,7 @@ public class PanelSessionManager {
 
             out JSCore.Value exception) {
 
+        exception = null;
         var i = thisObject.get_private() as PanelSessionManager; 
         if (i != null) {
             i.logout(); 

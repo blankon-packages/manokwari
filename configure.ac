@@ -9,7 +9,7 @@ AM_PROG_CC_C_O
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 
-AM_PROG_VALAC([0.12.0])
+AM_PROG_VALAC([0.14.0])
 
 AC_ARG_ENABLE([devel], AC_HELP_STRING([--enable-devel],[Enable development mode with system dir in current directory]), USE_DEVEL="$enableval", USE_DEVEL="no")
 if test $USE_DEVEL = yes ; then
@@ -58,10 +58,10 @@ AC_SUBST(VALA_PACKAGES)
 AC_PREFIX_DEFAULT("/usr")
 
 AC_CONFIG_FILES([Makefile
-	system/Makefile
 	data/Makefile
 	data/manokwari.desktop
 	src/Makefile
+	system/Makefile
 	po/Makefile.in])
 
 AC_OUTPUT
