@@ -17,6 +17,4 @@ DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 common-binary-post-install-arch::
 # Debian has a central copy of the GPL, no need to distribute again
 	rm -f $(DEB_DESTDIR)/usr/share/doc/manokwari/COPYING
-    # Rename blankon-panel as blankon-panel.bin so we can override with own script
-	mv $(DEB_DESTDIR)/usr/bin/manokwari $(DEB_DESTDIR)/usr/bin/manokwari.bin
-	cp $(CURDIR)/debian/manokwari.script $(DEB_DESTDIR)/usr/bin/manokwari
+

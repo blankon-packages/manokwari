@@ -1,3 +1,15 @@
+manokwari (0.1.6) rote; urgency=low
+
+  * debian/
+    - remove manokwari.scipts
+    - rules: remove manokwari.bin
+  * New upstream release:
+    - Changes: More launcher styling
+    - Changes: Fix unbalanced corner
+    - Changes: Launcher styling
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 26 Mar 2012 11:17:13 +0000
+
 manokwari (0.1.5) rote; urgency=low
 
   * New upstream release:
