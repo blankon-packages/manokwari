@@ -1,3 +1,13 @@
+manokwari (0.1.7) rote; urgency=low
+
+  * Changes: Better launcher styling
+  * Changes: Use hi-res icons in launcher when available
+  * Changes: Right-click on menu entry handled as taphold
+  * Changes: Encapsulate menu functions inside a menu object
+  * Changes: data-tap-handler function is now must be public
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 27 Mar 2012 19:32:29 +0700
+
 manokwari (0.1.6) rote; urgency=low
 
   * debian/
