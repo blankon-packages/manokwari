@@ -1,3 +1,13 @@
+manokwari (0.1.8) rote; urgency=low
+
+  * Removed unused file
+  * Changes: Updated translation template
+  * Changes: Stubs for objects created in the backend
+  * Changes: Update webkit.vapi
+  * Changes: Desktop only occupy the primary monitor
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 29 Mar 2012 18:29:12 +0700
+
 manokwari (0.1.7) rote; urgency=low
 
   * Changes: Better launcher styling
