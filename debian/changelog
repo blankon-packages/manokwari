@@ -1,3 +1,15 @@
+manokwari (0.1.9) rote; urgency=low
+
+  * Changes: Alternate window list 
+  * New: Animated property class
+  * Changes: Draw window list on the description bar
+  * Changes: Get application launch context from the active display
+  * Changes: Removed crufts
+  * Changes: Render background with style
+  * Changes: Render all contents 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 03 Apr 2012 17:03:22 +0700
+
 manokwari (0.1.8) rote; urgency=low
 
   * Removed unused file
