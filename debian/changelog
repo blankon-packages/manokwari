@@ -1,3 +1,9 @@
+manokwari (0.1.10) rote; urgency=low
+
+  * debian/control Recommends: komodo-icon-theme
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 14 Apr 2012 08:30:19 +0000
+
 manokwari (0.1.9) rote; urgency=low
 
   * Changes: Alternate window list 
