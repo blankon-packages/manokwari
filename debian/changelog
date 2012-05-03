@@ -1,3 +1,9 @@
+manokwari (0.1.11) rote; urgency=low
+
+  * Added libnotify4 libnotify-bin at depends
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 03 May 2012 21:28:39 +0700
+
 manokwari (0.1.10) rote; urgency=low
 
   * debian/control Recommends: komodo-icon-theme
