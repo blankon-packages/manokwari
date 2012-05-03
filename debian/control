@@ -27,7 +27,7 @@ VCS-Browser: https://github.com/BlankOn/blankon-panel
 
 Package: manokwari
 Architecture: any
-Depends: gnome-menus, libnotify4, libnotify-bin, blankon-session, ${misc:Depends}, ${shlibs:Depends}
+Depends: gnome-menus, libnotify4, blankon-session, ${misc:Depends}, ${shlibs:Depends}
 Recommends: komodo-icon-theme
 Provides: blankon-panel
 Conflicts: blankon-panel
