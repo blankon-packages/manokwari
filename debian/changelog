@@ -1,3 +1,9 @@
+manokwari (0.1.12) rote; urgency=low
+
+  * Fixes: BlankOn#1053 - Operasi berkas -> manokwari sering galat
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 03 May 2012 22:37:10 +0000
+
 manokwari (0.1.11) rote; urgency=low
 
   * Added libnotify4 libnotify-bin at depends
