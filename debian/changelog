@@ -1,3 +1,10 @@
+manokwari (0.1.13) rote; urgency=low
+
+  * New: Design document
+  * Changes: Trivial markdown fix
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 09 May 2012 05:18:19 +0700
+
 manokwari (0.1.12) rote; urgency=low
 
   * Fixes: BlankOn#1053 - Operasi berkas -> manokwari sering galat
