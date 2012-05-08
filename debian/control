@@ -33,4 +33,4 @@ Provides: blankon-panel
 Conflicts: blankon-panel
 Replaces: blankon-panel
 Description: Manokwari Desktop
- Manokwari Destop for BlankOn Linux
+ Manokwari is a desktop shell for GNOME 3. It features combined Gtk+ and HTML5 frontend (Gtk+ is legacy here and would be replaced totally with HTML5 in the future). It is an evolution from a shell called blankon-panel
