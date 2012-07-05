@@ -1,3 +1,12 @@
+manokwari (0.1.14) rote; urgency=low
+
+  * New: Texture in menu
+  * Changes: .ui-content shall inherit bg-color from .ui-page
+  * Changes: New background colors for items and userAccount
+  * Fixes: BlankOn#1068 - tombol shutdown tidak terlihat jika sub menu te… 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 06 Jul 2012 06:20:03 +0700
+
 manokwari (0.1.13) rote; urgency=low
 
   * New: Design document
