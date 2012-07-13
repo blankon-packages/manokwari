@@ -1,3 +1,9 @@
+manokwari (0.1.15) rote; urgency=low
+
+  * Changes: Use 14px font size for default text
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 13 Jul 2012 23:56:51 +0700
+
 manokwari (0.1.14) rote; urgency=low
 
   * New: Texture in menu
