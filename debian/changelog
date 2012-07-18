@@ -1,3 +1,9 @@
+manokwari (0.1.17) rote; urgency=low
+
+  * Fixed : Show name and icon correctly when no data exists initially.
+
+ -- Mahyuddin <yudi.al@gmail.com>  Wed, 18 Jul 2012 21:17:45 +0700
+
 manokwari (0.1.16) rote; urgency=low
 
   * Changes: Implementation of lock screen
