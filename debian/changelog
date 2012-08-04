@@ -1,3 +1,9 @@
+manokwari (0.1.18) rote; urgency=low
+
+  * Changes: Use global scope for monitors 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 04 Aug 2012 15:41:50 +0700
+
 manokwari (0.1.17) rote; urgency=low
 
   * Fixed : Show name and icon correctly when no data exists initially.
