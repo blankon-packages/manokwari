@@ -1,3 +1,10 @@
+manokwari (0.1.19) rote; urgency=low
+
+  * Changes: Reposition calendar and window description after monitor changes 
+  * Changes: Use global monitor for /u/s/applications
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sun, 05 Aug 2012 16:11:43 +0700
+
 manokwari (0.1.18) rote; urgency=low
 
   * Changes: Use global scope for monitors 
