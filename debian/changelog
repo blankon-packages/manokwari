@@ -1,3 +1,10 @@
+manokwari (0.1.20) rote; urgency=low
+
+  * Changes: Display context menu when MANOKWARI_DEBUG is set
+  * Changes: Fix memory leak from JQuery's click callback
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sun, 12 Aug 2012 11:21:06 +0700
+
 manokwari (0.1.19) rote; urgency=low
 
   * Changes: Reposition calendar and window description after monitor changes 
