@@ -1,7 +1,9 @@
 manokwari (0.2.20) suroboyo; urgency=low
 
   * First upload to #BlankOn Suroboyo
-  * Change build-depends valac to valac-0.16
+  * Change build-depends :
+    - valac to valac-0.16
+    - libvala-0.12-dev to libvala-0.16-dev
 
  -- Mahyuddin <dotovr@di.blankon.in>  Mon, 19 Nov 2012 21:33:44 +0700
 
