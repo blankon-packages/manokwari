@@ -1,3 +1,9 @@
+manokwari (0.2.1.10) suroboyo; urgency=low
+
+  * Fix time display in menus.
+
+ -- Mahyuddin <dotovr@di.blankon.in>  Thu, 22 Nov 2012 15:05:06 +0700
+
 manokwari (0.2.20) suroboyo; urgency=low
 
   * First upload to #BlankOn Suroboyo
