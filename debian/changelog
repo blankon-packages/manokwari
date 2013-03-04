@@ -1,3 +1,9 @@
+manokwari (0.2.1.13) suroboyo; urgency=low
+
+  * Replaces blankon-session
+
+ -- Mahyuddin <dotovr@di.blankon.in>  Mon, 04 Mar 2013 16:23:47 +0700
+
 manokwari (0.2.1.12) suroboyo; urgency=low
 
   * Added conflicts blankon-session
