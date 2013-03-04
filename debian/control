@@ -30,7 +30,7 @@ Architecture: any
 Depends: gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, ${misc:Depends}, ${shlibs:Depends}
 Recommends: komodo-icon-theme
 Provides: blankon-panel
-Conflicts: blankon-panel
+Conflicts: blankon-panel, blankon-session
 Replaces: blankon-panel
 Description: Manokwari Desktop
  Manokwari is a desktop shell for GNOME 3. It features combined Gtk+ and HTML5 frontend (Gtk+ is legacy here and would be replaced totally with HTML5 in the future). It is an evolution from a shell called blankon-panel
