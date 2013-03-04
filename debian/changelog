@@ -1,3 +1,12 @@
+manokwari (0.2.1.11) suroboyo; urgency=low
+
+  * Drop depends blankon-session
+  * Added files
+  	- menus
+  	- sessions
+
+ -- Mahyuddin <dotovr@doi.blankon.in>  Mon, 04 Mar 2013 15:36:13 +0700
+
 manokwari (0.2.1.10) suroboyo; urgency=low
 
   * Fix time display in menus.
