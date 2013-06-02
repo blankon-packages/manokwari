@@ -19,7 +19,7 @@ Build-Depends: autotools-dev,
                libjavascriptcoregtk-3.0-dev,
                libsoup2.4-dev,
                valac-0.16,
-               automake
+               automake1.9
 Uploaders: Aji Kisworo Mukti <adzy@di.blankon.in>
 Standards-Version: 3.9.2
 Homepage: https://github.com/BlankOn/blankon-panel
