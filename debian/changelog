@@ -1,6 +1,7 @@
 manokwari (0.2.1.14) suroboyo; urgency=low
 
   * Disable blankon-installer in session
+  * debian/control added build-depends automake
 
  -- Mahyuddin Idram Ahmad <dotovr@di.blankon.in>  Sun, 02 Jun 2013 17:06:21 +0700
 
