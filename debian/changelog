@@ -1,3 +1,9 @@
+manokwari (0.2.1.19) suroboyo; urgency=low
+
+  * Change: update to jquery v2
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 01 Nov 2013 23:47:14 +0700
+
 manokwari (0.2.1.18) suroboyo; urgency=low
 
   * Changes: Use correct type
