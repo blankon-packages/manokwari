@@ -1,3 +1,12 @@
+manokwari (0.2.1.18) suroboyo; urgency=low
+
+  * Changes: Use correct type
+  * Changes: Make shutdown and logout to be async functions it won't bloc…
+  * Changes: Simplify claiming of Panel
+  * New: Implement EndSessionDialog interface using org.gnome.Shell dbus
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 01 Nov 2013 23:37:33 +0700
+
 manokwari (0.2.1.17) suroboyo; urgency=low
 
   * Enable blankon-installer at session 
