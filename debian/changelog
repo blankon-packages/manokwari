@@ -1,3 +1,9 @@
+manokwari (0.2.1.20) suroboyo; urgency=low
+
+  * Add b-d xorg-dev
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 01 Nov 2013 23:54:06 +0700
+
 manokwari (0.2.1.19) suroboyo; urgency=low
 
   * Change: update to jquery v2
