@@ -15,7 +15,7 @@ body {
 .ui-page {
     position: absolute;
     height: 100%;
-    width: 260px;
+    width: 100%;
     /*overflow-x: hidden;*/
     /*overflow-y: auto;*/
     z-index: 1;

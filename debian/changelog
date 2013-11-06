@@ -1,3 +1,10 @@
+manokwari (0.2.1.22) suroboyo; urgency=low
+
+  * modif icik2 :D ono sing kelewatan
+    - background width: 100%
+
+ -- mijortsa <azis.astrojim@surabaya.di.blankon.in>  Wed, 06 Nov 2013 21:03:33 +0700
+
 manokwari (0.2.1.21) suroboyo; urgency=low
 
   * added depends shutdowndialog
