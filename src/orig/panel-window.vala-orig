@@ -504,7 +504,7 @@ public class PanelWindowHost : PanelAbstractWindow {
     private new Wnck.Screen screen;
     private int num_visible_windows = 0;
     private HashMap <unowned Wnck.Window, unowned PanelWindowEntry> entry_map ;
-    private int height = 24;
+    private int height = 22;
     PanelWindowEntryDescriptions descriptions;
     PanelCalendar calendar;
 

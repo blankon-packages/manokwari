@@ -642,13 +642,15 @@ var menu = (function() {
     // Handles LogOut button. The function is defined
     // in data-handler attribute of the button
     var handleLogOut = function() {
-        Utils.run_command("logoutdialog");
+        sessionManager.logout(); 
     }
 
     // Handles ShutDown button. The function is defined
     // in data-handler attribute of the button
     var handleShutDown = function() {
-       Utils.run_command("shutdowndialog");
+        if (sessionManager.canShutdown()) {
+            sessionManager.shutdown(); 
+        }
     }
 
     // Determine whether shutdown is enabled or not.

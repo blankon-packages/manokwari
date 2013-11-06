@@ -1,6 +1,15 @@
 manokwari (0.2.1.21) suroboyo; urgency=low
 
-  * added shutdown-dialog.patch
+  * added depends shutdowndialog
+  * src :
+    - panel-menu-box.vala width 320 to 260
+    - panel-menu-content.vala width 300 to 250
+    - panel-window.vala height 22 to 24 #presentatif icon symbolic
+
+  * modif system :
+    - background style carbon
+    - style.css text-overflow:ellipsis;
+    - desktop.css text-overflow:ellipsis;
 
  -- mijortsa <azis.astrojim@surabaya.di.blankon.in>  Wed, 06 Nov 2013 17:26:54 +0700
 
