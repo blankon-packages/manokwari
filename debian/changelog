@@ -1,3 +1,9 @@
+manokwari (0.2.1.21) suroboyo; urgency=low
+
+  * added shutdown-dialog.patch
+
+ -- mijortsa <mijortsa@toshi>  Wed, 06 Nov 2013 17:26:54 +0700
+
 manokwari (0.2.1.20) suroboyo; urgency=low
 
   * Add b-d xorg-dev
