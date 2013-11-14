@@ -1,3 +1,17 @@
+manokwari (0.2.1.24) suroboyo; urgency=low
+
+  * files/* :
+    - Drop blankon-fallback
+
+  * files/sessions/blankon.session:
+    - Change gnome-wm to mutter
+    - Make default window manager using mutter
+
+  * debian/control:
+    - Added depends mutter
+
+ -- Mahyuddin Idram Ahmad <dotovr@di.blankon.in>  Thu, 14 Nov 2013 19:36:42 +0700
+
 manokwari (0.2.1.23) suroboyo; urgency=low
 
   * error line : 3 shutdowndialog
