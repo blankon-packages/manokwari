@@ -4,6 +4,7 @@ body {
     padding: 0px;
     margin: 0px;
     background-color: transparent;
+    background-size: cover; 
     font-family: Cantarell, Sans-Serif;
 }
 
