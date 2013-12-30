@@ -1,3 +1,10 @@
+manokwari (0.2.1.27) suroboyo; urgency=medium
+
+  * system/destop.css:
+    - background-size:cover
+
+ -- mijortsa <azis.astrojim@surabaya.di.blankon.in>  Mon, 30 Dec 2013 18:21:14 +0700
+
 manokwari (0.2.1.26) suroboyo; urgency=low
 
   * Changes: Load desktop background

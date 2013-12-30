@@ -19,7 +19,7 @@ body {
     z-index: 1;
     background-color: rgba(55,55,55,1);
     color: #e0e0e0;
-    background: url("../bg.jpg");
+    background: url("bg.jpg");
     margin: 0px;
     padding-top: 2px;
 }
