@@ -1,3 +1,12 @@
+manokwari (0.2.1.26) suroboyo; urgency=low
+
+  * Changes: Load desktop background
+    - PanelDesktopHtml.vala 
+    - system/desktop.js
+    - system/desktop.css
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 30 Dec 2013 08:19:41 +0700
+
 manokwari (0.2.1.25) suroboyo; urgency=medium
 
   * PanelDesktopHtml.vala :

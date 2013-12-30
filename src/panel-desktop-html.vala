@@ -7,6 +7,7 @@ using GLib;
 
 
 public class PanelDesktopHTML: WebView {
+    GLib.Settings gsettings = null;
     string translate_uri (string old) {
         var uri = old.replace("http://system", "file://" + Config.SYSTEM_PATH + "/");
         return uri;
@@ -15,15 +16,10 @@ public class PanelDesktopHTML: WebView {
     public PanelDesktopHTML () {
         set_transparent (true);
 
-		var gsettings = new GLib.Settings ("org.gnome.desktop.background");
- 		   	var pictureUri = gsettings.get_string ("picture-uri");
- 	  		print ("%s\n", pictureUri);
-    		//Notifikasi kalo ganti
+		    gsettings = new GLib.Settings ("org.gnome.desktop.background");
     		gsettings.changed["picture-uri"].connect (() => {
-        		var newPictureUri = gsettings.get_string("picture-uri");
-				setBackground(newPictureUri);
-        		print ("Gambar ude ganti cuy: %s\n", gsettings.get_string ("picture-uri"));
-    	});
+				    setBackground();
+    	  });
         
         var settings = new WebSettings();
         settings.enable_file_access_from_file_uris = true;
@@ -42,17 +38,22 @@ public class PanelDesktopHTML: WebView {
         window_object_cleared.connect ((frame, context) => {
             PanelDesktopData.setup_js_class ((JSCore.GlobalContext) context);
             Utils.setup_js_class ((JSCore.GlobalContext) context);
-            var newPictureUri = gsettings.get_string("picture-uri");
-            setBackground(newPictureUri);
+            setBackground();
         });
         
         load_uri ("http://system/desktop.html");
     }
     
-    public void setBackground (string uri) { 
+    bool setBackground () { 
+        var uri = gsettings.get_string("picture-uri");
         unowned JSCore.Context context = get_focused_frame ().get_global_context(); 
         var s = new String.with_utf8_c_string ("desktop.setBackground('"+ uri + "')");
-        context.evaluate_script (s, null, null, 0, null); 
+        var r = context.evaluate_script (s, null, null, 0, null); 
+        if (!r.is_boolean (context)) {
+            // Call again if setBackground is not yet ready
+            Timeout.add(1000, setBackground); 
+        }
+        return false;
     }
 
     public void updateSize () {

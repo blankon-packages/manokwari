@@ -168,8 +168,9 @@ var desktop = (function() {
         setupLauncher();
     }
 
-    var setBackground = function(file) { $("body").css("background-image", "url(" + file + ")");
-        console.log("Gambare ganti jadi " + file);
+    var setBackground = function(file) { 
+        $("body").css("background-image", "url(" + file + ")");
+        return true;
     }
     
     return { 
