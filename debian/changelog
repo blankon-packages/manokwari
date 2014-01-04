@@ -1,3 +1,10 @@
+manokwari (0.2.1.30) suroboyo; urgency=medium
+
+  * system/menu.js 
+    - change line 382 "manokwari-applications.menu" to "applications.menu"
+
+ -- mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sat, 04 Jan 2014 21:30:28 +0700
+
 manokwari (0.2.1.29) suroboyo; urgency=medium
 
   * system/desktop.css
