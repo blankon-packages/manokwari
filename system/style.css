@@ -96,7 +96,7 @@ html {
 .ui-collapsible-header:hover {
     color: #fff;
     text-shadow: 0 1px 1px #000;
-    background-image: -webkit-linear-gradient(#707070, #505050);
+    background-image: -webkit-linear-gradient(#1E90FF, #1873CC);
 }
 
 .ui-listview-first-child,
