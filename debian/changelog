@@ -1,3 +1,9 @@
+manokwari (0.2.1.31) suroboyo; urgency=low
+
+  * Changes: Flattened menu structure 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 06 Feb 2014 12:19:36 +0700
+
 manokwari (0.2.1.30) suroboyo; urgency=medium
 
   * system/menu.js 
