@@ -1,3 +1,9 @@
+manokwari (0.2.1.32) suroboyo; urgency=low
+
+  * Changes: xml background states and transitions  
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 06 Feb 2014 17:31:10 +0700
+
 manokwari (0.2.1.31) suroboyo; urgency=low
 
   * Changes: Flattened menu structure 

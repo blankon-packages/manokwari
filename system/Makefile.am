@@ -13,6 +13,7 @@ system_DATA = \
 	go-next.png \
 	go-down.png \
 	user.svg \
+                    xml-background.js \
 	$(NULL)
 
 CLEANFILES = \
