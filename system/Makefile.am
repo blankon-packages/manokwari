@@ -8,9 +8,13 @@ system_DATA = \
 	menu.html \
 	menu.js \
 	style.css \
-	texture.jpg \
-	xml-background.js \
-	xml2json.js \
+	bg.jpg \
+	back.png \
+	go-next.png \
+	go-down.png \
+	user.svg \
+                    xml-background.js \
+                    xml2json.xml \
 	$(NULL)
 
 CLEANFILES = \
