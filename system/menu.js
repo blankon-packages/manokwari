@@ -379,7 +379,7 @@ var menu = (function() {
 
 
 
-    var dataApplications = new XdgData("manokwari-applications.menu");
+    var dataApplications = new XdgData("applications.menu");
     dataApplications.backend.updateCallback("menu.update()");
 
     var dataPlaces = new PlacesData();
@@ -642,15 +642,13 @@ var menu = (function() {
     // Handles LogOut button. The function is defined
     // in data-handler attribute of the button
     var handleLogOut = function() {
-        sessionManager.logout(); 
+        Utils.run_command("logoutdialog");
     }
 
     // Handles ShutDown button. The function is defined
     // in data-handler attribute of the button
     var handleShutDown = function() {
-        if (sessionManager.canShutdown()) {
-            sessionManager.shutdown(); 
-        }
+       Utils.run_command("shutdowndialog");
     }
 
     // Determine whether shutdown is enabled or not.
