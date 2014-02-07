@@ -1,3 +1,9 @@
+manokwari (0.2.1.35) suroboyo; urgency=low
+
+  * Re-sync from github 
+
+ -- Mahyuddin Ramli <yudi.al@gmail.com>  Fri, 07 Feb 2014 14:28:52 +0700
+
 manokwari (0.2.1.34) suroboyo; urgency=low
 
   * Changes: using css property transition for handling transition
