@@ -1,3 +1,9 @@
+manokwari (0.2.1.36) suroboyo; urgency=low
+
+  * Update system/Makefile.am
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 07 Feb 2014 09:20:32 +0000
+
 manokwari (0.2.1.35) suroboyo; urgency=low
 
   * Update xml2json.js system
