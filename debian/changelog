@@ -1,3 +1,12 @@
+manokwari (0.2.1.37) suroboyo; urgency=medium
+
+  * remove system/bg.jpg
+  * remove system/user.svg
+  * add system/background.png
+  * update system/Makefile.am
+
+ -- mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sun, 09 Feb 2014 22:28:26 +0800
+
 manokwari (0.2.1.36) suroboyo; urgency=low
 
   * Update system/Makefile.am
