@@ -1,3 +1,13 @@
+manokwari (0.2.1.38) suroboyo-updates; urgency=low
+
+  * Chages:
+    - Disable border
+
+  * [ Herpiko Dwi Aguno ]
+    - Using filter box-shadow
+
+ -- Mahyuddin Idram Ahmad <dotovr@di.blankon.in>  Fri, 21 Feb 2014 13:38:34 +0700
+
 manokwari (0.2.1.37) suroboyo; urgency=medium
 
   * remove system/bg.jpg
