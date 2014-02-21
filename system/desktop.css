@@ -135,8 +135,8 @@ body {
     border-color: rgba(204, 204, 204, 0.2);
     border-style: solid;*/
     border-radius: 10px;
-    filter: box-shadow(5px 5px 5px #222);
-    -webkit-filter: box-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
 }
 
 .ui-launcher-entry img:hover {
