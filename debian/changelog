@@ -1,7 +1,7 @@
 manokwari (0.2.1.41) tambora; urgency=low
 
   * Rebuild Againts
-  * Bump version GTK+3.0 Glib2.0
+  * Bump version GTK+3.0 Glib2.0 vala-0.24
   * Correct link Homepage, VCS-git and VCS-Browser
 
  -- Mahyuddin Ramli <yudi.al@gmail.com>  Thu, 27 Mar 2014 23:53:47 +0700
