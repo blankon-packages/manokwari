@@ -1,3 +1,11 @@
+manokwari (0.2.1.41) tambora; urgency=low
+
+  * Rebuild Againts
+  * Bump version GTK+3.0 Glib2.0
+  * Correct link Homepage, VCS-git and VCS-Browser
+
+ -- Mahyuddin Ramli <yudi.al@gmail.com>  Thu, 27 Mar 2014 23:53:47 +0700
+
 manokwari (0.2.1.40) tambora; urgency=medium
 
   * Upload to tambora
