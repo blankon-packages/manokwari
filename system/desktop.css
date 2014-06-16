@@ -53,12 +53,12 @@ body {
 }
 
 #launcher {
-    background: rgba(41, 41, 41, 0.6);
-    border-color: rgba(20, 20, 20, 0.8);
+    background: rgba(123, 128, 148, 0.7);
+    border-color: rgba(20, 20, 20, 0);
     border-style: solid;
     border-width: 2px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     max-height: 100%;
     overflow: hidden;
     overflow-y: hidden;
@@ -71,8 +71,8 @@ body {
 
 .ui-launcher-entry-wrapper {
     display: inline-block; 
-    width: 110px;
-    max-height: 110px;
+    width: 90px;
+    max-height: auto;
     margin: 0px 5px 0 5px;
     vertical-align: top;
     -webkit-box-align: center;
@@ -104,7 +104,7 @@ body {
     /*font-weight: bold;*/
     text-shadow: 0 2px 2px #000;
     width: 90%;
-    height: 20px;
+    height: 15px;
     
     margin-top: 5px;
     margin-left: auto;
@@ -120,8 +120,8 @@ body {
     -webkit-box-align: center;
 
     margin-top: 5px;
-    width: 70px;
-    height: 70px;
+    width: 55px;
+    height: 55px;
 }
 
 .ui-launcher-entry img {
@@ -135,15 +135,16 @@ body {
     border-color: rgba(204, 204, 204, 0.2);
     border-style: solid;*/
     border-radius: 10px;
-    filter: drop-shadow(5px 5px 5px #222);
-    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(0px 5px 5px #222);
+    -webkit-filter: drop-shadow(0px 5px 5px #222);
 }
 
 .ui-launcher-entry img:hover {
-    width: 60;
-    height: 60;
-    border-radius: 20px;
-
+    width: 50;
+    height: 50;
+    border-radius: 10px;
+    filter: drop-shadow(0px 5px 5px #D2D1FA);
+    -webkit-filter: drop-shadow(0px 5px 5px #D2D1FA);
 }
 
 .ui-launcher-entry span:hover {

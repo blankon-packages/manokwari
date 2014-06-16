@@ -146,7 +146,7 @@ span {
 .ui-collapsible-control-group {
     overflow: hidden;
     margin: 5px;
-    -webkit-transition: all 0.1s ease-out-in;
+    -webkit-transition: all 0.1s ease-in-out;
 }
 
 .ui-back-button {
@@ -193,7 +193,7 @@ span {
     height: auto;
     border-radius: 5px;
     padding: 2px 0 3px 0;
-    -webkit-transition: 0.1s all;
+    -webkit-transition: 0.1s ease-in-out;
 }
 
 #popup-pool {
