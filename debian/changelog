@@ -1,3 +1,9 @@
+manokwari (0.2.1.44) tambora; urgency=low
+
+  * New launcher styles
+
+ -- Mahyuddin <yudi.al@gmail.com>  Thu, 19 Jun 2014 19:04:30 +0700
+
 manokwari (0.2.1.43) tambora; urgency=medium
 
   * debian/control:
