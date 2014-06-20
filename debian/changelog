@@ -1,3 +1,12 @@
+manokwari (0.2.1.45) tambora; urgency=medium
+
+  * debian/control:
+    - change gala back to mutter
+  * sessions/blankon.session:
+    - change gala back to mutter
+
+ -- mijortsa <mijortsa@localhost>  Fri, 20 Jun 2014 22:44:17 +0700
+
 manokwari (0.2.1.44) tambora; urgency=low
 
   * New launcher styles
