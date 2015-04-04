@@ -80,7 +80,7 @@ public class PanelWindowPagerEntry : DrawingArea {
 
         var icon_theme = IconTheme.get_default ();
         try {
-            icon = icon_theme.load_icon ("user-desktop", 32, 0);
+            icon = icon_theme.load_icon ("user-desktop", 24, 0);
         } catch (Error e) {
             stderr.printf ("Unable to load icon 'user-desktop': %s\n", e.message);
         }
@@ -243,7 +243,7 @@ public class PanelWindowEntry : DrawingArea {
         update_icon ();
         // TODO
         if (icon != null) {
-            min = max = icon.get_width () + Margin * 2; 
+            min = max = icon.get_width () + Margin * 2;
         } else {
             min = max = Margin; 
         }
@@ -377,7 +377,7 @@ public class PanelWindowEntryDescriptions : PanelAbstractWindow {
         Gtk.render_layout (style, cr, text_x + offset, text_y, pango);
 
         if (state == StateFlags.NORMAL) {
-            cr.paint_with_alpha (0.5);
+            cr.paint_with_alpha (0.3);
         } else {
             cr.paint ();
         }
@@ -538,8 +538,8 @@ public class PanelWindowHost : PanelAbstractWindow {
         set_type_hint (Gdk.WindowTypeHint.DOCK);
         active = false;
         screen = Wnck.Screen.get_default ();
-        var outer_box = new HBox (false, 0); 
-        box = new HBox (true, 0);
+        var outer_box = new HBox (false, 0);
+        box = new HBox (true, 1);
         add(outer_box);
 
         var pager_entry = new PanelWindowPagerEntry ();
@@ -567,7 +567,7 @@ public class PanelWindowHost : PanelAbstractWindow {
         outer_box.pack_end (pager_entry, false, false, 1);
         outer_box.pack_end (clock_event, false, false, 0);
         outer_box.pack_end (tray, false, false, 0);
-        outer_box.pack_start (event_box, false, false, 0);
+        outer_box.pack_start (event_box, false, false, 6);
         outer_box.pack_start (box, false, false, 0);
         outer_box.show ();
         box.show();
