@@ -1,3 +1,9 @@
+manokwari (0.2.1.48) tambora; urgency=medium
+
+  * added widget weather 
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sat, 04 Apr 2015 12:43:55 +0700
+
 manokwari (0.2.1.47) tambora; urgency=medium
 
   * Upstream release

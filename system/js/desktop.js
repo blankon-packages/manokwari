@@ -6,7 +6,15 @@ var DesktopData = DesktopData || (function () {
         return ([
             {   desktop: "",
                 icon: "icon",
+                name: "Files"
+            },
+            {   desktop: "",
+                icon: "icon",
                 name: "LibreOffice Writer"
+            },
+            {   desktop: "",
+                icon: "icon",
+                name: "LibreOffice Calc"
             }
         ]);
 

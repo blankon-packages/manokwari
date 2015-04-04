@@ -1,13 +1,13 @@
 #bevel {
-    background: #111;
-    border-left: 1px solid #000;
-    height: 100%;
+    background: rgba(17,17,17,0.95);
+    border-left: 0px solid #000;
+    height: auto;
     width: 260px;
     overflow-x: hidden;
     overflow-y: auto;
 	right:-259px;
     top: 0px;
-    bottom:0px;
+    bottom:80px;
     position:absolute;
     z-index: 150;
     -webkit-transition: right 300ms ease-in-out;
@@ -15,60 +15,120 @@
 #bevel:hover {
 	right: 0px;
 }
-#sosmed {
-	position: relative;
-	top: 42px;
-	width:auto;
-	height:auto;
-	margin: 0 5px;
-	padding-bottom: 20px;
+#sosial_media {
+	margin-top: 30px;
+	padding: 2px 0;
+	width:100%;
+	height: 24px;
+	color:#ccc;
+	text-align:center;
+	cursor:default;
+	font-size: 14px;
+	font-family:'Ubuntu Condensed';
 }
-#sosmed a {
-	display:block;
-	margin: 1px;
-	padding: 9px 5px 8px 8px;
-	background: #1a1a1a;
+.sosmed {
+	padding-top: 0px;
+	position: relative;
+	width:100%;
+	height:auto;
+	text-align:center;
+}
+.sosmed a img {
+	display:inline;
+	width:18px;
+	height:18px;
+	padding: 4px 17px;
+	background: #333;
 	color: #aaa;
-	font-size: 12px;
+	cursor:pointer;
+	border-radius: 3px;
+	border: 1px solid #111;
+	opacity:0.9;
+}
+.sosmed a:hover img {
+	background-color: #444;
+	-webkit-transition: all 0.2s ease-in-out;
+	opacity:1;
+}
+
+#mocp {
+	margin-top: 5px;
+	padding: 10px 0px 5px;
+	background: transparent;
+	color: #ccc;
+	width:100%;
+	height: 24px;
+	text-align:center;
+	border-top: 1px solid #0a0a0a;
+	font-size: 14px;
+	font-family:'Ubuntu Condensed';
+}
+.mocp {
+	background: transparent;
+	width:100%;
+	height: 32px;
 	font-family: 'Aurulent Sans';
-	text-decoration: none;
+	display: inline-block;
+	text-align:center;
+	overflow-y:hidden;
+	margin-top: 10px;
+	padding: 0px;
+}
+.mocp img {
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	padding: 5px 15px;
+	cursor:pointer;
+	border-radius: 20px;
+	background-color: #333;
+	border: 1px solid #111;
+}
+.mocp li {
+	text-decoration:none;
+	display: inline-block;
+	padding:2px;
+	margin: 1px;
+	text-align:center;
 	cursor:pointer;
 }
-#sosmed a:hover {
-	color: #eee;
-	background: #222;
+.mocp title {
+	font-size:10px;
+}
+.mocp li:hover img,
+.mocp .selected img{
+	background-color: #444;
 	-webkit-transition: all 0.2s ease-in-out;
 }
-#sosmed img {
-	width:20px;
-	height:20px;
-	padding-right: 6px;
-	margin: -3px 0 5px 0;
-	float: left;
-}
 #system_settings {
-	margin-top: 35px;
-	color:#ccc;
-	font-size: 14px;
-	font-family: 'Aurulent Sans';
+	margin-top: 0px;
+	padding: 10px 0px 5px 0;
+	background: transparent;
+	height: 24px;
 	text-align:center;
-	text-shadow: 0 1px 1px #000;
 	cursor:default;
+	border-top: 1px solid #0a0a0a;
 }
 .system {
-	width:auto;
-	height: auto;
-	margin-top:8px;
-	font-family: 'Aurulent Sans';
+	margin-top: 0px;
+	margin-left: 3px;
+	padding: 0px;
+	background: transparent;
+	width: auto;
+	height: auto; /* scrolled 175px;*/
 	text-align:center;
 	overflow-y:auto;
+	border-bottom: 0px solid #0a0a0a;
 }
 .system img {
 	width:28px;
 	height:28px;
-	margin-bottom: 4px;
+	margin-bottom: 5px;
+	padding: 0px 1px 0 1px;
+	text-align:center;
 }
 .system span {
+	font-family:'Ubuntu Condensed';
 	font-size: 12px;
 	color:#888;
 	text-align:center;
@@ -93,68 +153,29 @@
 	-webkit-transition: all 0.2s ease-in-out;
 }
 #time {
-	width: 100%;
-	height: auto;
-	position: absolute;
+	position: fixed;
 	background: #1a1a1a;
 	color: #bbb;
 	bottom: 0px;
-	padding: 10px 0 15px;
+	padding: 5px 0 15px;
     cursor: default;
     text-align: center;
+    border-top: 1px solid #000;
 }
 #clock-time {
+	width: 260px;
+	height: 45px;
 	font-family: 'TrendexLightSSi.ttf';
 	display: block;
 	font-size: 42px;
-	text-shadow: 0 2px 2px #000;
+	letter-spacing: 0;
+	text-shadow: 0 0px 2px #000;
 }
 #clock-date {
 	font-size: 14px;
 	font-family: 'Aurulent Sans';
-	text-shadow: 0 2px 2px #000;
-}
-
-#mocp {
-	margin-top: 10px;
-	font-size: 12px;
-	font-family: 'Aurulent Sans';
-	text-align:center;
-	text-shadow: 0 2px 2px #000;
-	color: #ccc;
-}
-.mocp {
-	width:auto;
-	height: auto;
-	font-family: 'Aurulent Sans';
-	display: inline-block;
-	overflow-y:auto;
-	padding-top: 5px;
-}
-.mocp img {
-	width: 16px;
-	height: 16px;
-	margin: 0;
-	padding: 5px 12px;
-	cursor:pointer;
-	border-radius: 50px;
-	background-color: #333;
-}
-.mocp li {
-	text-decoration:none;
-	display: inline-block;
-	padding:2px;
-	margin: 1px;
-	text-align:center;
-	cursor:pointer;
-}
-.mocp title {
-	font-size:10px;
-}
-.mocp li:hover img,
-.mocp .selected img{
-	background-color: #444;
-	-webkit-transition: all 0.2s ease-in-out;
+	letter-spacing: 0;
+	text-shadow: 0 0px 2px #000;
 }
 
 /***********************************
@@ -169,4 +190,17 @@
     font-family: 'Aurulent Sans';
     src: url(../fonts/AurulentSans-Regular.otf);
     font-weight: 600;
+}
+@font-face {
+    font-family:'ClimaconsRegular';
+    src: url('../weather/fonts/climacons-webfont.eot');
+    src: url('../weather/fonts/climacons-webfont.eot?#iefix') format('embedded-opentype'), url('../weather/fonts/climacons-webfont.woff') format('woff'), url('../weather/fonts/climacons-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family:'Ubuntu Condensed';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu Condensed'), local('UbuntuCondensed-Regular'), url('../weather/fonts/ubuntu.woff') format('woff');
 }
