@@ -1,3 +1,10 @@
+manokwari (0.2.1.52) tambora; urgency=medium
+
+  * Change in upstream:
+    - Make symbolic icons show-desktop 
+
+ -- Mahyuddin <yudi.al@gmail.com>  Wed, 29 Apr 2015 13:17:23 +0700
+
 manokwari (0.2.1.51) tambora; urgency=medium
 
   * Spacing PanelWindowEntry
