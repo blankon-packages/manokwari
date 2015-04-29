@@ -9,6 +9,9 @@ L=`dbus-send --system --print-reply --type=method_call --dest=org.freedesktop.Ac
 if [ "x$L" != "x" ];then
    LANG=$L
    LC_ALL=$L
+else
+  LANG=C
+  LC_ALL=C
 fi
 
 exec gnome-session --session blankon "$@"

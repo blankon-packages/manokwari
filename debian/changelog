@@ -1,3 +1,9 @@
+manokwari (0.2.1.53) tambora; urgency=medium
+
+  * Add LANG in session 
+
+ -- Mahyuddin <yudi.al@gmail.com>  Wed, 29 Apr 2015 23:41:55 +0700
+
 manokwari (0.2.1.52) tambora; urgency=medium
 
   * Change in upstream:
