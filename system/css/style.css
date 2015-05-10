@@ -2,7 +2,7 @@ body {
     margin: 0px;
     padding: 0px;
     background-color: transparent;
-    font-family: Cantarell, Sans Serief;
+    font-family: 'Aurulent Sans';
 }
 
 .ui-page, .ui-content {
@@ -18,7 +18,7 @@ body {
     z-index: 1;
     color: #aaa;
     margin: 0px;
-    background: #111;
+    background-color: #111;
     padding-top: 2px;
 }
 
@@ -84,6 +84,7 @@ html {
 	text-decoration: none;
 	box-shadow: 0 1px 0 rgba(255,255,255,.05) inset;
 	background-color: #1a1a1a;
+	font-family: 'Aurulent Sans';
 	font-size: 14px;
 	color: #aaa;
     letter-spacing: 0px;
@@ -132,7 +133,7 @@ span {
 .ui-collapsible-header {
     margin: 0;
     min-height: 28px;
-    padding: 7px 6px 1px 12px;
+    padding: 8px 6px 1px 12px;
     display: block;
     cursor: pointer;
 }
@@ -166,24 +167,30 @@ span {
 }
 
 .ui-button {
+	width: auto;
     display: block;
-    color: #e0e0e0;
+    color: #aaa;
     text-shadow: 0 1px 1px #000;
     text-align:center;
     padding: 5px 0 5px 0;
     line-height: 1;
-    border-radius: 2px;
-    box-shadow: 0 1px 0 rgba(255,255,255,.1) inset;
-    background-image: -webkit-linear-gradient(#444 0%, #333 100%);
+    border-radius: 10px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset;
+    background-image: -webkit-linear-gradient(#111 0%, #111 100%);
     text-shadow: 0 -1px 1px #000;
-    border-bottom: 1px solid #222;
-    margin: 2px 0 2px 0;
+    /*border-bottom: 1px solid #222;*/
+    margin: 4px 0 2px 0;
+    font-family: 'Aurulent Sans';
+    font-size: 11px;
+    float: center;
 }
 
 .ui-button:hover {
     box-shadow: 0 1px 0 rgba(255,255,255,.1) inset;
-    background-image: -webkit-linear-gradient(#444 0%, #333 100%);
+    background-image: -webkit-linear-gradient(#222222 0%, #1A1A1A 100%);
+    color: #ddd;
 }
+
 
 .ui-popup {
     height: auto;
@@ -211,7 +218,7 @@ span {
     white-space: nowrap; 
 
     -webkit-transition: margin-bottom 0.3s, bottom 0.2s ease-out;
-    -webkit-box-shadow: 0 -1px 1px black;
+    -webkit-box-shadow: 0 0 1px black;
 }
 
 #userAccount:hover {

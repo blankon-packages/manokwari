@@ -1,3 +1,9 @@
+manokwari (0.2.1.54) tambora; urgency=medium
+
+  * rebuild gnome-session-blankon
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sun, 10 May 2015 22:05:30 +0700
+
 manokwari (0.2.1.53) tambora; urgency=medium
 
   * Add LANG in session 
