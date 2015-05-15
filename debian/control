@@ -29,7 +29,7 @@ VCS-Browser: https://github.com/BlankOn/manokwari
 Package: manokwari
 Architecture: any
 Depends: gala, gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, ${misc:Depends}, ${shlibs:Depends}
-Recommends: komodo-icon-theme
+Recommends: tebu-icon-theme
 Provides: blankon-panel
 Conflicts: blankon-panel, blankon-session
 Replaces: blankon-panel, blankon-session

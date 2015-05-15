@@ -1,3 +1,10 @@
+manokwari (0.2.1.56) tambora; urgency=medium
+
+  * Added search apps
+  * Recommends: tebu-icon-theme
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Fri, 15 May 2015 21:23:50 +0700
+
 manokwari (0.2.1.55) tambora; urgency=low
 
   * Drop shutdown-dialog
