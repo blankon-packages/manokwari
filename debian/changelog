@@ -1,3 +1,9 @@
+manokwari (0.2.1.55) tambora; urgency=low
+
+  * Drop shutdown-dialog
+
+ --  <aftian@alynne.blankonlinux.or.id>  Fri, 15 May 2015 10:04:31 +0700
+
 manokwari (0.2.1.54) tambora; urgency=medium
 
   * rebuild gnome-session-blankon

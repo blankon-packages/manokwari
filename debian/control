@@ -21,15 +21,14 @@ Build-Depends: autotools-dev,
                valac-0.18,
                automake1.9,
                xorg-dev
-Uploaders: Aji Kisworo Mukti <adzy@di.blankon.in>
 Standards-Version: 3.9.2
-Homepage: https://github.com/BlankOn/blankon-panel
-VCS-git: git://github.com/BlankOn/blankon-panel.git
-VCS-Browser: https://github.com/BlankOn/blankon-panel
+Homepage: https://github.com/BlankOn/manokwari
+VCS-git: git://github.com/BlankOn/manokwari.git
+VCS-Browser: https://github.com/BlankOn/manokwari
 
 Package: manokwari
 Architecture: any
-Depends: gala, gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, ${misc:Depends}, ${shlibs:Depends}, shutdowndialog
+Depends: gala, gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, ${misc:Depends}, ${shlibs:Depends}
 Recommends: komodo-icon-theme
 Provides: blankon-panel
 Conflicts: blankon-panel, blankon-session
