@@ -1,3 +1,9 @@
+manokwari (0.2.1.58) tambora; urgency=medium
+
+  * list a-z, remove duplicate, enterable by Aris Winardi
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sun, 17 May 2015 01:00:04 +0700
+
 manokwari (0.2.1.57) tambora; urgency=medium
 
   * Modified weather css when no data connection
