@@ -1,3 +1,9 @@
+manokwari (0.2.1.57) tambora; urgency=medium
+
+  * Modified weather css when no data connection
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sat, 16 May 2015 20:58:48 +0700
+
 manokwari (0.2.1.56) tambora; urgency=medium
 
   * Added search apps
