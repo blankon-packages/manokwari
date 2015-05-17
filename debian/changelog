@@ -1,3 +1,11 @@
+manokwari (0.2.1.59) tambora; urgency=medium
+
+  * search.js:
+    - on enter or onclick, input set to default by Aris Winardi.
+  * css box-shadow
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sun, 17 May 2015 22:26:51 +0700
+
 manokwari (0.2.1.58) tambora; urgency=medium
 
   * list a-z, remove duplicate, enterable by Aris Winardi
