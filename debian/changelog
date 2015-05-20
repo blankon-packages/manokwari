@@ -1,3 +1,9 @@
+manokwari (0.2.1.60) tambora; urgency=medium
+
+  * Drop link website
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Thu, 21 May 2015 02:22:21 +0700
+
 manokwari (0.2.1.59) tambora; urgency=medium
 
   * search.js:
