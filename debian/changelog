@@ -1,3 +1,11 @@
+manokwari (0.2.1.61) tambora; urgency=medium
+
+  * Add New Weather Style:
+    - Data link to http://openweathermap.org  #Arsi Winardi
+  * Add New slider Button Play and Pause #Azis Ws 
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Mon, 25 May 2015 05:37:07 +0700
+
 manokwari (0.2.1.60) tambora; urgency=medium
 
   * Drop link website
