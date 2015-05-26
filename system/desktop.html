@@ -14,10 +14,10 @@
 	<script type="text/javascript" src="js/time.js"></script>
 	<script type="text/javascript" src="js/moment.min.js"></script>
 	<script type="text/javascript" src="js/bevel.js"></script>
-
+	<link href="widget/weather/css/style.css" rel="stylesheet"><!-- this is extra weather -->	
+	<link href="widget/weather/css/owfont-regular.min.css" rel="stylesheet">
 </head>
 <body>
-<script type="text/javascript" src="js/widget-cuaca.js"></script>
   <div id="overlay"></div>
   <div id="bg"></div>
   <div id="base">
@@ -36,11 +36,12 @@
 		<div class="header">Music Player</div>
 		<div class="control">
 		<div id="buttons">
-			<li id="prev" href="#" value="" onclick="MocpBackward();" title="Preview"><img src="img/player/prev.svg"></li>
-			<li id="play" href="#" value="" onclick="MocpPlay();" title="Play"><img src="img/player/play.svg"></li>
-			<li id="pause" href="#" value="" onclick="MocpPause();" title="Pause"><img src="img/player/pause.svg"></li>
-			<li id="stop" href="#" value="" onclick="MocpStop();" title="Stop/Quit"><img src="img/player/stop.svg"></li>
-			<li id="next" href="#" value="" onclick="MocpForward();" title="Next"><img src="img/player/next.svg"></li>
+			<li id="stop" href="#" value="" onclick="Stop();" title="Stop/Quit"><img src="img/player/stop.svg"></li>
+			<li id="prev" href="#" value="" onclick="Prev();" title="Preview"><img src="img/player/prev.svg"></li>
+			<li id="play" href="#" value="" onclick="Play();" title="Play"><img src="img/player/play.svg"></li>
+			<li id="pause" href="#" value="" onclick="Pause();" title="Pause"><img src="img/player/pause.svg"></li>
+			<li id="next" href="#" value="" onclick="Next();" title="Next"><img src="img/player/next.svg"></li>
+			<li id="repeat" href="#" value="" onclick="Repeat();" title="Repeat"><img src="img/player/repeat.svg"></li>
 		 </div>
 
 	<!--script src="js/jquery.js"></script-->
@@ -49,27 +50,95 @@
 	
 <!-- Widget Weather -->
 
-	<div id="weather-wrapper">
-		<div class="header">Weather</div>
-		<div class="settings-container"><img src="img/settings.svg" class="settings"><img src="img/sync.svg" class="sync"></div>
-		<div id="weather-setting" style="display:none;">
-		<input id="inputLokasi"><button style="background:#222; color:#ddd; font: Sans Bold;">Check</button></input>
-			<div class="text">eg. Jakarta, London, Tokyo</div>
-			<div class="bg-chooser">
-				<span data="#004E99"></span>
-				<span data="#8A02A9"></span>
-				<span data="#001059"></span>
-				<span data="#004F1B"></span>
-				<span data="#C84408"></span>
-				<span data="#920200"></span>
-				<span data="#111111"></span>
+<div id="container">
+	<div id="tittle"><span>Weather</span></div>
+	<div class="border">
+		<div class="settings"><img src="widget/weather/img/settings.svg"></div>
+		<div class="sync"><img src="widget/weather/img/sync.svg"></div>
+	</div>
+	<div id="actualWeather">
+		<div id="city"><span></span></div>
+		<div id="ow-code"><i id="icon"></i></div>
+		<div class="details">
+			<div class="left" id="temperature"></div>
+			<div class="right">
+					<span id="windSpeed"></span><span id="windUnit"></span><br>
+					<span id="humidity"></span>
 			</div>
+		</div>
+		<div class="week">
+			<div id="0">
+				<span class="day"></span>
+				<span class="code"></span>
+				<span class="temp"></span>
 			</div>
-		<div id="weather">
-			<div id="weather-info"></div>
-			<div id="weather-info-error"></div>
+			<div id="1">
+				<span class="day"></span>
+				<span class="code"></span>
+				<span class="temp"></span>
+			</div>
+			<div id="2">
+				<span class="day"></span>
+				<span class="code"></span>
+				<span class="temp"></span>
+			</div>
+			<div id="3">
+				<span class="day"></span>
+				<span class="code"></span>
+				<span class="temp"></span>
+			</div>
+			<div id="4">
+				<span class="day"></span>
+				<span class="code"></span>
+				<span class="temp"></span>
+			</div>
+		</div>
 		</div>
 	</div>
+	<div id="locationModal">
+		<div class="credits">
+		<img src="widget/weather/img/back.svg">
+		<h1 style="text-align: center">Palapa 1.0</h1>
+		<p>Palapa is a simple weather BlankOn Linux</p>
+
+		<h3 style="text-align: center">Thanks for using.</h3><br><br>
+	</div>
+	<div class="input">
+	<input type="text" placeholder="Location"><span class="loader"></span><br>
+	e.g Bandung, Jakarta<br>
+	</div>
+
+	<div class="full">
+		<div class="toggleswitch measurement">
+			<span data-type="c">R</span><span data-type="f">T</span><span data-type="k">K</span>
+		</div>
+		<div class="toggleswitch speed">
+			<span data-type="mph">mph</span><span data-type="kph">kph</span><span data-type="ms">m/s</span>
+		</div>
+		<div class="color">
+			<span data-color="gradient"></span>
+			<span data-color="008000"></span>
+			<span data-color="004F1B"></span>
+			<span data-color="C84408"></span>
+			<span data-color="920200"></span>
+			<span data-color="A52A2A"></span>
+			<span data-color="004E99"></span>
+			<span data-color="8A02A9"></span>
+			<span data-color="111837"></span>
+			<span data-color="111111"></span>
+		</div>
+		<br>
+		<!--a class="btn" tag="credits">About</a>
+		<br><br><br><br-->
+	</div>
+	</div>
+	<div id="errorMessage">
+		Could not connect to server.<br>
+		Check your connection.<br>
+		<button class="btn">Try Again</button>
+	</div>
+	<script src="widget/weather/js/jquery.min.js"></script>
+	<script src="widget/weather/js/script.js"></script>
 
 <!-- System System --->
 	<div id="system_settings">System Settings</div>

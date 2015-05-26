@@ -1,3 +1,10 @@
+manokwari (0.2.1.62) tambora; urgency=medium
+
+  * fork thypoon weather interface
+  * use weather icon OpenWeatherMaps
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Wed, 27 May 2015 00:41:46 +0700
+
 manokwari (0.2.1.61) tambora; urgency=medium
 
   * Add New Weather Style:

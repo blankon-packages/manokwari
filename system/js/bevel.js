@@ -12,9 +12,9 @@ function Run4() {
 }
 
 //mocp
-function MocpStart(){Utils.run_command("audacious");}
+/*function MocpStart(){Utils.run_command("audacious");}
 
-/*function MocpState(){
+function MocpState(){
 	document.getElementById("MocpTitle2").innerHTML = Utils.run_command('mocp -Q %title');
 }*/
 
@@ -29,27 +29,26 @@ function MocpPlay(){
 		Utils.run_command("audacious -p");
 	}
 }*/
-function MocpPlay(){Utils.run_command("audacious -p");}
-function MocpStop(){Utils.run_command("killall audacious");}
-function MocpForward(){Utils.run_command("audacious -f");}
-function MocpBackward(){Utils.run_command("audacious -r");}
-function MocpPause(){Utils.run_command("audacious -u");}
-function MocpOpen(){Utils.run_command("audacious");}
-/*function MocpRepeat(){Utils.run_command("audacious -r");}*/
-/*function MocpShuffle(){Utils.run_command("audacious -s");}*/
+function Play(){Utils.run_command("audacious -p");}
+function Stop(){Utils.run_command("audtool shutdown");}
+function Prev(){Utils.run_command("audacious -f");}
+function Next(){Utils.run_command("audacious -r");}
+function Pause(){Utils.run_command("audacious -u");}
+function Repeat(){Utils.run_command("audtool --playlist-repeat-toggle");}
+//function Shuffle(){Utils.run_command("audtool --playlist-shuffle-toggle");}
 
-/*$(document).ready(function() {
-	$('#mocp').on('click', '#repeat', function(){
+$(document).ready(function() {
+	$('#repeat').click(function(){
 		if($('#repeat').hasClass("selected")){ $('#repeat').removeClass("selected");}
 		else{$('#repeat').addClass("selected");}
 	});
-	
-	$('#mocp').on('click', '#shuffle', function(){
+
+	$('#shuffle').click(function(){
 		if($('#shuffle').hasClass("selected")){ $('#shuffle').removeClass("selected");}
 		else{$('#shuffle').addClass("selected");}
 	});
-	
-});*/
+
+});
 
 // gnome control center
 

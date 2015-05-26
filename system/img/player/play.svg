@@ -12,8 +12,8 @@
    height="16"
    id="svg3029"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="media-play.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="play.svg">
   <metadata
      id="metadata3037">
     <rdf:RDF>
@@ -22,6 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -37,19 +38,19 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1366"
-     inkscape:window-height="713"
+     inkscape:window-height="720"
      id="namedview3033"
      showgrid="false"
-     inkscape:zoom="13.191654"
-     inkscape:cx="-2.9274563"
-     inkscape:cy="0.89075931"
+     inkscape:zoom="34.5"
+     inkscape:cx="8"
+     inkscape:cy="8"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg3029" />
   <path
      style="fill:#ffffff"
-     d="M 3,2.2857143 3,13.714286 13,7.9999997 z"
+     d="m 4.2508445,2.2857142 0,11.4285718 10.0000175,-5.7142864 z"
      id="path3031"
      inkscape:connector-curvature="0" />
 </svg>
