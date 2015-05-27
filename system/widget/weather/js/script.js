@@ -58,7 +58,7 @@ function generateStats(data, callback) {
 	weather.country = city.country;
 	
     //Temperature
-	weather.temperature = (current.main.temp - 273.15) * 1.8000 + 32.00
+	weather.temperature = (current.main.temp - 269.97) * 1.8000 + 32.00
 	weather.temperatureUnit = "k"
 
 	//Wind
@@ -76,8 +76,8 @@ function generateStats(data, callback) {
 		weather.week[i] = {}
 		weather.week[i].day = new Date(weekArr[i].dt * 1000).toString().split(' ')[0]
 		weather.week[i].code = weekArr[i].weather[0].id + suffix(current.sys.sunrise, current.sys.sunset)
-		weather.week[i].low = (weekArr[i].temp.max - 273.15) * 1.8000 + 32.00
-		weather.week[i].high = (weekArr[i].temp.min - 273.15) * 1.8000 + 32.00
+		weather.week[i].low = (weekArr[i].temp.max - 269.97) * 1.8000 + 32.00
+		weather.week[i].high = (weekArr[i].temp.min - 269.97) * 1.8000 + 32.00
 	}
 
 	//Current Weather
@@ -109,11 +109,12 @@ function render(location) {
 				temp = Math.round((weather.temperature -32)*5/9) + 273
 				$("#temperature").text(temp + " K")
 			} else {
+				temp = Math.round((weather.temperature ))
 				$("#temperature").text(temp + " °F")
 			}
 			document.title = temp
 
-			var windSpeed = weather.windSpeed * 0.621371
+			var windSpeed = weather.windSpeed * 3.3 //0.621371
       windSpeed = windSpeed.toPrecision(2)
 			if (localStorage.perkutut_speed != "mph") {
 				//Converts to either kph or m/s
@@ -135,17 +136,17 @@ function render(location) {
 				} else if (localStorage.perkutut_measurement == "k") {
 					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*5/9) + 273 + "<span>" + Math.round((weather.week[i].low -32)*5/9 + 273)  + "</span>")
 				} else {
-					$('#' + i + ' .temp').html(weather.week[i].high + "°<span>" + weather.week[i].low + "°</span>")
+					$('#' + i + ' .temp').html(Math.round((weather.week[i].high )) + "°<span>" + Math.round((weather.week[i].low )) + "°</span>")
 				}
 			}
 
 			//Show Icon
 			$('.border .sync, .border .settings').css("opacity", "0.8")
-			$('#actualWeather').fadeIn(500)
-			$("#locationModal").fadeOut(500)
+			$('#actualWeather').fadeIn(350)
+			$("#locationModal").fadeOut(350)
 			// spin the thing for 500ms longer than it actually takes, because
 			// most of the time refreshing is actually instant :)
-			setTimeout(function() { $('.border .sync').removeClass('busy'); }, 500)
+			setTimeout(function() { $('.border .sync').removeClass('busy'); }, 350)
 		})
 	})
 }
@@ -411,7 +412,7 @@ function show_settings(amount) {
 	}
 	$('.btn[tag="credits"]').click(function() {
 		$("#locationModal .input, #locationModal .full, .settings, .sync").hide()
-		$("#locationModal .credits").fadeIn(500)
+		$("#locationModal .credits").fadeIn(350)
 	})
 	$('#locationModal .credits img').click(function() {
 		$("#locationModal .credits").fadeOut(350)

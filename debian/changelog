@@ -1,3 +1,9 @@
+manokwari (0.2.1.63) tambora; urgency=medium
+
+  * weather Converts °F to °C and K
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Wed, 27 May 2015 20:28:40 +0700
+
 manokwari (0.2.1.62) tambora; urgency=medium
 
   * fork thypoon weather interface
