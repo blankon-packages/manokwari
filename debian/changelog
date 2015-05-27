@@ -1,3 +1,9 @@
+manokwari (0.2.1.64) tambora; urgency=medium
+
+  * Re-formula converts
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Thu, 28 May 2015 03:57:56 +0700
+
 manokwari (0.2.1.63) tambora; urgency=medium
 
   * weather Converts °F to °C and K

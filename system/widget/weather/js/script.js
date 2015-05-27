@@ -58,7 +58,7 @@ function generateStats(data, callback) {
 	weather.country = city.country;
 	
     //Temperature
-	weather.temperature = (current.main.temp - 269.97) * 1.8000 + 32.00
+	weather.temperature = (current.main.temp - 273.15) * 1.8000 + 32.00
 	weather.temperatureUnit = "k"
 
 	//Wind
@@ -76,8 +76,8 @@ function generateStats(data, callback) {
 		weather.week[i] = {}
 		weather.week[i].day = new Date(weekArr[i].dt * 1000).toString().split(' ')[0]
 		weather.week[i].code = weekArr[i].weather[0].id + suffix(current.sys.sunrise, current.sys.sunset)
-		weather.week[i].low = (weekArr[i].temp.max - 269.97) * 1.8000 + 32.00
-		weather.week[i].high = (weekArr[i].temp.min - 269.97) * 1.8000 + 32.00
+		weather.week[i].low = (weekArr[i].temp.max - 273.15) * 1.8000 + 32.00
+		weather.week[i].high = (weekArr[i].temp.min - 273.15) * 1.8000 + 32.00
 	}
 
 	//Current Weather
@@ -114,8 +114,8 @@ function render(location) {
 			}
 			document.title = temp
 
-			var windSpeed = weather.windSpeed * 3.3 //0.621371
-      windSpeed = windSpeed.toPrecision(2)
+			var windSpeed = weather.windSpeed * 2.4 //0.621371
+				windSpeed = windSpeed.toPrecision(2)
 			if (localStorage.perkutut_speed != "mph") {
 				//Converts to either kph or m/s
 				windSpeed = (localStorage.perkutut_speed == "kph") ? Math.round(windSpeed * 1.609344) : Math.round(windSpeed * 4.4704) /10
@@ -134,7 +134,7 @@ function render(location) {
 				if (localStorage.perkutut_measurement == "c") {
 					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*5/9) + "°<span>" + Math.round((weather.week[i].low -32)*5/9) + "°</span>")
 				} else if (localStorage.perkutut_measurement == "k") {
-					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*5/9) + 273 + "<span>" + Math.round((weather.week[i].low -32)*5/9 + 273)  + "</span>")
+					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*5/9) + 273.15 + "<span>" + Math.round((weather.week[i].low -32)*5/9 + 273.15)  + "</span>")
 				} else {
 					$('#' + i + ' .temp').html(Math.round((weather.week[i].high )) + "°<span>" + Math.round((weather.week[i].low )) + "°</span>")
 				}
