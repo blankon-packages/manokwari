@@ -103,13 +103,13 @@ function render(location) {
 			//Sets initial temp as Fahrenheit
 			var temp = weather.temperature
 			if (localStorage.perkutut_measurement == "c") {
-				temp = Math.round((weather.temperature -32)*5/9)
+				temp = Math.round((weather.temperature -32)*0.62)
 				$("#temperature").text(temp + " °C")
 			} else if (localStorage.perkutut_measurement == "k") {
-				temp = Math.round((weather.temperature -32)*5/9) + 273
+				temp = Math.round((weather.temperature -32)*0.62) + 273
 				$("#temperature").text(temp + " K")
 			} else {
-				temp = Math.round((weather.temperature ))
+				temp = Math.round((weather.temperature))
 				$("#temperature").text(temp + " °F")
 			}
 			document.title = temp
@@ -132,9 +132,9 @@ function render(location) {
 				$('#' + i + ' .day').text(weather.week[i].day)
 				$('#' + i + ' .code').addClass("owf").addClass("owf-" + weather.week[i].code)
 				if (localStorage.perkutut_measurement == "c") {
-					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*5/9) + "°<span>" + Math.round((weather.week[i].low -32)*5/9) + "°</span>")
+					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*0.62) + "°<span>" + Math.round((weather.week[i].low -32)*0.62) + "°</span>")
 				} else if (localStorage.perkutut_measurement == "k") {
-					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*5/9) + 273.15 + "<span>" + Math.round((weather.week[i].low -32)*5/9 + 273.15)  + "</span>")
+					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*0.62) + 273 + "<span>" + Math.round((weather.week[i].low -32)*0.62 + 273)  + "</span>")
 				} else {
 					$('#' + i + ' .temp').html(Math.round((weather.week[i].high )) + "°<span>" + Math.round((weather.week[i].low )) + "°</span>")
 				}
