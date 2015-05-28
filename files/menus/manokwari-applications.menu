@@ -203,6 +203,17 @@
     </Include>
   </Menu> <!-- End Graphics -->
 
+  <!-- Peta -->
+  <Menu>
+    <Name>Geo.BlankOn</Name>
+    <Directory>Peta.directory</Directory>
+    <Include>
+      <And>
+        <Category>Peta</Category>
+      </And>
+    </Include>
+  </Menu>   <!-- End Peta -->
+  
   <!-- Internet -->
   <Menu>
     <Name>Internet</Name>

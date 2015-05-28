@@ -1,3 +1,10 @@
+manokwari (0.2.1.66) tambora; urgency=medium
+
+  * Manokwari-applaications:
+    - Added Geo.BlankOn menu
+
+ -- Mahyuddin <yudi.al@gmail.com>  Thu, 28 May 2015 13:17:52 +0700
+
 manokwari (0.2.1.65) tambora; urgency=medium
 
   * Rebuild
