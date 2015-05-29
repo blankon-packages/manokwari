@@ -26,6 +26,7 @@
 					seen[txt] = true;
 		});
 	}
+	var typingTimeout;
 	function listFilter(header, list) { 
 	// header is any element, list is an unordered list
    // create and add the filter form to the header
@@ -37,15 +38,24 @@
 		.click( function(){firstCond();})
 		.keyup( function () {
 			var filter = $(this).val();
-			if(filter) {
-				// this finds all links in a list that contain the input,
-				// and hide the ones not containing the input while showing the ones that do
-				$(list).find("a:not(:Contains(" + filter + "))").parent().slideUp(500);
-				$(list).find("a:Contains(" + filter + ")").parent().slideDown(500).show();
-				$(list).show();				
+			$(list).find(".ui-listview-item").hide();
+			if (filter && filter != " " && filter != "" && filter.length > 0) {
+				clearTimeout(typingTimeout);
+				typingTimeout = setTimeout(function(){
+					$(list).hide();				
+
+					// the query executed immediatelly for each keypress, this will cause performance issue
+					// give some delay while typing
+
+					// this finds all links in a list that contain the input,
+					// and hide the ones not containing the input while showing the ones that do
+					$(list).find("a:not(:Contains(" + filter + "))").parent().hide();
+					$(list).find("a:Contains(" + filter + ")").parent().show();
+					$(list).fadeIn();				
+				}, 500);
+			} else {
+				$(list).find(".ui-listview-item").hide();
 			}
-			else if(filter==""){$(list).find(".ui-listview-item").slideUp(500);}
-			else{$(list).hide();}
 			return false;
 		})
 		.keypress(function(e){

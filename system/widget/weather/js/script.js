@@ -5,9 +5,9 @@ function getZipCode(location, callback) {
 	//If they use a normal location
 	} else {
     var currentWeatherUri = "http://api.openweathermap.org/data/2.5/weather"
-		$.get(currentWeatherUri + "?q=" + encodeURIComponent(location), function(locationData) {
+		$.get(currentWeatherUri + "?q=" + encodeURIComponent(location) + "&units=metric", function(locationData) {
 			// Gets the cityId && Caches Location Name
-			localStorage.perkutut_location = locationData.name 
+			localStorage.tekukur_location = locationData.name 
 			if (locationData.id) {
 				callback(locationData)
 			} else {
@@ -58,13 +58,13 @@ function generateStats(data, callback) {
 	weather.country = city.country;
 	
     //Temperature
-	weather.temperature = (current.main.temp - 273.15) * 1.8000 + 32.00
-	weather.temperatureUnit = "k"
+	weather.temperature = (current.main.temp) * 1.8 + 32 // °F = °C × 1,8 + 32
+	weather.temperatureUnit = "F"
 
 	//Wind
-	weather.windUnit = 'mph'
-	weather.windSpeed = current.wind.speed
-	weather.windDirection = current.wind.direction 
+	weather.windUnit = 'm/s'
+	weather.windSpeed = (current.wind.speed)
+	weather.windDirection = current.wind.direction
 
 	//Humidity
 	weather.humidity = current.main.humidity 
@@ -76,8 +76,8 @@ function generateStats(data, callback) {
 		weather.week[i] = {}
 		weather.week[i].day = new Date(weekArr[i].dt * 1000).toString().split(' ')[0]
 		weather.week[i].code = weekArr[i].weather[0].id + suffix(current.sys.sunrise, current.sys.sunset)
-		weather.week[i].low = (weekArr[i].temp.max - 273.15) * 1.8000 + 32.00
-		weather.week[i].high = (weekArr[i].temp.min - 273.15) * 1.8000 + 32.00
+		weather.week[i].low = (weekArr[i].temp.max - 273.15) * 1.8 + 32
+		weather.week[i].high = (weekArr[i].temp.min - 273.15) * 1.8 + 32
 	}
 
 	//Current Weather
@@ -94,19 +94,19 @@ function render(location) {
 
 	getWeatherData(location, function(currentdata) {
 		generateStats(currentdata, function(weather) {
-      localStorage.perkutut_location = currentdata.city.name
-			$('#city span').text(localStorage.perkutut_location)
+      localStorage.tekukur_location = currentdata.city.name
+			$('#city span').text(localStorage.tekukur_location)
 			$("#icon").removeClass()
       $("#icon").addClass("owf")
       $("#icon").addClass("owf-" + weather.code) // todo night and day
 
 			//Sets initial temp as Fahrenheit
 			var temp = weather.temperature
-			if (localStorage.perkutut_measurement == "c") {
-				temp = Math.round((weather.temperature -32)*0.62)
+			if (localStorage.tekukur_measurement == "c") {
+				temp = Math.round((weather.temperature -32)/1.8)	// °C = (°F − 32) / 1,8
 				$("#temperature").text(temp + " °C")
-			} else if (localStorage.perkutut_measurement == "k") {
-				temp = Math.round((weather.temperature -32)*0.62) + 273
+			} else if (localStorage.tekukur_measurement == "k") {
+				temp = Math.round((weather.temperature  + 459.67)/1.8) 	// K = (°F + 459,67) / 1,8
 				$("#temperature").text(temp + " K")
 			} else {
 				temp = Math.round((weather.temperature))
@@ -114,14 +114,15 @@ function render(location) {
 			}
 			document.title = temp
 
-			var windSpeed = weather.windSpeed * 2.4 //0.621371
-				windSpeed = windSpeed.toPrecision(2)
-			if (localStorage.perkutut_speed != "mph") {
+			var windSpeed = weather.windSpeed * 2.236936292054  // 1 ms = 2.236936292054 mph
+			if (localStorage.tekukur_speed != "mph") {
 				//Converts to either kph or m/s
-				windSpeed = (localStorage.perkutut_speed == "kph") ? Math.round(windSpeed * 1.609344) : Math.round(windSpeed * 4.4704) /10
+				windSpeed = (localStorage.tekukur_speed == "kph") ? Math.round(windSpeed * 1.609344) : Math.round(windSpeed * 4.4704) /10
 			}
+			windSpeed = windSpeed.toPrecision(2)
+
 			$("#windSpeed").text(windSpeed)
-			$("#windUnit").text((localStorage.perkutut_speed == "ms") ? "m/s" : localStorage.perkutut_speed)
+			$("#windUnit").text((localStorage.tekukur_speed == "ms") ? "m/s" : localStorage.tekukur_speed)
 			$("#humidity").text(weather.humidity + " %")
 
 			//Background Color
@@ -131,10 +132,10 @@ function render(location) {
 			for (var i=0; i<5; i++) {
 				$('#' + i + ' .day').text(weather.week[i].day)
 				$('#' + i + ' .code').addClass("owf").addClass("owf-" + weather.week[i].code)
-				if (localStorage.perkutut_measurement == "c") {
-					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*0.62) + "°<span>" + Math.round((weather.week[i].low -32)*0.62) + "°</span>")
-				} else if (localStorage.perkutut_measurement == "k") {
-					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)*0.62) + 273 + "<span>" + Math.round((weather.week[i].low -32)*0.62 + 273)  + "</span>")
+				if (localStorage.tekukur_measurement == "c") {
+					$('#' + i + ' .temp').html(Math.round((weather.week[i].high -32)/1.8) + "°<span>" + Math.round((weather.week[i].low -32)/1.8) + "°</span>")
+				} else if (localStorage.tekukur_measurement == "k") {
+					$('#' + i + ' .temp').html(Math.round((weather.week[i].high + 459.67)/1.8) + "<span>" + Math.round((weather.week[i].low + 459.67)/1.8) + "</span>")
 				} else {
 					$('#' + i + ' .temp').html(Math.round((weather.week[i].high )) + "°<span>" + Math.round((weather.week[i].low )) + "°</span>")
 				}
@@ -252,11 +253,11 @@ function background(temp) {
 	};
 
 	//Sets Background Color
-	if (localStorage.perkutut_color == "gradient") {
+	if (localStorage.tekukur_color == "gradient") {
 		var percentage = Math.round((temp - 45) *  2.2)
 		$("#container").css("background", blend(percentage))
 	} else {
-		$("#container").css("background", "#" + localStorage.perkutut_color)
+		$("#container").css("background", "#" + localStorage.tekukur_color)
 	}
 }
 
@@ -277,17 +278,17 @@ $(document).ready(function() {
 
 	//APP START.
 	init_settings()
-	if (!localStorage.perkutut || typeof localStorage.perkutut != "string") {
+	if (!localStorage.tekukur || typeof localStorage.tekukur != "string") {
 		show_settings("location")
 	} else {
     try {
-      JSON.parse(localStorage.perkutut)
+      JSON.parse(localStorage.tekukur)
     }
     catch(ex) {
       return show_settings("location")
     }
 		//Has been run before
-		render(localStorage.perkutut)
+		render(localStorage.tekukur)
 
 		setInterval(function() {
 			console.log("Updating Data...")
@@ -311,7 +312,7 @@ function init_settings() {
 		} else if ($(this).hasClass("settings")) {
 			show_settings("all")
 		} else if ($(this).hasClass("sync")) {
-			render(localStorage.perkutut)
+			render(localStorage.tekukur)
 		}
 	})
 
@@ -343,8 +344,8 @@ function init_settings() {
 	//This can only be run if there is a tick.
 	$("#locationModal .loader").click(function() {
 		if ($(this).hasClass("tick")) {
-			localStorage.perkutut = $("#locationModal .loader").attr("data-code")
-			render(JSON.parse(localStorage.perkutut))
+			localStorage.tekukur = $("#locationModal .loader").attr("data-code")
+			render(JSON.parse(localStorage.tekukur))
 			show_settings("noweather")
 			setInterval(function() {
 				console.log("Updating Data...")
@@ -354,24 +355,24 @@ function init_settings() {
 	})
 
 	// Sets up localstorage
-	localStorage.perkutut_measurement = localStorage.perkutut_measurement || "c"
-	localStorage.perkutut_speed = localStorage.perkutut_speed || "kph"
-	localStorage.perkutut_color =  localStorage.perkutut_color || "gradient"
-	localStorage.perkutut_launcher = localStorage.perkutut_launcher || "checked"
+	localStorage.tekukur_measurement = localStorage.tekukur_measurement || "c"
+	localStorage.tekukur_speed = localStorage.tekukur_speed || "kph"
+	localStorage.tekukur_color =  localStorage.tekukur_color || "gradient"
+	localStorage.tekukur_launcher = localStorage.tekukur_launcher || "checked"
 
-	$('#locationModal .measurement [data-type=' + localStorage.perkutut_measurement + ']').addClass('selected')
-	$('#locationModal .speed [data-type=' + localStorage.perkutut_speed + ']').addClass('selected')
+	$('#locationModal .measurement [data-type=' + localStorage.tekukur_measurement + ']').addClass('selected')
+	$('#locationModal .speed [data-type=' + localStorage.tekukur_speed + ']').addClass('selected')
 
 	//Sets up the Toggle Switches
 	$('#locationModal .toggleswitch span').click(function() {
 		$(this).parent().children().removeClass('selected')
-		localStorage.setItem("perkutut_" + $(this).parent().attr("class").replace("toggleswitch ", ""), $(this).addClass('selected').attr("data-type"))
+		localStorage.setItem("tekukur_" + $(this).parent().attr("class").replace("toggleswitch ", ""), $(this).addClass('selected').attr("data-type"))
 		$(".border .settings").hide()
 	})
 
 	//Color thing
 	$('.color span').click(function() {
-		localStorage.perkutut_color = $(this).attr("data-color")
+		localStorage.tekukur_color = $(this).attr("data-color")
 		background(null)
 	})
     $('.color span[data-color=gradient]').click(function() {
@@ -379,13 +380,13 @@ function init_settings() {
     })
 	
 
-	if (localStorage.perkutut_launcher == "checked") {
+	if (localStorage.tekukur_launcher == "checked") {
 		$('#locationModal .launcher input').attr("checked", "checked")
 		document.title = "enable_launcher"
 	}
 	$('#locationModal .launcher input').click(function() {
-		localStorage.perkutut_launcher = $('#locationModal .launcher input').attr("checked")
-		if (localStorage.perkutut_launcher == "checked") {
+		localStorage.tekukur_launcher = $('#locationModal .launcher input').attr("checked")
+		if (localStorage.tekukur_launcher == "checked") {
 			document.title = "enable_launcher"
 		} else {
 			document.title = "disable_launcher"
@@ -397,7 +398,7 @@ function init_settings() {
 
 	/* Error Message Retry Button */
 	$('#errorMessage .btn').click(function() {
-		render(localStorage.perkutut)
+		render(localStorage.tekukur)
 	})
 
 }

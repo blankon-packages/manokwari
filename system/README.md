@@ -1,3 +1,3 @@
-#System-OIX
+#System-owoix
 
 Manokwari Desktop System Theme

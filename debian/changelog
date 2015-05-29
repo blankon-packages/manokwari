@@ -1,3 +1,9 @@
+manokwari (0.2.1.68) tambora; urgency=medium
+
+  * Give delay while typing to avoid performance issue
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sat, 30 May 2015 03:21:54 +0700
+
 manokwari (0.2.1.67) tambora; urgency=medium
 
   * Reorder Geo.BlankOn menu 

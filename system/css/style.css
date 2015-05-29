@@ -16,7 +16,7 @@ body {
     height: 100%;
     width: 100%;
     z-index: 1;
-    color: #aaa;
+    color: #999;
     margin: 0px;
     background: #111;
     padding-top: 2px;
@@ -85,10 +85,10 @@ html {
 	box-shadow: 0px 1px 0px rgba(255,255,255,.05) inset;
 	background-color: #151515;
 	font-size: 14px;
-	color: #aaa;
-    letter-spacing: 0px;
-    border-bottom: 1px solid #060606;
-    text-shadow: 0px 0px 1px #000;
+	color: #999;
+    letter-spacing: -1px;
+    border-bottom: 1px solid #0A0A0A;
+	-webkit-transition: all 0.2s ease-in-out;
 }
 
 .ui-listview-header {
@@ -97,21 +97,21 @@ html {
     padding: 3px 20px 3px 20px;
     box-shadow: 0 1px 0 rgba(255,255,255,.1) inset;
     background-image: -webkit-linear-gradient(#444 0%, #333 100%);
+    border-top: 1px solid #111;
     border-bottom: 1px solid #111;
 }
 
 .ui-listview-item:hover,
 .ui-collapsible-header:hover {
     color: #fff;
-    background: #444;
-    -webkit-transition: all 0.1s ease-in-out;
+    background: #303030;
 }
 
 .ui-listview-first-child,
 .ui-collapsible-header-top {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
-    box-shadow: 0px -1px 1px #060606;
+    box-shadow: 0px -1px 1px #0A0A0A;
 }
 
 .ui-listview-last-child,
@@ -348,7 +348,7 @@ span {
 	background-size:18px 18px;
 	border-radius:40px;
 	border: transparent;
-	color:#ddd;
+	color:#aaa;
 	font-size:12px;
 }
 /**********************
