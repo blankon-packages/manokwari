@@ -1,4 +1,4 @@
-manokwari (0.2.1.67) tambora; urgency=medium
+manokwari (0.2.1.69) tambora; urgency=medium
 
   * rebuild panel-session-manager.vala:
     - add reboot session
