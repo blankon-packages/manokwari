@@ -1,3 +1,11 @@
+manokwari (0.2.1.67) tambora; urgency=medium
+
+  * rebuild panel-session-manager.vala:
+    - add reboot session
+    - refresh sessions
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sun, 31 May 2015 22:26:55 +0700
+
 manokwari (0.2.1.68) tambora; urgency=medium
 
   * Give delay while typing to avoid performance issue

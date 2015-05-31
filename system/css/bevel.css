@@ -1,16 +1,16 @@
 #bevel {
-    background: rgba(17,17,17,0.98);
-    color:#aaa;
-    height: 104%;
-    width: 260px;
-    overflow-x: hidden;
-    overflow-y: auto;
+	background: #111111;
+	color:#aaa;
+	height: 104%;
+	width: 260px;
+	overflow-x: hidden;
+	overflow-y: auto;
 	right:-259px;
-    top: 0px;
-    bottom:0px;
-    position:absolute;
-    z-index: 150;
-    -webkit-transition: right 300ms ease-in-out;
+	top: 0px;
+	bottom:0px;
+	position:absolute;
+	z-index: 150;
+	-webkit-transition: right 300ms ease-in-out;
 }
 #bevel:hover {
 	right: 0px;
@@ -45,12 +45,10 @@
 	cursor:pointer;
 	border-radius: 3px;
 	border: 1px solid #111;
-	opacity:0.9;
 }
 .sosmed a:hover img {
 	background-color: #444;
 	-webkit-transition: all 0.2s ease-in-out;
-	opacity:1;
 }
 
 /* Music Player */
@@ -77,14 +75,13 @@
 	position:absolute;
 	width: 32px;
 	height: 32px;
-	margin-top:-30px;
+	margin-top:-31px;
 	margin-left:-22px;
 	padding: 5px;
 	float:center;
 	background: #333;
-	border: 1px solid #111;
+	border: 2px solid #111;
 	border-radius:50px;
-	box-shadow: 0 0 1px #000;
 }
 #buttons #prev img, #buttons #next img, #buttons #stop img, #buttons #repeat img {
 	width: 18px;
@@ -96,29 +93,26 @@
 	height: 18px;
 	padding:5px;
 	background: #333;
-	border: 1px solid #111;
+	border: 2px solid #111;
 	border-radius: 20px;
-	box-shadow: 0 0 1px #000;
 }
 #buttons #prev {
 	width: auto;
 	margin:0;
 	padding: 5px 25px 5 10px;
 	background: #333;
-	border: 1px solid #111;
+	border: 2px solid #111;
 	border-top-left-radius:20px;
 	border-bottom-left-radius:20px;
-	box-shadow: 0 0 1px #000;
 }
 #buttons #next {
 	width: auto;
 	padding: 5px 10px 5 25px;
 	margin:0;
 	background: #333;
-	border: 1px solid #111;
+	border: 2px solid #111;
 	border-top-right-radius:20px;
 	border-bottom-right-radius:20px;
-	box-shadow: 0 0 1px #000;
 }
 #buttons li {
 	display: inline-block;
@@ -201,7 +195,7 @@
 	padding: 5px 0 10px;
     cursor: default;
     text-align: center;
-    border-top: 1px solid #000;
+    border-top: 1px solid #0C0C0C;
 }
 #clock-time {
 	width: 260px;

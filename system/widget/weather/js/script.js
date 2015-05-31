@@ -88,7 +88,7 @@ function generateStats(data, callback) {
 	}
 }
 
-function render(location) {
+function render(location){
 	$('.border .sync').addClass('busy');
 	$(".border .settings").show()
 
@@ -312,7 +312,7 @@ function init_settings() {
 		} else if ($(this).hasClass("settings")) {
 			show_settings("all")
 		} else if ($(this).hasClass("sync")) {
-			render(localStorage.tekukur)
+			render(location)		//render(localStorage.tekukur)
 		}
 	})
 

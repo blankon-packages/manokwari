@@ -42,6 +42,7 @@ var SessionManager = SessionManager || (function() {
     return {
         canShutdown: function() { return false },
         logout: function() { return false },
+        reboot: function() { return false },
         shutdown: function() { return false },
     }
 });
@@ -644,19 +645,19 @@ var menu = (function() {
     // Handles LogOut button. The function is defined
     // in data-handler attribute of the button
     var handleLogOut = function() {
-        Utils.run_command("gnome-session-quit --logout");  //Utils.run_command("logoutdialog");
+         sessionManager.logout(); 					//Utils.run_command("gnome-session-quit --logout");
     }
 
 	// Handles Reboot button. The function is defined
     // in data-handler attribute of the button
     var handleReboot = function() {
-        Utils.run_command("gnome-session-quit --reboot");  //Utils.run_command("shutdowndialog");
+         sessionManager.reboot();					//Utils.run_command("gnome-session-quit --reboot");
     }
 
     // Handles ShutDown button. The function is defined
     // in data-handler attribute of the button
     var handleShutDown = function() {
-        Utils.run_command("gnome-session-quit --power-off");   //Utils.run_command("shutdowndialog");
+         sessionManager.shutdown(); 				//Utils.run_command("gnome-session-quit --power-off");  
     }
 
     // Determine whether shutdown is enabled or not.

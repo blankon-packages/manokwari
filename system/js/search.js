@@ -5,7 +5,7 @@
 	//first condition
 	function firstCond(){
 		$('input').val("");
-		$('#listSearch .ui-listview-item').slideUp(500);
+		$('#listSearch .ui-listview-item').hide();
 	};
 	// accending sort
 	function asc_sort(a, b){

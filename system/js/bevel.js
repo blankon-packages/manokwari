@@ -31,8 +31,8 @@ function MocpPlay(){
 }*/
 function Play(){Utils.run_command("audacious -p");}
 function Stop(){Utils.run_command("audtool shutdown");}
-function Prev(){Utils.run_command("audacious -f");}
-function Next(){Utils.run_command("audacious -r");}
+function Prev(){Utils.run_command("audacious -r");}
+function Next(){Utils.run_command("audacious -f");}
 function Pause(){Utils.run_command("audacious -u");}
 function Repeat(){Utils.run_command("audtool --playlist-repeat-toggle");}
 //function Shuffle(){Utils.run_command("audtool --playlist-shuffle-toggle");}
@@ -43,10 +43,10 @@ $(document).ready(function() {
 		else{$('#repeat').addClass("selected");}
 	});
 
-	$('#shuffle').click(function(){
-		if($('#shuffle').hasClass("selected")){ $('#shuffle').removeClass("selected");}
-		else{$('#shuffle').addClass("selected");}
-	});
+	//$('#shuffle').click(function(){
+		//if($('#shuffle').hasClass("selected")){ $('#shuffle').removeClass("selected");}
+		//else{$('#shuffle').addClass("selected");}
+	//});
 
 });
 

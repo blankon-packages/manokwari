@@ -8,7 +8,6 @@ body {
 .ui-page, .ui-content {
     margin: 0px;
     padding: 0px;
-    background: transparent;   
 }
 
 .ui-page {
@@ -72,9 +71,8 @@ html {
     min-height: 26px;
     border-radius: inherit;
     cursor: pointer;
-    padding: 6px 6px 1px 12px;
+    padding: 5px 6px 0px 12px;
     margin: 0px;
-    white-space: nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
@@ -82,43 +80,42 @@ html {
 .ui-listview-item,
 .ui-collapsible-header {
 	text-decoration: none;
-	box-shadow: 0px 1px 0px rgba(255,255,255,.05) inset;
 	background-color: #151515;
-	font-size: 14px;
-	color: #999;
-    letter-spacing: -1px;
-    border-bottom: 1px solid #0A0A0A;
-	-webkit-transition: all 0.2s ease-in-out;
+	font-family: 'Aurulent Sans';
+	font-size: 0.85em;
+	color: #aaa;
+	line-height: 19px;
+	letter-spacing: 0px;
+	border-bottom: thin solid #0f0f0f;
+	-webkit-transition: all 0.1s ease-in-out;
 }
 
 .ui-listview-header {
-    color: #ddd;
+    color: #aaa;
     vertical-align:middle;
     padding: 3px 20px 3px 20px;
-    box-shadow: 0 1px 0 rgba(255,255,255,.1) inset;
-    background-image: -webkit-linear-gradient(#444 0%, #333 100%);
-    border-top: 1px solid #111;
-    border-bottom: 1px solid #111;
+    background:#1f1f1f;
+    border-bottom: thin solid #111;
 }
 
 .ui-listview-item:hover,
 .ui-collapsible-header:hover {
     color: #fff;
-    background: #303030;
+    background: #333;
 }
 
 .ui-listview-first-child,
 .ui-collapsible-header-top {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-    box-shadow: 0px -1px 1px #0A0A0A;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+	box-shadow: 0 -1px 0px #0d0d0d;
 }
 
 .ui-listview-last-child,
 .ui-collapsible-header-bottom {
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-    /*box-shadow: 0px 1px 1px #000;*/
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: 0 1px 0px #0d0d0d;
 }
 
 .ui-link {
@@ -134,8 +131,9 @@ span {
 .ui-collapsible-header {
     margin: 0;
     min-height: 26px;
-    padding: 6px 6px 1px 12px;
+    padding: 5px 6px 0px 12px;
     display: block;
+    white-space: nowrap;
     cursor: pointer;
 }
 
@@ -168,9 +166,8 @@ span {
     vertical-align: middle;
     text-align: center;
     padding: 3px 22px 3px 20px;
-    text-shadow: 0 1px 2px #000;
     font-family: 'Aurulent Sans';
-    font-size: 14px;
+    font-size: 0.85em;
 }
 
 
@@ -183,20 +180,18 @@ span {
     padding: 5px 0 5px 0;
     line-height: 1;
     border-radius: 10px;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset;
-    background-image: -webkit-linear-gradient(#111 0%, #111 100%);
+    background:#000;
     text-shadow: 0 -1px 1px #000;
-    /*border-bottom: 1px solid #222;*/
     margin: 4px 0 2px 0;
     font-family: 'Aurulent Sans';
     font-size: 11px;
     float: center;
+    opacity: 0.8;
 }
 
 .ui-button:hover {
-    box-shadow: 0 1px 0 rgba(255,255,255,.1) inset;
-    background-image: -webkit-linear-gradient(#222222 0%, #1A1A1A 100%);
-    color: #ddd;
+    color: #fff;
+    opacity: 1;
 }
 
 .ui-popup {
@@ -223,9 +218,8 @@ span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; 
-
     -webkit-transition: margin-bottom 0.3s, bottom 0.2s ease-out;
-    -webkit-box-shadow: 0 -1px 1px black;
+    -webkit-box-shadow: 0 -1px 0px black;
 }
 
 #userAccount:hover {
@@ -274,18 +268,18 @@ span {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #555;
+    background: #333;
     -webkit-cursor:pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     overflow-y: scroll;
-    background: #777;
+    background: #3D3D3D;
 }
 
-::-webkit-scrollbar-track:hover {
+/*::-webkit-scrollbar-track:hover {
 	background: #222;
-}
+}*/
 
 .ui-expandable-icon {
     background: url("../img/go-next.png") no-repeat center;
@@ -329,7 +323,7 @@ span {
 	padding: 0px;
 	width: 240px;
 	height: auto;
-	box-shadow: 0px -1px 1px #060606;
+	box-shadow: 0px -1px 0px #060606;
 }
 .filterform {
 	width: 260px;
@@ -337,17 +331,16 @@ span {
 	text-align:center;
 	margin-left: 0px;
 	margin-bottom: 0px;
-	background-color: transparent;
 }
 .filterinput{
 	height:24px;
-	width:240px;
-	padding:4px 15px 4px 30px;
+	width:235px;
+	padding:2px 15px 2px 30px;
 	margin:0px;
 	background: #222 url("../img/search.png") no-repeat center left 8px;
-	background-size:18px 18px;
-	border-radius:40px;
-	border: transparent;
+	background-size:16px 16px;
+	border-radius: 40px;
+	border:2px solid #222;
 	color:#aaa;
 	font-size:12px;
 }
@@ -370,3 +363,4 @@ span {
     src: url(../fonts/AurulentSans-Regular.otf);
     font-weight: 600;
 }
+
