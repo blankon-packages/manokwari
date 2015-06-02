@@ -1,3 +1,9 @@
+manokwari (0.2.1.70) tambora; urgency=medium
+
+  * ellipsis text name applications
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Tue, 02 Jun 2015 16:25:27 +0700
+
 manokwari (0.2.1.69) tambora; urgency=medium
 
   * rebuild panel-session-manager.vala:

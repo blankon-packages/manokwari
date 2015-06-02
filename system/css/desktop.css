@@ -16,7 +16,7 @@ body {
 	width: 100%;
 	height: 100%;
 }
-
+/** if mutter use as desktop manager #bg has active **/
 /*#bg {
 	background-color: transparent;
 	position: absolute;

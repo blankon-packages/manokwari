@@ -73,6 +73,7 @@ html {
     cursor: pointer;
     padding: 5px 6px 0px 12px;
     margin: 0px;
+   	line-height: 20px;
     overflow:hidden;
     text-overflow:ellipsis;
 }
@@ -82,10 +83,10 @@ html {
 	text-decoration: none;
 	background-color: #151515;
 	font-family: 'Aurulent Sans';
-	font-size: 0.85em;
+	font-size: 0.8em;
 	color: #aaa;
-	line-height: 19px;
 	letter-spacing: 0px;
+	white-space: nowrap;
 	border-bottom: thin solid #0f0f0f;
 	-webkit-transition: all 0.1s ease-in-out;
 }
@@ -133,7 +134,7 @@ span {
     min-height: 26px;
     padding: 5px 6px 0px 12px;
     display: block;
-    white-space: nowrap;
+    line-height: 20px;
     cursor: pointer;
 }
 
