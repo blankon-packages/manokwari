@@ -7,7 +7,7 @@ body {
 
 .ui-page, .ui-content {
     margin: 0px;
-    padding: 0px;
+   /* padding: 0px;*/
 }
 
 .ui-page {
@@ -37,10 +37,10 @@ html {
 .ui-listview,
 .ui-collapsible {
     list-style:none;
-    margin: 0 7px 0 7px;
+    margin: 0 6px 0 8px;
     vertical-align: middle;
     padding: 0;
-    width: 246px;
+    width: 248px;
 }
 
 .ui-content {
@@ -49,6 +49,7 @@ html {
     width: 260px;
     overflow-x: hidden;
     overflow-y: auto; 
+    padding-right:3px;
 }
 
 .ui-listview-item-icon {
@@ -73,7 +74,6 @@ html {
     cursor: pointer;
     padding: 5px 6px 0px 12px;
     margin: 0px;
-   	line-height: 20px;
     overflow:hidden;
     text-overflow:ellipsis;
 }
@@ -83,10 +83,10 @@ html {
 	text-decoration: none;
 	background-color: #151515;
 	font-family: 'Aurulent Sans';
-	font-size: 0.8em;
+	font-size: 0.85em;
 	color: #aaa;
+	line-height: 19px;
 	letter-spacing: 0px;
-	white-space: nowrap;
 	border-bottom: thin solid #0f0f0f;
 	-webkit-transition: all 0.1s ease-in-out;
 }
@@ -134,7 +134,7 @@ span {
     min-height: 26px;
     padding: 5px 6px 0px 12px;
     display: block;
-    line-height: 20px;
+    white-space: nowrap;
     cursor: pointer;
 }
 
@@ -259,7 +259,7 @@ span {
 }
 
 ::-webkit-scrollbar {
-    width: 7px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -320,28 +320,30 @@ span {
 /** search **/
 #listSearch,
 .listview-search {
-	margin: 8px 10px 8px 10px;
+	margin: 8px 8px 8px 12px;
 	padding: 0px;
 	width: 240px;
 	height: auto;
-	box-shadow: 0px -1px 0px #060606;
+	background: #151515;
+	overflow-x: hidden;
+    overflow-y: auto; 
 }
 .filterform {
-	width: 260px;
+	width: 265px;
 	display:block;
 	text-align:center;
-	margin-left: 0px;
-	margin-bottom: 0px;
+	margin-top:0px;
+	margin-left:0px;
 }
 .filterinput{
-	height:24px;
-	width:235px;
+	height:22px;
+	width:240px;
 	padding:2px 15px 2px 30px;
 	margin:0px;
-	background: #222 url("../img/search.png") no-repeat center left 8px;
+	background: #2a2a2a url("../img/search.png") no-repeat center left 8px;
 	background-size:16px 16px;
 	border-radius: 40px;
-	border:2px solid #222;
+	border:2px solid #2a2a2a;
 	color:#aaa;
 	font-size:12px;
 }

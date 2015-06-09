@@ -14,6 +14,10 @@ var DesktopData = DesktopData || (function () {
             },
             {   desktop: "",
                 icon: "icon",
+                name: "Geany"
+            },
+            {   desktop: "",
+                icon: "icon",
                 name: "LibreOffice Calc"
             }
         ]);
@@ -141,6 +145,15 @@ var desktop = (function() {
             entry.append(text);
             l.append(entry_wrapper);
         }
+        // -------
+        // accending sort
+			function asc_sort(a, b){
+				return ($(b).text()) < ($(a).text()) ? 1 : -1;    
+			}
+        $(".ui-launcher-entry-wrapper").sort(asc_sort).appendTo("#launcher");
+			$(".ui-launcher-entry-img-holder").first().addClass("ui-launcher-entry-img-holder-first");
+			$(".ui-launcher-entry-img-holder").last().addClass("ui-launcher-entry-img-holder-last");
+                
     }
 
     var setupLauncher = function() {
@@ -208,9 +221,11 @@ var desktop = (function() {
     }
 })();
 
+
+
 $(document).ready(function() {
     desktop.init();
-
+		
     // to do testing using local file, we can do following test:
     //
     //

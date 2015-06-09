@@ -2,15 +2,15 @@
 	background: #111111;
 	color:#aaa;
 	height: 104%;
-	width: 260px;
+	width: 265px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	right:-259px;
+	right:-264px;
 	top: 0px;
 	bottom:0px;
 	position:absolute;
 	z-index: 150;
-	-webkit-transition: right 300ms ease-in-out;
+	-webkit-transition: right 200ms ease-in-out;
 }
 #bevel:hover {
 	right: 0px;
@@ -198,7 +198,7 @@
     border-top: 1px solid #0C0C0C;
 }
 #clock-time {
-	width: 260px;
+	width: 265px;
 	height: 45px;
 	font-family: 'TrendexLightSSi.ttf';
 	display: block;

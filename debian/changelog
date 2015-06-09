@@ -1,3 +1,9 @@
+manokwari (0.2.1.71) tambora; urgency=medium
+
+  * Sorting asc and change docker color
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Tue, 09 Jun 2015 21:56:44 +0700
+
 manokwari (0.2.1.70) tambora; urgency=medium
 
   * ellipsis text name applications

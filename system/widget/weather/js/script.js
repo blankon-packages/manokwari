@@ -7,7 +7,7 @@ function getZipCode(location, callback) {
     var currentWeatherUri = "http://api.openweathermap.org/data/2.5/weather"
 		$.get(currentWeatherUri + "?q=" + encodeURIComponent(location) + "&units=metric", function(locationData) {
 			// Gets the cityId && Caches Location Name
-			localStorage.tekukur_location = $(locationData).children().filterNode("name").text() //locationData.name 
+			localStorage.tekukur_location = locationData.name 
 			if (locationData.id) {
 				callback(locationData)
 			} else {
@@ -94,7 +94,7 @@ function render(location){
 
 	getWeatherData(location, function(currentdata) {
 		generateStats(currentdata, function(weather) {
-		localStorage.tekukur_location = currentdata.city.name
+      localStorage.tekukur_location = currentdata.city.name
 			$('#city span').text(localStorage.tekukur_location)
 			$("#icon").removeClass()
       $("#icon").addClass("owf")
@@ -147,7 +147,7 @@ function render(location){
 			$("#locationModal").fadeOut(350)
 			// spin the thing for 500ms longer than it actually takes, because
 			// most of the time refreshing is actually instant :)
-			setTimeout(function() { $('.border .sync').removeClass('busy'); }, 2000)
+			setTimeout(function() { $('.border .sync').removeClass('busy'); }, 350)
 		})
 	})
 }
