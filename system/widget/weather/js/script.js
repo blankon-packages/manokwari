@@ -147,7 +147,7 @@ function render(location){
 			$("#locationModal").fadeOut(350)
 			// spin the thing for 500ms longer than it actually takes, because
 			// most of the time refreshing is actually instant :)
-			setTimeout(function() { $('.border .sync').removeClass('busy'); }, 350)
+			setTimeout(function() { $('.border .sync').removeClass('busy'); }, 1000)
 		})
 	})
 }
