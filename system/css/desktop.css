@@ -22,7 +22,7 @@ body {
 }
 
 /** activated #bg if mutter as window manager **/
-/*#bg {
+#bg {
 	background-color: transparent;
 	position: absolute;
 	z-index: 1;
@@ -31,7 +31,7 @@ body {
     background-repeat:no-repeat;
     background-size: 100% 100%;
 	background-position: 50%;
-}*/
+}
 
 #base {
 	position: absolute;
