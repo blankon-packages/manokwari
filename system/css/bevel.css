@@ -10,7 +10,7 @@
 	bottom:0px;
 	position:absolute;
 	z-index: 150;
-	-webkit-transition: right 200ms ease-in-out;
+	-webkit-transition: right 250ms ease-in-out;
 }
 #bevel:hover {
 	right: 0px;
@@ -198,7 +198,7 @@
     border-top: 1px solid #0C0C0C;
 }
 #clock-time {
-	width: 265px;
+	width: 260px;
 	height: 45px;
 	font-family: 'TrendexLightSSi.ttf';
 	display: block;

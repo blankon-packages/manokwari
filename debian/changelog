@@ -1,3 +1,11 @@
+manokwari (0.2.1.72) tambora; urgency=medium
+
+  * Rebuild :
+    - disable opacity icon launcher
+    - white-space:nowrape;
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Wed, 10 Jun 2015 16:09:28 +0700
+
 manokwari (0.2.1.71) tambora; urgency=medium
 
   * Sorting asc and change docker color

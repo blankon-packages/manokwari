@@ -51,7 +51,7 @@ p, span, div {
     }
 }
 .border .sync.busy {
-    -webkit-animation: busy-spinning 0.5s infinite linear;
+    -webkit-animation: busy-spinning 0.3s infinite linear;
 }
 .border {
     position: absolute;
