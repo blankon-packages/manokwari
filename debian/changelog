@@ -1,3 +1,9 @@
+manokwari (0.2.1.73) tambora; urgency=medium
+
+  * system/css/styles.css line-height: 20px;
+
+ -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Wed, 10 Jun 2015 16:34:35 +0700
+
 manokwari (0.2.1.72) tambora; urgency=medium
 
   * Rebuild :
