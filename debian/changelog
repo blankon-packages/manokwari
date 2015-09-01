@@ -1,3 +1,8 @@
+manokwari (0.2.1.76) tambora; urgency=medium
+
+  * add arrow navigation on search manokwari
+ -- Aris Winardi <me@arwin.my.id>  Tue, 01 Sep 2015 18:07:48 +0700
+
 manokwari (0.2.1.75) tambora; urgency=medium
 
   * add depends debian/control:
