@@ -99,7 +99,7 @@ html {
     background:#1f1f1f;
     border-bottom: thin solid #111;
 }
-
+.selected,
 .ui-listview-item:hover,
 .ui-collapsible-header:hover {
     color: #fff;
