@@ -1,11 +1,11 @@
 manokwari (0.2.1.77) tambora; urgency=medium
 
+  * Add path from git: make sure use new api GMenu
   * Change configure.ac: libgnome-menu to libgnome-menu-3.0
   * Build-Depends:
     - Change libgnome-menu-dev to libgnome-menu-3-dev
     - Bump version libvala-0.28-dev
     - Change automake1.9 to automake
-    - Added libgnome-menu-3-0
 
  -- Mahyuddin <yudi.al@gmail.com>  Wed, 02 Sep 2015 21:33:17 +0700
 

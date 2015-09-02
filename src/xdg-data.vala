@@ -97,26 +97,27 @@ public class PanelXdgData {
         } catch (Error e) {
             stdout.printf ("Can't monitor applications directory: %s\n", e.message);
         }
-
     }
 
     void update_tree (TreeDirectory root) {
-        foreach (TreeItem item in root.get_contents ()) {
-            switch (item.get_type()) {
+        var iter = root.iter();
+        GMenu.TreeItemType type;
+        while((type = iter.next ()) != GMenu.TreeItemType.INVALID) {
+            switch (type) {
             case TreeItemType.DIRECTORY:
                 if (depth > 0) {
                   break;
                 }
-                var i = (TreeDirectory) item;
+                var i = (TreeDirectory) iter.get_directory();
 
                 var s = "{icon: '%s', name: '%s',".printf(
-                            Utils.get_icon_path(i.get_icon ().replace(".svg", "").replace(".png", "").replace(".xpm","")),
+                            Utils.get_icon_path(i.get_icon().to_string().replace(".svg", "").replace(".png", "").replace(".xpm","")),
                             i.get_name ()
                         );
                 json.append (s);
                 json.append ("children:[");
                 depth ++;
-                update_tree (i);
+                update_tree (iter.get_directory());
                 depth --;
                 if (json.str [json.len - 1] == ',') {
                     json.erase (json.len - 1, 1); // Remove trailing comma
@@ -126,11 +127,12 @@ public class PanelXdgData {
                 break;
 
             case TreeItemType.ENTRY:
-                var i = (TreeEntry) item;
+                var i = iter.get_entry();
+                var app_info = i.get_app_info();
                
                 var s = "{icon: '%s', name: '%s', desktop: '%s'},".printf(
-                            Utils.get_icon_path(i.get_icon ().replace(".svg", "").replace(".png", "").replace(".xpm","")),
-                            i.get_display_name (),
+                            Utils.get_icon_path(app_info.get_string ("Icon").replace(".svg", "").replace(".png", "").replace(".xpm","")),
+                            app_info.get_display_name (),
                             i.get_desktop_file_path ()
                         );
                 json.append (s);
@@ -140,7 +142,7 @@ public class PanelXdgData {
     }
 
     void populate () { 
-        var tree = GMenu.Tree.lookup (catalog, TreeFlags.NONE);
+        var tree = new GMenu.Tree (catalog, TreeFlags.NONE);
         var root = tree.get_root_directory ();
 
         json.assign("[");
