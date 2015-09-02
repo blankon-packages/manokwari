@@ -9,7 +9,7 @@ AM_PROG_CC_C_O
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 
-AM_PROG_VALAC([0.18.0])
+AM_PROG_VALAC([0.28.0])
 
 AC_ARG_ENABLE([devel], AC_HELP_STRING([--enable-devel],[Enable development mode with system dir in current directory]), USE_DEVEL="$enableval", USE_DEVEL="no")
 if test $USE_DEVEL = yes ; then
@@ -63,13 +63,13 @@ GTK_REQUIRED=3.0.8
 ATK_REQUIRED=2.0.0
 GEE_REQUIRED=0.6.1
 CAIRO_REQUIRED=1.10.2
-LIBGNOME_MENU_3_REQUIRED=3.13.0
+LIBGNOME_MENU_REQUIRED=3.13.0
 LIBWNCK_REQUIRED=3.0.0
 UNIQUE_REQUIRED=3.0.0
 WEBKIT_REQUIRED=1.3.0
 X11_REQUIRED=1.6.0
 
-PKG_CHECK_MODULES(MANOKWARI, glib-2.0 >= $GLIB_REQUIRED gobject-2.0 >= $GLIB_REQUIRED gtk+-3.0 >= $GTK_REQUIRED atk >= $ATK_REQUIRED gee-1.0 >= $GEE_REQUIRED cairo >= $CAIRO_REQUIRED libgnome-menu-3 >= $LIBGNOME_MENU_3_REQUIRED libwnck-3.0 >= $LIBWNCK_REQUIRED unique-3.0 >= $UNIQUE_REQUIRED webkitgtk-3.0 >= $WEBKIT_REQUIRED x11 >= $X11_REQUIRED)
+PKG_CHECK_MODULES(MANOKWARI, glib-2.0 >= $GLIB_REQUIRED gobject-2.0 >= $GLIB_REQUIRED gtk+-3.0 >= $GTK_REQUIRED atk >= $ATK_REQUIRED gee-1.0 >= $GEE_REQUIRED cairo >= $CAIRO_REQUIRED libgnome-menu-3.0 >= $LIBGNOME_MENU_REQUIRED libwnck-3.0 >= $LIBWNCK_REQUIRED unique-3.0 >= $UNIQUE_REQUIRED webkitgtk-3.0 >= $WEBKIT_REQUIRED x11 >= $X11_REQUIRED)
 
 WNCK_GMENU_DISCLAIMER='-DGMENU_I_KNOW_THIS_IS_UNSTABLE -DWNCK_I_KNOW_THIS_IS_UNSTABLE'
 
@@ -77,7 +77,7 @@ AC_SUBST(WNCK_GMENU_DISCLAIMER)
 AC_SUBST(MANOKWARI_CFLAGS)
 AC_SUBST(MANOKWARI_LIBS)
 
-VALA_PACKAGES="--pkg atk --pkg gdk-x11-3.0 --pkg gee-1.0 --pkg cairo --pkg gtk+-3.0 --pkg gio-unix-2.0 --pkg libgnome-menu-3 --pkg gdk-3.0 --pkg libwnck-3.0 --pkg unique-3.0 --pkg webkit-1.0 --pkg javascriptcore --pkg libsoup-2.4"
+VALA_PACKAGES="--pkg atk --pkg gdk-x11-3.0 --pkg gee-1.0 --pkg cairo --pkg gtk+-3.0 --pkg gio-unix-2.0 --pkg libgnome-menu-3.0 --pkg gdk-3.0 --pkg libwnck-3.0 --pkg unique-3.0 --pkg webkit-1.0 --pkg javascriptcore --pkg libsoup-2.4"
 
 AC_SUBST(VALA_PACKAGES)
 
