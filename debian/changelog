@@ -1,3 +1,9 @@
+manokwari (0.2.1.78) tambora; urgency=medium
+
+  * Rebuild for armhf
+  
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 12 Sep 2015 05:57:31 +0700
+
 manokwari (0.2.1.77) tambora; urgency=medium
 
   * Add path from git: make sure use new api GMenu
