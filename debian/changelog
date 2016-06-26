@@ -1,3 +1,9 @@
+manokwari (1.0.0-0blankon1) tambora; urgency=medium
+
+  * Manokwari-1.0.0 "Antar tamu" is the major release of Manokwari
+
+ -- Syai Mif <syaimif@di.blankon.in>  Sun, 26 Jun 2016 11:27:28 +0700
+
 manokwari (0.2.1.78) tambora; urgency=medium
 
   * Rebuild for armhf
