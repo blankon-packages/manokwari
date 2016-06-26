@@ -3,11 +3,11 @@
 PACKAGE := manokwari
 
 configure/manokwari::
+	touch ChangeLog
 	./autogen.sh
 
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
-
 
 # Add here any variable or target overrides you need.
 LDFLAGS += -Wl,-O1 -Wl,-z,defs -Wl,--warn-unresolved-symbols -Wl,--as-needed
