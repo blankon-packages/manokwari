@@ -1,3 +1,9 @@
+manokwari (1.0.2-0blankon1) tambora; urgency=medium
+
+  * Re-export region settings
+
+ -- Syai Mif <syaimif@di.blankon.in>  Wed, 29 Jun 2016 10:30:18 +0700
+
 manokwari (1.0.1-0blankon1) tambora; urgency=medium
 
   * Add API Key from OWM
