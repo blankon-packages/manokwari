@@ -1,3 +1,9 @@
+manokwari (1.0.1-0blankon1) tambora; urgency=medium
+
+  * Add API Key from OWM
+
+ -- Syai Mif <syaimif@di.blankon.in>  Wed, 29 Jun 2016 10:02:23 +0700
+
 manokwari (1.0.0-0blankon1) tambora; urgency=medium
 
   * Manokwari-1.0.0 "Antar tamu" is the major release of Manokwari
