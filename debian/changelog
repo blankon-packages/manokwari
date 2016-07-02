@@ -1,3 +1,11 @@
+manokwari (1.0.3-0blankon1) tambora; urgency=medium
+
+  * New upstream release
+    - Grab keys with PanelHotkey
+    - Execute Manokwari before Mutter.
+
+ -- dotovr <dotovr@preko>  Sun, 03 Jul 2016 06:36:42 +0700
+
 manokwari (1.0.2-0blankon1) tambora; urgency=medium
 
   * Re-export region settings
