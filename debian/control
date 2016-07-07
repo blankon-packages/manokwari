@@ -18,7 +18,7 @@ Build-Depends: autotools-dev,
                libwebkitgtk-3.0-dev,
                libjavascriptcoregtk-3.0-dev,
                libsoup2.4-dev,
-               valac-0.32,
+               valac,
                automake,
                xorg-dev
 Standards-Version: 3.9.2
