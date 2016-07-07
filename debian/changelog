@@ -1,3 +1,11 @@
+manokwari (1.0.5-0blankon1) tambora; urgency=medium
+
+  * New Upstream Release
+    - Remove network locations
+  * debian/build-dep valac-0.32
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 07 Jul 2016 13:52:55 +0700
+
 manokwari (1.0.4-0blankon1) tambora; urgency=medium
 
   * New Upstream Release
