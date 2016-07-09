@@ -1,3 +1,9 @@
+manokwari (1.0.6-0blankon1) tambora; urgency=medium
+
+  * Remove *.css and *.js files under system since they've been united in
+
+ -- Syai Mif <syaimif@di.blankon.in>  Sat, 09 Jul 2016 07:28:37 +0700
+
 manokwari (1.0.5-0blankon1) tambora; urgency=medium
 
   * New Upstream Release
