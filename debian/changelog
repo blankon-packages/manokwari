@@ -1,3 +1,10 @@
+manokwari (1.0.7-0blankon1) tambora; urgency=medium
+
+  * New upstream release
+    - Handle brightness buttons
+
+ -- dotovr <dotovr@preko>  Tue, 12 Jul 2016 12:53:45 +0700
+
 manokwari (1.0.6-0blankon1) tambora; urgency=medium
 
   * Remove *.css and *.js files under system since they've been united in
