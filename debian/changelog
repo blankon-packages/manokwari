@@ -1,3 +1,10 @@
+manokwari (1.0.7-0blankon1+pr50) tambora; urgency=medium
+
+  * Rename session
+  * Add depends gnome-session-bin gnome-session-common
+
+ -- dotovr <dotovr@preko>  Sat, 23 Jul 2016 10:52:01 +0700
+
 manokwari (1.0.7-0blankon1) tambora; urgency=medium
 
   * New upstream release

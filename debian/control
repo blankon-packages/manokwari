@@ -28,7 +28,7 @@ VCS-Browser: https://github.com/BlankOn/manokwari
 
 Package: manokwari
 Architecture: any
-Depends: mutter, gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, ${misc:Depends}, ${shlibs:Depends}
+Depends: mutter, gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, gnome-session-bin, gnome-session-common, ${misc:Depends}, ${shlibs:Depends}
 Recommends: tebu-icon-theme
 Provides: blankon-panel
 Conflicts: blankon-panel, blankon-session
