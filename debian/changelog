@@ -1,3 +1,11 @@
+manokwari (1.0.8-0blankon1) tambora; urgency=medium
+
+  * debian/control BUild-dep: libnotify-dev
+  * New Upstream Release
+    - Show brightness and menu shortkeys
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 26 Jul 2016 11:20:30 +0700
+
 manokwari (1.0.7-0blankon1+pr50) tambora; urgency=medium
 
   * Rename session
