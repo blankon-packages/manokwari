@@ -1,3 +1,10 @@
+manokwari (1.0.9-0blankon1) tambora; urgency=medium
+
+  * New upstream release
+  * remove debian/patch/mouse-slider-corner.patch in release
+
+ -- Mijortsa <mijortsa@icik2.blankon.in>  Mon, 01 Aug 2016 00:14:33 +0700
+
 manokwari (1.0.8-0blankon2) tambora; urgency=medium
 
   * debian/patches/mouse-slider-corner.patch
