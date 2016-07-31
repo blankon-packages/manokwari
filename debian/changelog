@@ -1,3 +1,10 @@
+manokwari (1.0.8-0blankon2) tambora; urgency=medium
+
+  * debian/patches/mouse-slider-corner.patch
+    - include patch disable tab key
+
+ -- Mijortsa <mijortsa@icik2.blankon.in>  Sun, 31 Jul 2016 11:28:22 +0700
+
 manokwari (1.0.8-0blankon1) tambora; urgency=medium
 
   * debian/control BUild-dep: libnotify-dev

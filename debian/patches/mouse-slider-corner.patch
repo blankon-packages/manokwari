@@ -1,0 +1,211 @@
+diff -Naur manokwari-1.0.8.orig/system/css/bevel.css manokwari-1.0.8/system/css/bevel.css
+--- manokwari-1.0.8.orig/system/css/bevel.css	2016-07-26 11:02:20.000000000 +0700
++++ manokwari-1.0.8/system/css/bevel.css	2016-07-31 05:26:25.858206000 +0700
+@@ -1,20 +1,52 @@
++#show-top  {
++	position: absolute;
++	width: 30px;
++	height: 30px;
++	background-color: transparent;
++	right: 0px;
++	top: 24px;
++	border-bottom-left-radius:100%;
++	z-index: -50;
++}
++
++#show-bottom  {
++	position: absolute;
++	width: 30px;
++	height: 30px;
++	background-color: transparent;
++	right: 0px;
++	bottom: 0px;
++	border-top-left-radius:100%;
++	z-index: -50;
++}
++
++#hide {
++	position: absolute;
++	width: 100%;
++	height: 100%;
++	background: transparent;
++	right: 0px;
++	top: 0px;
++	z-index: -100;
++}
++
+ #bevel {
+ 	background: #111111;
+-	color:#aaa;
++	color: #aaa;
+ 	height: 104%;
+ 	width: 265px;
+ 	overflow-x: hidden;
+ 	overflow-y: auto;
+-	right:-264px;
++	right: -266px;
+ 	top: 0px;
+ 	bottom:0px;
+ 	position:absolute;
+ 	z-index: 150;
+ 	-webkit-transition: right 250ms ease-in-out;
+ }
+-#bevel:hover {
++/*#bevel:hover {
+ 	right: 0px;
+-}
++}*/
+ 
+ /* Sosmed */
+ #sosial_media {
+@@ -39,8 +71,8 @@
+ 	display:inline;
+ 	width:18px;
+ 	height:18px;
+-	padding: 4px 17px;
+-	background: #333;
++	padding: 6px 17px;
++	background: #222;
+ 	color: #aaa;
+ 	cursor:pointer;
+ 	border-radius: 3px;
+@@ -159,7 +191,7 @@
+ 	width:28px;
+ 	height:28px;
+ 	margin-bottom: 5px;
+-	padding: 0px 1px 0 1px;
++	padding: 0px 5px;
+ 	text-align:center;
+ }
+ .system span {
+@@ -213,6 +245,26 @@
+ 	text-shadow: 0 0px 2px #000;
+ }
+ 
++::-webkit-scrollbar {
++    width: 5px;
++}
++
++::-webkit-scrollbar-track {
++    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0); 
++    background: rgba(191,191,191,0);
++    border-radius: 0px;
++}
++
++::-webkit-scrollbar-thumb {
++    border-radius: 0px;
++    background: rgba(191,191,191,0.04);
++}
++
++::-webkit-scrollbar-thumb:hover {
++    border-radius: 0px;
++    background: rgba(191,191,191,0.1)
++}
++
+ /***********************************
+  * Fonts Collections *
+  * *********************************/
+diff -Naur manokwari-1.0.8.orig/system/desktop.html manokwari-1.0.8/system/desktop.html
+--- manokwari-1.0.8.orig/system/desktop.html	2016-07-26 11:02:20.000000000 +0700
++++ manokwari-1.0.8/system/desktop.html	2016-07-31 05:26:18.386049000 +0700
+@@ -10,13 +10,17 @@
+ 	<script type="text/javascript" src="js/xml2json.js"></script>
+ 	<script type="text/javascript" src="js/xml-background.js"></script>
+ 	<script type="text/javascript" src="js/desktop.js"></script>
++	
+ <!-- this is extra bevel -->
+ 	<script type="text/javascript" src="js/time.js"></script>
+ 	<script type="text/javascript" src="js/moment.min.js"></script>
+ 	<script type="text/javascript" src="js/bevel.js"></script>
+-	<link href="widget/weather/css/style.css" rel="stylesheet"><!-- this is extra weather -->	
++<!-- this is extra weather -->	
++	<link href="widget/weather/css/style.css" rel="stylesheet">
+ 	<link href="widget/weather/css/owfont-regular.min.css" rel="stylesheet">
++	
+ </head>
++
+ <body>
+   <div id="overlay"></div>
+   <div id="bg"></div>
+@@ -24,7 +28,11 @@
+     <!-- h1 id="debug"></h1 -->
+ 	<div id="launcher"></div>
+ 
+-  <div id="bevel">
++<div id="show-top"></div>
++<div id="show-bottom"></div>
++
++<div id="hide"></div>
++<div id="bevel">
+ 	<div id="sosial_media">Bookmarks</div>
+ 	<div class="sosmed">
+ 		<a href="#" value="Sosmed1" onclick="Run1();" title="http://blankonlinux.or.id"><img src="img/blankon.svg"></a>
+@@ -116,7 +124,7 @@
+ 			<span data-type="mph">mph</span><span data-type="kph">kph</span><span data-type="ms">m/s</span>
+ 		</div>
+ 		<div class="color">
+-			<span data-color="gradient"></span>
++			<span data-color="101010"></span>
+ 			<span data-color="008000"></span>
+ 			<span data-color="004F1B"></span>
+ 			<span data-color="C9A100"></span>
+@@ -126,7 +134,7 @@
+ 			<span data-color="004E99"></span>
+ 			<span data-color="8A02A9"></span>
+ 			<span data-color="111837"></span>
+-			<span data-color="101010"></span>
++			<span data-color="gradient"></span>
+ 		</div>
+ 		<br>
+ 		<!--a class="btn" tag="credits">About</a-->
+@@ -144,8 +152,8 @@
+ <!-- System System --->
+ 	<div id="system_settings">System Settings</div>
+ 	<div class="system">
+-		<li href="#" value="" onclick="RunWallpaper()"><img src="img/icons/personalization_normal.png"><span>Wallpaper</span></li>
+-		<li href="#" value="" onclick="RunAccount()"><img src="img/icons/account_normal.png"><span>Account</span></li>
++		<li href="#" value="" onclick="RunWallpaper()"><img src="img/icons/personalization_normal.png"><span>Background</span></li>
++		<li href="#" value="" onclick="RunAccount()"><img src="img/icons/account_normal.png"><span>User</span></li>
+ 		<li href="#" value="" onclick="RunDate()"><img src="img/icons/date_time_normal.png"><span>Date/Time</span></li>
+ 		<li href="#" value="" onclick="RunOnline()"><img src="img/icons/default_applications_normal.png"><span>Online</span></li>
+ 		<li href="#" value="" onclick="RunRegional()"><img src="img/icons/network_normal.png"><span>Regional</span></li>
+@@ -160,8 +168,37 @@
+ 		<li href="#" value="" onclick="RunPrinter()"><img src="img/icons/printer.png"><span>Printer</span></li>
+ 		<li href="#" value="" onclick="RunShare()"><img src="img/icons/share.png"><span>Sharing</span></li>
+ 	</div>
+-
++	
+ 	<div id="time" class="clock"><span id="clock-time">00:00</span><span id="clock-date">16 Juli 2013</span>
+-	</div><!--Hover-->
++	</div>
++</div>
++
++<!-- this is function bevel hover -->
++<script> 
++$(document).ready(function(){
++    $("#show-top, #show-bottom").hover(function(){
++        $("#bevel").css({
++          right: '0px'
++		});
++    $("#hide").hover(function(){
++        $("#bevel").css({
++          right: '-267px'
++		});
++		});
++	});
++});
++</script>
++
++<!-- this is script disble tab key -->
++<script>
++$(document).keydown(function (e) {
++    var keycode1 = (e.keyCode ? e.keyCode : e.which);
++    if (keycode1 == 0 || keycode1 == 9) {
++        e.preventDefault();
++        e.stopPropagation();
++    }
++});
++</script>
++
+ </body>
+ </html>
