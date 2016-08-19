@@ -1,6 +1,6 @@
 diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
 --- manokwari-1.0.9.orig/src/main.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/main.vala	2016-08-17 09:42:00.986689305 +0700
++++ manokwari-1.0.9/src/main.vala	2016-08-20 05:40:11.201223614 +0700
 @@ -19,14 +19,14 @@
      Intl.bind_textdomain_codeset( Config.GETTEXT_PACKAGE, "UTF-8" );
      Intl.textdomain( Config.GETTEXT_PACKAGE );
@@ -27,12 +27,11 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      var w = new PanelWindowHost ();
      w.show();
  
-@@ -63,24 +63,73 @@
+@@ -63,24 +63,61 @@
          }
      });
  
-+    ////////// PanelExtraBox //////////
-+
++    //////////// extra ////////////
 +    var extra_box = new PanelExtraBox();
 +    // SIGNALS
 +    w.extra_clicked.connect (() => {
@@ -44,11 +43,12 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
 +        }
 +    });
 +
++    //////////// Add extra /////////////
      w.dialog_opened.connect (() => {
          if (menu_box.visible) {
              menu_box.try_hide ();
 +        } else (extra_box.visible); {
-+            extra_box.try_hide ();
++			extra_box.try_hide ();
          }
      });
  
@@ -65,39 +65,27 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
              menu_box.try_hide ();
 +        } else (extra_box.visible); {
 +            extra_box.try_hide ();
++        }
++    });
++    
++/*    w.dialog_opened.connect (() => {
++        if (menu_box.visible) {
++            menu_box.try_hide ();
          }
      });
  
-+    ////////// PanelExtraBox //////////
++    d.desktop_clicked.connect (() => {
++        if (menu_box.visible) {
++            menu_box.try_hide ();
++        }
++    });
 +
-+//    var extra_box = new PanelExtraBox();
-+//    // SIGNALS
-+//    w.extra_clicked.connect (() => {
-+//        if (extra_box.visible) {
-+//            extra_box.try_hide ();
-+//        } else {
-+//            // Otherwise we want to show it
-+//            extra_box.show ();
-+//        }
-+//    });
-+
-+//    w.dialog_opened.connect (() => {
-+//        if (extra_box.visible) {
-+//            extra_box.try_hide ();
-+//        }
-+//    });
-+
-+//    d.desktop_clicked.connect (() => {
-+//        if (extra_box.visible) {
-+//            extra_box.try_hide ();
-+//        }
-+//    });
-+
-+//    w.windows_visible.connect (() => {
-+//        if (extra_box.visible) {
-+//            extra_box.try_hide ();
-+//        }
-+//    });
++    w.windows_visible.connect (() => {
++        if (menu_box.visible) {
++            menu_box.try_hide ();
++        }
++    });
++*/
  
      Gtk.main ();
      return 0;
@@ -149,17 +137,18 @@ diff -Naur manokwari-1.0.9.orig/src/panel-abstract-window.vala manokwari-1.0.9/s
              screen_size_changed ();
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/panel-extra-box.vala
 --- manokwari-1.0.9.orig/src/panel-extra-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-box.vala	2016-08-17 10:48:31.845152931 +0700
-@@ -0,0 +1,113 @@
++++ manokwari-1.0.9/src/panel-extra-box.vala	2016-08-19 17:32:13.861955178 +0700
+@@ -0,0 +1,117 @@
 +using Gtk;
 +
 +public class PanelExtraBox : PanelAbstractWindow {
 +    private const int COLUMN_WIDTH = 265;
-+    private const int y = -24;
++    private const int TOP = 24;
 +
 +    public signal void dismissed ();
 +    public signal void shown ();
 +    public signal void about_to_show_content ();
++    
 +    PanelExtraHTML view;
 +
 +    public PanelExtraBox () {
@@ -179,8 +168,11 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +        view = new PanelExtraHTML ();
 +        view.show_all ();
 +        add (view);
-+        set_type_hint (Gdk.WindowTypeHint.DOCK);
-+        set_title ("_manokwari_menu_");
++        skip_pager_hint = true;
++        skip_taskbar_hint = true;
++        set_keep_above (true);
++        set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
++        set_title ("_manokwari_extra_");
 +        set_visual (this.screen.get_rgba_visual ());
 +
 +        Gdk.RGBA c = Gdk.RGBA();
@@ -237,12 +229,12 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +
 +    }
 +
-+    public override void get_preferred_width (out int max, out int min) {
-+        max = min = COLUMN_WIDTH;
++    public override void get_preferred_width (out int min, out int max) {
++        min = max = COLUMN_WIDTH;
 +    }
 +
-+    public override void get_preferred_height (out int max, out int min) {
-+        max = min = PanelScreen.get_primary_monitor_geometry ().height;
++    public override void get_preferred_height (out int min, out int max) {
++        min = max = PanelScreen.get_primary_monitor_geometry ().height;
 +    }
 +
 +    private void dismiss () {
@@ -260,13 +252,13 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +
 +    public void try_hide () {
 +        view.triggerHideAnimation();
-+        GLib.Timeout.add (500, real_hide);
++        GLib.Timeout.add (300, real_hide);
 +        dismissed ();
 +    }
 +}
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-content.vala manokwari-1.0.9/src/panel-extra-content.vala
 --- manokwari-1.0.9.orig/src/panel-extra-content.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-content.vala	2016-08-17 07:02:34.556641385 +0700
++++ manokwari-1.0.9/src/panel-extra-content.vala	2016-08-20 05:41:51.680183667 +0700
 @@ -0,0 +1,30 @@
 +using GMenu;
 +using Gtk;
@@ -288,8 +280,8 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-content.vala manokwari-1.0.9/src
 +        show_all ();
 +    }
 +
-+    public override void get_preferred_width (out int max, out int min) {
-+        max = min = 260;
++    public override void get_preferred_width (out int min, out int max) {
++        min = max = 260;
 +    }
 +
 +    public void insert_separator () {
@@ -300,7 +292,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-content.vala manokwari-1.0.9/src
 +}
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-html.vala manokwari-1.0.9/src/panel-extra-html.vala
 --- manokwari-1.0.9.orig/src/panel-extra-html.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-html.vala	2016-08-17 11:34:42.705786432 +0700
++++ manokwari-1.0.9/src/panel-extra-html.vala	2016-08-20 05:42:49.835934189 +0700
 @@ -0,0 +1,84 @@
 +
 +using Gtk;
@@ -386,9 +378,30 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-html.vala manokwari-1.0.9/src/pa
 +
 +
 +}
+diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/panel-menu-box.vala
+--- manokwari-1.0.9.orig/src/panel-menu-box.vala	2016-07-31 20:10:39.000000000 +0700
++++ manokwari-1.0.9/src/panel-menu-box.vala	2016-08-19 03:26:00.760392320 +0700
+@@ -2,6 +2,7 @@
+ 
+ public class PanelMenuBox : PanelAbstractWindow {
+     private const int COLUMN_WIDTH = 265;
++    private const int TOP = 24;
+ 
+     public signal void dismissed ();
+     public signal void shown ();
+@@ -25,7 +26,8 @@
+         view = new PanelMenuHTML ();
+         view.show_all ();
+         add (view);
+-        set_type_hint (Gdk.WindowTypeHint.DOCK);
++        set_keep_above (true);
++        set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
+         set_title ("_manokwari_menu_");
+         set_visual (this.screen.get_rgba_visual ());
+ 
 diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-window.vala
 --- manokwari-1.0.9.orig/src/panel-window.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-window.vala	2016-08-17 19:31:51.482448307 +0700
++++ manokwari-1.0.9/src/panel-window.vala	2016-08-20 05:19:40.122654851 +0700
 @@ -40,7 +40,7 @@
          leave_notify_event.connect (() => {
  
@@ -551,7 +564,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      PanelHotkey hotkey;
      DBusProperties bus;
      Notify.Notification indicator;
-+    private Image extra_logo;     /////// extra
++    private Image extra_logo;     ///////// extra logo //////////
  
      public signal void windows_gone (); // Emitted when all windows have gone, either closed or minimized
      public signal void windows_visible (); // Emitted when there is at least one window visible
@@ -560,7 +573,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      public signal void menu_clicked (); // Emitted when the menu is clicked
 -
      public signal void activated (); // Emitted when the window host is activated (the size is getting bigger)
-+    /////////// extra
++    /////////// extra panel /////////////
 +    public signal void extra_clicked (); // Emitted when the extra is clicked
  
      public bool no_windows_around () {
@@ -573,7 +586,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          hotkey.bind("Print");
          hotkey.bind("<Mod4>x");
          hotkey.bind("MonBrightnessUp");
-@@ -602,7 +605,7 @@
+@@ -602,15 +605,26 @@
          hotkey.triggered.connect((key) => {
            handleKey(key);
          });
@@ -581,8 +594,9 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
 +
          logo = new Image.from_icon_name("distributor-logo", IconSize.LARGE_TOOLBAR);
          var event_box = new EventBox();
++        event_box.set_tooltip_text (_("Manokwari menu applications "));
          event_box.add (logo);
-@@ -610,7 +613,16 @@
+         event_box.show_all ();
  
          logo.set_pixel_size (height);
  
@@ -590,6 +604,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
 +        /////////////////// extra button logo ///////////////
 +        extra_logo = new Image.from_icon_name("view-list-symbolic", IconSize.LARGE_TOOLBAR);
 +        var extra_box = new EventBox();
++        extra_box.set_tooltip_text (_("Manokwari widget applications"));
 +        extra_box.add (extra_logo);
 +        extra_box.show_all ();
 +
@@ -600,15 +615,15 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          tray = new PanelTray ();
          tray.show ();
-@@ -647,6 +659,7 @@
+@@ -647,6 +661,7 @@
          calendar.update_position (height);
          calendar.hide ();
  
-+        outer_box.pack_end (extra_box, false, false, 2);   ////////// extra
++        outer_box.pack_end (extra_box, false, false, 2);      ////////// extra //////////
          outer_box.pack_end (pager_entry, false, false, 1);
          outer_box.pack_end (clock_event, false, false, 0);
          outer_box.pack_end (tray, false, false, 0);
-@@ -658,7 +671,7 @@
+@@ -658,7 +673,7 @@
          show();
          reposition ();
  
@@ -617,7 +632,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          screen_size_changed.connect (() => {
              queue_resize ();
-@@ -714,7 +727,7 @@
+@@ -714,15 +729,22 @@
          });
  
          configure_event.connect (() => {
@@ -626,21 +641,23 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
              return false;
          });
  
-@@ -723,6 +736,13 @@
+-        event_box.button_press_event.connect (() => {
++        event_box.button_press_event.connect (() => { 
+             menu_clicked ();
              return false;
          });
  
-+        ///////// extra
++        ///////// extra panel /////////////
 +        extra_box.button_press_event.connect (() => {
 +            extra_clicked ();
 +            return false;
 +        });
-+        ///////////////
++        ////////////// end ////////////////
 +
          clock_event.button_release_event.connect(() => {
              if (calendar.visible) {
                  calendar.hide ();
-@@ -742,7 +762,7 @@
+@@ -742,7 +764,7 @@
      }
  
      public override void get_preferred_height (out int min, out int max) {
@@ -649,7 +666,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      }
  
      public void update (bool emit_change_signals) {
-@@ -758,7 +778,7 @@
+@@ -758,7 +780,7 @@
          var num_total_windows = 0;
          var num_windows = 0;
          foreach (unowned Wnck.Window w in screen.get_windows()) {
@@ -658,7 +675,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
                && (w.get_name() != "_manokwari_menu_")
                && w.is_on_workspace (workspace)) {
                  var e = entry_map [w];
-@@ -813,6 +833,9 @@
+@@ -813,6 +835,9 @@
        else if (key == "<Mod4>x") {
          menu_clicked();
        }
@@ -668,7 +685,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
        else if (key == "Print") {
          Utils.print_screen();
        }
-@@ -825,7 +848,7 @@
+@@ -825,7 +850,7 @@
      }
  
      void handleWindowCycle() {
@@ -679,19 +696,15 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
 diff -Naur manokwari-1.0.9.orig/system/bevel.html manokwari-1.0.9/system/bevel.html
 --- manokwari-1.0.9.orig/system/bevel.html	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/bevel.html	2016-08-17 19:10:32.981178905 +0700
-@@ -0,0 +1,191 @@
-+<html>
-+<head>
++++ manokwari-1.0.9/system/bevel.html	2016-08-20 05:04:06.396552078 +0700
+@@ -0,0 +1,187 @@
++<html>                                                                  
++<head>                                                                  
 +<meta charset="utf-8">
-+
 +<meta name="viewport" content="width=device-width, initial-scale=1" /> 
 +
-+	<!--link rel="stylesheet" href="css/desktop.css" /-->
 +	<script type="text/javascript" src="js/jq.js"></script>
 +	<script type="text/javascript" src="js/xml2json.js"></script>
-+	<!--script type="text/javascript" src="js/xml-background.js"></script>
-+	<script type="text/javascript" src="js/desktop.js"></script-->
 +	<script type="text/javascript" src="js/jquery.min.js"></script>
 +
 +<!-- this is extra bevel -->
@@ -704,7 +717,7 @@ diff -Naur manokwari-1.0.9.orig/system/bevel.html manokwari-1.0.9/system/bevel.h
 +</head>
 +
 +<body>
-+<div id="base">
++<!--div id="base"-->
 +
 +<!--div id="show-top"></div>
 +<div id="show-bottom"></div>
@@ -874,8 +887,8 @@ diff -Naur manokwari-1.0.9.orig/system/bevel.html manokwari-1.0.9/system/bevel.h
 +</html>
 diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/bevel.css
 --- manokwari-1.0.9.orig/system/css/bevel.css	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/system/css/bevel.css	2016-08-17 08:29:28.890336922 +0700
-@@ -24,29 +24,26 @@
++++ manokwari-1.0.9/system/css/bevel.css	2016-08-20 04:33:40.368862000 +0700
+@@ -24,33 +24,33 @@
  	position: absolute;
  	width: 100%;
  	height: 100%;
@@ -891,27 +904,55 @@ diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/
 +	background-color: rgba(17,17,17,0.98);
  	color: #aaa;
 -	height: 104%;
-+	height: 110%;
++	height: 100%;
  	width: 265px;
  	overflow-x: hidden;
  	overflow-y: auto;
 -	right: -266px;
--	top: 0px;
 +	right: 0px;
-+	top: -24px;
- 	bottom:0px;
+ 	top: 0px;
+-	bottom:0px;
++	bottom: 0px;
  	position:absolute;
  	z-index: 150;
 -	-webkit-transition: right 250ms ease-in-out;
-+	/*-webkit-transition: right 250ms ease-in-out;*/
  }
 -/*#bevel:hover {
 -	right: 0px;
 -}*/
++
++.ui-animation-slide {
++    -webkit-transition: all 0.2s ease-in-out;
++}
  
  /* Sosmed */
  #sosial_media {
-@@ -105,10 +102,10 @@
+-	margin-top: 30px;
++	margin-top: 5px;
+ 	padding: 2px 0;
+ 	width:100%;
+ 	height: 24px;
+@@ -85,8 +85,8 @@
+ 
+ /* Music Player */
+ #player, #control {
+-	margin-top: 10px;
+-	padding-top: 8px;
++	margin-top: 15px;
++	padding-top: 5px;
+ 	color: #aaa;
+ 	width:100%;
+ 	height: auto;
+@@ -97,7 +97,7 @@
+ 	cursor:default;
+ }
+ #buttons{
+-    margin-top:20px;
++    margin-top:15px;
+ 	width:auto;
+ 	height: 34px;
+ 	float:center;
+@@ -105,10 +105,10 @@
  #buttons #play img,
  #buttons #pause img {
  	position:absolute;
@@ -926,7 +967,7 @@ diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/
  	padding: 5px;
  	float:center;
  	background: #333;
-@@ -164,6 +161,75 @@
+@@ -164,6 +164,75 @@
  	border: 2px solid #000;
  }
  
@@ -1002,7 +1043,25 @@ diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/
  /* System setting */
  #system_settings {
  	margin-top: 0px;
-@@ -291,3 +357,21 @@
+@@ -224,7 +293,7 @@
+ 	background: #1a1a1a;
+ 	color: #bbb;
+ 	bottom: 0px;
+-	padding: 5px 0 10px;
++	padding: 5px 0 34px;
+     cursor: default;
+     text-align: center;
+     border-top: 1px solid #0C0C0C;
+@@ -235,7 +304,7 @@
+ 	font-family: 'TrendexLightSSi.ttf';
+ 	display: block;
+ 	font-size: 42px;
+-	letter-spacing: 0;
++	letter-spacing: 2;
+ 	text-shadow: 0 0px 2px #000;
+ }
+ #clock-date {
+@@ -291,3 +360,20 @@
      font-weight: 400;
      src: local('Ubuntu Condensed'), local('UbuntuCondensed-Regular'), url('../fonts/ubuntu.woff') format('woff');
  }
@@ -1019,11 +1078,50 @@ diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/
 +#base {
 +	background-color: transparent;
 +	position: absolute;
-+	background: black;
 +	z-index: 3;
 +	width: 100%;
 +	height: 100%;
 +}
+diff -Naur manokwari-1.0.9.orig/system/css/style.css manokwari-1.0.9/system/css/style.css
+--- manokwari-1.0.9.orig/system/css/style.css	2016-07-31 20:10:39.000000000 +0700
++++ manokwari-1.0.9/system/css/style.css	2016-08-19 04:02:30.835396167 +0700
+@@ -211,10 +211,10 @@
+     position: fixed;
+     clear: both;
+     bottom: 0;
+-    height: 65px;
++    height: 90px;
+     width: 250px; 
+     margin: 0px 0px -65px 0px;
+-    padding: 10px 10px 0px 15px;
++    padding: 10px 10px 0px 20px;
+     z-index: 100;
+     background: #1a1a1a; 
+     overflow: hidden;
+@@ -235,6 +235,7 @@
+     width: 48;
+     height: 48;
+     margin-right: 10px;
++	margin-top: 3px;
+     cursor: pointer;
+ 	opacity: 0.8;
+ 	-webkit-transition: all 0.2s ease-out;
+@@ -250,6 +251,7 @@
+     margin: 0px;
+     padding-top:5px;
+     font-family: 'Aurulent Sans';
++	opacity: 0.8;
+ }
+ 
+ #userAccount span {
+@@ -257,6 +259,7 @@
+     color: #e2e2e2;
+     text-shadow: 0 1px 1px #000;
+     font-family: 'Aurulent Sans';
++    opacity: 0.8;
+ }
+ 
+ ::-webkit-scrollbar {
 diff -Naur manokwari-1.0.9.orig/system/desktop.html manokwari-1.0.9/system/desktop.html
 --- manokwari-1.0.9.orig/system/desktop.html	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/system/desktop.html	2016-08-17 03:58:24.031382543 +0700
@@ -1215,6 +1313,144 @@ diff -Naur manokwari-1.0.9.orig/system/desktop.html manokwari-1.0.9/system/deskt
  </script>
  
  <!-- this is script disble tab key -->
+diff -Naur manokwari-1.0.9.orig/system/js/bevel.js manokwari-1.0.9/system/js/bevel.js
+--- manokwari-1.0.9.orig/system/js/bevel.js	2016-07-31 20:10:39.000000000 +0700
++++ manokwari-1.0.9/system/js/bevel.js	2016-08-20 05:43:14.243889765 +0700
+@@ -11,24 +11,6 @@
+ 	Utils.run_command("xdg-open https://twitter.com/BlankOnLinux/");
+ }
+ 
+-//mocp
+-/*function MocpStart(){Utils.run_command("audacious");}
+-
+-function MocpState(){
+-	document.getElementById("MocpTitle2").innerHTML = Utils.run_command('mocp -Q %title');
+-}*/
+-
+-/*function MocpBackward(){Utils.run_command("audacious -r");}
+-function MocpPause(){Utils.run_command("audacious -u");}
+-function MocpPlay(){
+-	if(Utils.run_command("audacious") == false){
+-		Utils.run_command("audacious");
+-		Utils.run_command("audacious -p");
+-	}
+-	else{
+-		Utils.run_command("audacious -p");
+-	}
+-}*/
+ function Play(){Utils.run_command("audacious -p");}
+ function Stop(){Utils.run_command("audtool shutdown");}
+ function Prev(){Utils.run_command("audacious -r");}
+@@ -43,15 +25,8 @@
+ 		else{$('#repeat').addClass("selected");}
+ 	});
+ 
+-	//$('#shuffle').click(function(){
+-		//if($('#shuffle').hasClass("selected")){ $('#shuffle').removeClass("selected");}
+-		//else{$('#shuffle').addClass("selected");}
+-	//});
+-
+ });
+ 
+-// gnome control center
+-
+ function RunWallpaper() {
+ 	Utils.run_command("gnome-control-center background");
+ }
+@@ -97,3 +72,93 @@
+ function RunShare() {
+ 	Utils.run_command("gnome-control-center sharing");
+ }
++
++//  slide  //
++
++var extra = (function() {
++    var activePage = null;
++    var prepareShow = function() {
++        $("#bevel").css("right", "0px");
++    }
++
++    var prepareHide = function() {
++        changePage($("#bevel"), {
++            transition: "none"
++        });
++        $("#bevel").addClass("ui-animation-slide");
++        $("#bevel").css("right", "-" + window.outerWidth + "px");
++    }
++
++    var changePage = function(page) {
++        if (typeof page === "undefined" || page.length == 0) {
++            console.log("The specified page is invalid");
++            return;
++        }
++
++        var withAnimation = true;
++
++        if (arguments.length == 2) {
++            withAnimation = (arguments[1].transition != "none");
++        }
++        var width = window.outerWidth;
++
++        if (activePage == null) {
++            activePage = $("#bevel");
++            activePage.addClass("ui-animation-slide");
++        }
++
++        if (activePage == page) {
++            console.log("Trying to change to same page, exiting.");
++            return;
++        }
++
++        page.show();
++        if (withAnimation == false) {
++            activePage.removeClass("ui-animation-slide");
++        }
++        page.removeClass("ui-animation-slide");
++
++        if (page.attr("id") == "bevel") {
++            console.log("going to bevel");
++
++            if (withAnimation) {
++                page.css("right", "-" + width + "px");
++            }
++            activePage.css("right", width + "px");
++        } else {
++            console.log("going away from bevel");
++
++            if (withAnimation) {
++                page.css("right", width + "px");
++            }
++            page.css("right");
++            activePage.css("right", "-" + width + "px");
++        }
++
++        if (withAnimation) {
++            page.addClass("ui-animation-slide");
++        }
++        page.css("right", "0px");
++        activePage = page;
++    }
++
++    var handleEsc = function(e) {
++        if (activePage != null) {
++            if (activePage.attr("id") != "bevel") {
++                changePage($("#bevel"));
++                return true;
++            }
++        }
++        return false; // Not handled
++    }
++
++    return {
++        handleEsc: handleEsc,
++        prepareHide: prepareHide,
++        prepareShow: prepareShow,
++    }
++})();
++
++$(document).ready(function() {
++    extra.init ();
++});
 diff -Naur manokwari-1.0.9.orig/system/widget/weather/config.xml manokwari-1.0.9/system/widget/weather/config.xml
 --- manokwari-1.0.9.orig/system/widget/weather/config.xml	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/system/widget/weather/config.xml	1970-01-01 07:00:00.000000000 +0700
@@ -1253,7 +1489,7 @@ diff -Naur manokwari-1.0.9.orig/system/widget/weather/config.xml manokwari-1.0.9
 -
 diff -Naur manokwari-1.0.9.orig/system/widget/weather/css/style.css manokwari-1.0.9/system/widget/weather/css/style.css
 --- manokwari-1.0.9.orig/system/widget/weather/css/style.css	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/system/widget/weather/css/style.css	2016-08-12 13:17:01.771680000 +0700
++++ manokwari-1.0.9/system/widget/weather/css/style.css	2016-08-19 10:23:02.023504060 +0700
 @@ -11,7 +11,7 @@
      overflow-y:hidden;
      overflow-x:hidden;
@@ -1274,15 +1510,24 @@ diff -Naur manokwari-1.0.9.orig/system/widget/weather/css/style.css manokwari-1.
  }
  .full {
  	margin-top: 5px;
-@@ -193,7 +193,7 @@
- }
- #errorMessage {
-     display: none;
--    background: #151515;
-+    background: #111111;
+@@ -185,7 +185,7 @@
+     width: 100%;
+     height: 141px;
+     bottom: 0px;
+-    top: 215px;
++    top: 190px;
+     padding-top: 2px; 
+     padding-left: 0px;
+     padding-bottom: 0px;
+@@ -197,7 +197,7 @@
      position: absolute;
      width: 100%;
      height: 120px;
+-    top: 215px;
++    top: 190px;
+     padding-top: 20px;
+     -webkit-transform-origin: 0 0;
+ }
 @@ -280,7 +280,7 @@
      line-height: 30px;
      height: 28px;

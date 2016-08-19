@@ -1,3 +1,9 @@
+manokwari (1.0.9-0blankon1+extra2) tambora; urgency=medium
+
+  * Added extra_panel_03.patch
+
+ -- Mijortsa <mijortsa@licik2.blankon.in>  Sat, 20 Aug 2016 06:10:07 +0700
+
 manokwari (1.0.9-0blankon1+extra1) tambora; urgency=medium
 
   * Added extra_panel_01.patch
