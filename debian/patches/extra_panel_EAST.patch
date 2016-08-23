@@ -1,6 +1,6 @@
 diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
 --- manokwari-1.0.9.orig/src/main.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/main.vala	2016-08-20 05:40:11.201223614 +0700
++++ manokwari-1.0.9/src/main.vala	2016-08-22 13:37:05.947331635 +0700
 @@ -19,14 +19,14 @@
      Intl.bind_textdomain_codeset( Config.GETTEXT_PACKAGE, "UTF-8" );
      Intl.textdomain( Config.GETTEXT_PACKAGE );
@@ -27,11 +27,20 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      var w = new PanelWindowHost ();
      w.show();
  
-@@ -63,24 +63,61 @@
+@@ -62,7 +62,7 @@
+             menu_box.show ();
+         }
+     });
+-
++    
+     w.dialog_opened.connect (() => {
+         if (menu_box.visible) {
+             menu_box.try_hide ();
+@@ -81,6 +81,36 @@
          }
      });
  
-+    //////////// extra ////////////
++  //////////// extra ////////////
 +    var extra_box = new PanelExtraBox();
 +    // SIGNALS
 +    w.extra_clicked.connect (() => {
@@ -43,49 +52,24 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
 +        }
 +    });
 +
-+    //////////// Add extra /////////////
-     w.dialog_opened.connect (() => {
-         if (menu_box.visible) {
-             menu_box.try_hide ();
-+        } else (extra_box.visible); {
-+			extra_box.try_hide ();
-         }
-     });
- 
-     d.desktop_clicked.connect (() => {
-         if (menu_box.visible) {
-             menu_box.try_hide ();
-+        } else (extra_box.visible); {
-+            extra_box.try_hide ();
-         }
-     });
- 
-     w.windows_visible.connect (() => {
-         if (menu_box.visible) {
-             menu_box.try_hide ();
-+        } else (extra_box.visible); {
++    w.dialog_opened.connect (() => {
++        if (extra_box.visible) {
 +            extra_box.try_hide ();
 +        }
 +    });
-+    
-+/*    w.dialog_opened.connect (() => {
-+        if (menu_box.visible) {
-+            menu_box.try_hide ();
-         }
-     });
- 
++
 +    d.desktop_clicked.connect (() => {
-+        if (menu_box.visible) {
-+            menu_box.try_hide ();
++        if (extra_box.visible) {
++            extra_box.try_hide ();
 +        }
 +    });
 +
 +    w.windows_visible.connect (() => {
-+        if (menu_box.visible) {
-+            menu_box.try_hide ();
++        if (extra_box.visible) {
++            extra_box.try_hide ();
 +        }
 +    });
-+*/
++
  
      Gtk.main ();
      return 0;
@@ -137,18 +121,19 @@ diff -Naur manokwari-1.0.9.orig/src/panel-abstract-window.vala manokwari-1.0.9/s
              screen_size_changed ();
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/panel-extra-box.vala
 --- manokwari-1.0.9.orig/src/panel-extra-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-box.vala	2016-08-19 17:32:13.861955178 +0700
-@@ -0,0 +1,117 @@
++++ manokwari-1.0.9/src/panel-extra-box.vala	2016-08-23 15:19:15.549812241 +0700
+@@ -0,0 +1,147 @@
 +using Gtk;
 +
 +public class PanelExtraBox : PanelAbstractWindow {
 +    private const int COLUMN_WIDTH = 265;
 +    private const int TOP = 24;
++    private bool inside;
 +
 +    public signal void dismissed ();
 +    public signal void shown ();
 +    public signal void about_to_show_content ();
-+    
++
 +    PanelExtraHTML view;
 +
 +    public PanelExtraBox () {
@@ -165,14 +150,22 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +            stderr.printf ("Unable to subscribe to desktop launcher's \"Launched\" signal: %s\n", e.message);
 +        }
 +
++        // We need to register which events we are interested in
++        add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
++        add_events(Gdk.EventMask.ENTER_NOTIFY_MASK);
++        add_events(Gdk.EventMask.LEAVE_NOTIFY_MASK);
++
++        // Connecting some events, entered, leave and button pressed
++        button_press_event.connect(button_pressed);
++        enter_notify_event.connect(mouse_entered);
++        leave_notify_event.connect(mouse_leave);
++
 +        view = new PanelExtraHTML ();
 +        view.show_all ();
 +        add (view);
-+        skip_pager_hint = true;
-+        skip_taskbar_hint = true;
 +        set_keep_above (true);
 +        set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
-+        set_title ("_manokwari_extra_");
++        set_title ("_manokwari_menu_");
 +        set_visual (this.screen.get_rgba_visual ());
 +
 +        Gdk.RGBA c = Gdk.RGBA();
@@ -184,6 +177,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +        set_app_paintable(true);
 +
 +        PanelScreen.move_window (this, Gdk.Gravity.NORTH_EAST);
++
 +        view.start();
 +
 +        hide ();
@@ -193,7 +187,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +        stdout.printf("xxx\n");
 +            // Only dismiss if within the area
 +            // TODO: multihead
-+            if (event.x > get_window().get_width ()) {
++            if (event.x > get_window().get_width()) {
 +                dismiss ();
 +                return true;
 +            }
@@ -237,6 +231,26 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +        min = max = PanelScreen.get_primary_monitor_geometry ().height;
 +    }
 +
++    public bool mouse_entered(Gdk.EventCrossing e) {
++        inside = true;
++        shown();
++        return true;
++    }
++
++    public bool mouse_leave(Gdk.EventCrossing e) {
++        inside = false;
++        try_hide();
++        return true;
++    }
++
++    public bool button_pressed(Gdk.EventButton e) {
++        if (visible) {
++            shown();
++        }
++        inside = true;
++        return true;
++    }
++
 +    private void dismiss () {
 +        if (visible) {
 +            stdout.printf("Extra box dismissed \n");
@@ -252,13 +266,13 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +
 +    public void try_hide () {
 +        view.triggerHideAnimation();
-+        GLib.Timeout.add (300, real_hide);
++        GLib.Timeout.add (500, real_hide);
 +        dismissed ();
 +    }
 +}
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-content.vala manokwari-1.0.9/src/panel-extra-content.vala
 --- manokwari-1.0.9.orig/src/panel-extra-content.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-content.vala	2016-08-20 05:41:51.680183667 +0700
++++ manokwari-1.0.9/src/panel-extra-content.vala	2016-08-21 10:30:29.917451933 +0700
 @@ -0,0 +1,30 @@
 +using GMenu;
 +using Gtk;
@@ -292,7 +306,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-content.vala manokwari-1.0.9/src
 +}
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-html.vala manokwari-1.0.9/src/panel-extra-html.vala
 --- manokwari-1.0.9.orig/src/panel-extra-html.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-html.vala	2016-08-20 05:42:49.835934189 +0700
++++ manokwari-1.0.9/src/panel-extra-html.vala	2016-08-22 16:03:53.384472157 +0700
 @@ -0,0 +1,84 @@
 +
 +using Gtk;
@@ -341,11 +355,11 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-html.vala manokwari-1.0.9/src/pa
 +        });
 +
 +        window_object_cleared.connect ((frame, context) => {
-+            PanelXdgData.setup_js_class ((JSCore.GlobalContext) context);
++            //PanelXdgData.setup_js_class ((JSCore.GlobalContext) context);
 +            Utils.setup_js_class ((JSCore.GlobalContext) context);
-+            PanelPlaces.setup_js_class ((JSCore.GlobalContext) context);
-+            PanelSessionManager.setup_js_class ((JSCore.GlobalContext) context);
-+            PanelUser.setup_js_class ((JSCore.GlobalContext) context);
++            //PanelPlaces.setup_js_class ((JSCore.GlobalContext) context);
++            //PanelSessionManager.setup_js_class ((JSCore.GlobalContext) context);
++            //PanelUser.setup_js_class ((JSCore.GlobalContext) context);
 +        });
 +    }
 +
@@ -380,16 +394,35 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-html.vala manokwari-1.0.9/src/pa
 +}
 diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/panel-menu-box.vala
 --- manokwari-1.0.9.orig/src/panel-menu-box.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-menu-box.vala	2016-08-19 03:26:00.760392320 +0700
-@@ -2,6 +2,7 @@
++++ manokwari-1.0.9/src/panel-menu-box.vala	2016-08-23 15:58:25.656898560 +0700
+@@ -2,10 +2,13 @@
  
  public class PanelMenuBox : PanelAbstractWindow {
      private const int COLUMN_WIDTH = 265;
 +    private const int TOP = 24;
++    private bool inside;
  
      public signal void dismissed ();
      public signal void shown ();
-@@ -25,7 +26,8 @@
+     public signal void about_to_show_content ();
++    
+     PanelMenuHTML view;
+ 
+     public PanelMenuBox () {
+@@ -22,10 +25,21 @@
+             stderr.printf ("Unable to subscribe to desktop launcher's \"Launched\" signal: %s\n", e.message);
+         }
+ 
++        // We need to register which events we are interested in
++        add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
++        add_events(Gdk.EventMask.ENTER_NOTIFY_MASK);
++        add_events(Gdk.EventMask.LEAVE_NOTIFY_MASK);
++
++        // Connecting some events, entered, leave and button pressed
++        button_press_event.connect(button_pressed);
++        enter_notify_event.connect(mouse_entered);
++        leave_notify_event.connect(mouse_leave);
++
          view = new PanelMenuHTML ();
          view.show_all ();
          add (view);
@@ -399,9 +432,36 @@ diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/pane
          set_title ("_manokwari_menu_");
          set_visual (this.screen.get_rgba_visual ());
  
+@@ -91,6 +105,26 @@
+         min = max = PanelScreen.get_primary_monitor_geometry ().height; 
+     }
+ 
++    public bool mouse_entered(Gdk.EventCrossing e) {
++        inside = true;
++        shown();
++        return true;
++    }
++
++    public bool mouse_leave(Gdk.EventCrossing e) {
++        inside = false;
++        try_hide();
++        return true;
++    }
++
++    public bool button_pressed(Gdk.EventButton e) {
++        if (visible) {
++            shown();
++        }
++        inside = true;
++        return true;
++    }
++
+     private void dismiss () {
+         if (visible) {
+             stdout.printf("Menu box dismissed \n");
 diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-window.vala
 --- manokwari-1.0.9.orig/src/panel-window.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-window.vala	2016-08-20 05:19:40.122654851 +0700
++++ manokwari-1.0.9/src/panel-window.vala	2016-08-23 01:26:48.735727190 +0700
 @@ -40,7 +40,7 @@
          leave_notify_event.connect (() => {
  
@@ -477,6 +537,15 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
 +        style.render_background (cr, 0, 0, get_allocated_width (), get_allocated_height ());
  
          update_icon ();
+ 
+@@ -286,7 +286,7 @@
+         menu.attach_to_widget (this, null);
+ 
+         popup_shown = true;
+-        menu.popup (null, null, null, button, event_time);
++        menu.popup (null, null, null, button, event_time); 
+     }
+ 
  
 @@ -317,13 +317,13 @@
          set_type_hint (Gdk.WindowTypeHint.DOCK);
@@ -560,7 +629,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          }
          if (selected == null) {
              selected = first;
-@@ -566,14 +566,16 @@
+@@ -566,14 +566,15 @@
      PanelHotkey hotkey;
      DBusProperties bus;
      Notify.Notification indicator;
@@ -573,12 +642,11 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      public signal void menu_clicked (); // Emitted when the menu is clicked
 -
      public signal void activated (); // Emitted when the window host is activated (the size is getting bigger)
-+    /////////// extra panel /////////////
-+    public signal void extra_clicked (); // Emitted when the extra is clicked
++    public signal void extra_clicked (); /////////// extra panel /////////////// Emitted when the extra is clicked
  
      public bool no_windows_around () {
          update (false);
-@@ -595,6 +597,7 @@
+@@ -595,6 +596,7 @@
          hotkey = new PanelHotkey();
  
          hotkey.bind("<Alt>Tab");
@@ -586,7 +654,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          hotkey.bind("Print");
          hotkey.bind("<Mod4>x");
          hotkey.bind("MonBrightnessUp");
-@@ -602,15 +605,26 @@
+@@ -602,15 +604,27 @@
          hotkey.triggered.connect((key) => {
            handleKey(key);
          });
@@ -594,7 +662,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
 +
          logo = new Image.from_icon_name("distributor-logo", IconSize.LARGE_TOOLBAR);
          var event_box = new EventBox();
-+        event_box.set_tooltip_text (_("Manokwari menu applications "));
++        event_box.set_tooltip_text (_("Menu applications "));
          event_box.add (logo);
          event_box.show_all ();
  
@@ -604,25 +672,28 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
 +        /////////////////// extra button logo ///////////////
 +        extra_logo = new Image.from_icon_name("view-list-symbolic", IconSize.LARGE_TOOLBAR);
 +        var extra_box = new EventBox();
-+        extra_box.set_tooltip_text (_("Manokwari widget applications"));
++        extra_box.set_tooltip_text (_("Widget applications"));
 +        extra_box.add (extra_logo);
 +        extra_box.show_all ();
 +
 +        extra_logo.set_pixel_size (height);
++
 +        //////////////////// end extra logo /////////////////
 +
 +        entry_map = new HashMap <Wnck.Window, PanelWindowEntry> ();
  
          tray = new PanelTray ();
          tray.show ();
-@@ -647,6 +661,7 @@
+@@ -647,7 +661,8 @@
          calendar.update_position (height);
          calendar.hide ();
  
-+        outer_box.pack_end (extra_box, false, false, 2);      ////////// extra //////////
-         outer_box.pack_end (pager_entry, false, false, 1);
+-        outer_box.pack_end (pager_entry, false, false, 1);
++        outer_box.pack_end (extra_box, false, false, 3);      ////////// extra //////////
++        outer_box.pack_end (pager_entry, false, false, 0);
          outer_box.pack_end (clock_event, false, false, 0);
          outer_box.pack_end (tray, false, false, 0);
+         outer_box.pack_start (event_box, false, false, 6);
 @@ -658,7 +673,7 @@
          show();
          reposition ();
@@ -887,7 +958,7 @@ diff -Naur manokwari-1.0.9.orig/system/bevel.html manokwari-1.0.9/system/bevel.h
 +</html>
 diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/bevel.css
 --- manokwari-1.0.9.orig/system/css/bevel.css	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/system/css/bevel.css	2016-08-20 04:33:40.368862000 +0700
++++ manokwari-1.0.9/system/css/bevel.css	2016-08-21 05:33:11.595132461 +0700
 @@ -24,33 +24,33 @@
  	position: absolute;
  	width: 100%;
@@ -967,7 +1038,12 @@ diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/
  	padding: 5px;
  	float:center;
  	background: #333;
-@@ -164,6 +164,75 @@
+@@ -160,10 +160,79 @@
+ #buttons .selected {
+ 	background-color: #444;
+ 	-webkit-transition: all 0.2s ease-in-out;
+-	-webkit-box-shadow: inset 0px 0px 1px 15px #492F2F;  /*#882626;*/
++	-webkit-box-shadow: inset 0px 0px 1px 15px #4084D6;  /*#882626;*/
  	border: 2px solid #000;
  }
  
@@ -1315,7 +1391,7 @@ diff -Naur manokwari-1.0.9.orig/system/desktop.html manokwari-1.0.9/system/deskt
  <!-- this is script disble tab key -->
 diff -Naur manokwari-1.0.9.orig/system/js/bevel.js manokwari-1.0.9/system/js/bevel.js
 --- manokwari-1.0.9.orig/system/js/bevel.js	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/system/js/bevel.js	2016-08-20 05:43:14.243889765 +0700
++++ manokwari-1.0.9/system/js/bevel.js	2016-08-22 23:20:54.785494927 +0700
 @@ -11,24 +11,6 @@
  	Utils.run_command("xdg-open https://twitter.com/BlankOnLinux/");
  }
@@ -1448,9 +1524,9 @@ diff -Naur manokwari-1.0.9.orig/system/js/bevel.js manokwari-1.0.9/system/js/bev
 +    }
 +})();
 +
-+$(document).ready(function() {
-+    extra.init ();
-+});
++//$(document).ready(function() {
++//    extra.init ();
++//});
 diff -Naur manokwari-1.0.9.orig/system/widget/weather/config.xml manokwari-1.0.9/system/widget/weather/config.xml
 --- manokwari-1.0.9.orig/system/widget/weather/config.xml	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/system/widget/weather/config.xml	1970-01-01 07:00:00.000000000 +0700
