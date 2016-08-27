@@ -1,3 +1,9 @@
+manokwari (1.0.9-0blankon1+extra5) tambora; urgency=medium
+
+  * Re-patch penyesuaian resolution panel menu
+
+ -- Mijortsa <mijortsa@blankon.id>  Sat, 27 Aug 2016 10:05:21 +0700
+
 manokwari (1.0.9-0blankon1+extra4) tambora; urgency=medium
 
   * added extra_panel_fix.patch :

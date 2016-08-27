@@ -121,13 +121,14 @@ diff -Naur manokwari-1.0.9.orig/src/panel-abstract-window.vala manokwari-1.0.9/s
              screen_size_changed ();
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/panel-extra-box.vala
 --- manokwari-1.0.9.orig/src/panel-extra-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-box.vala	2016-08-24 18:02:15.415880035 +0700
-@@ -0,0 +1,127 @@
++++ manokwari-1.0.9/src/panel-extra-box.vala	2016-08-27 09:36:46.298682726 +0700
+@@ -0,0 +1,128 @@
 +using Gtk;
 +
 +public class PanelExtraBox : PanelAbstractWindow {
 +    private const int COLUMN_WIDTH = 265;
 +    private const int TOP = 24;
++    private const int BOTTOM = 24;
 +    private bool inside;
 +
 +    public signal void dismissed ();
@@ -382,12 +383,13 @@ diff -Naur manokwari-1.0.9.orig/src/panel-item.vala manokwari-1.0.9/src/panel-it
          box.pack_start (image, false, false, 10);
 diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/panel-menu-box.vala
 --- manokwari-1.0.9.orig/src/panel-menu-box.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-menu-box.vala	2016-08-24 12:39:02.688605210 +0700
-@@ -2,10 +2,12 @@
++++ manokwari-1.0.9/src/panel-menu-box.vala	2016-08-27 09:36:51.754840344 +0700
+@@ -2,10 +2,13 @@
  
  public class PanelMenuBox : PanelAbstractWindow {
      private const int COLUMN_WIDTH = 265;
 +    private const int TOP = 24;
++    private const int BOTTOM = 24;
  
      public signal void dismissed ();
      public signal void shown ();
@@ -396,7 +398,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/pane
      PanelMenuHTML view;
  
      public PanelMenuBox () {
-@@ -25,7 +27,8 @@
+@@ -25,7 +28,8 @@
          view = new PanelMenuHTML ();
          view.show_all ();
          add (view);
@@ -408,8 +410,17 @@ diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/pane
  
 diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-window.vala
 --- manokwari-1.0.9.orig/src/panel-window.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-window.vala	2016-08-24 15:46:54.186611847 +0700
-@@ -40,7 +40,7 @@
++++ manokwari-1.0.9/src/panel-window.vala	2016-08-26 10:51:05.956799313 +0700
+@@ -13,6 +13,8 @@
+     }
+ 
+     public PanelWindowPager () {
++        get_style_context().add_class("manokwari-panel-pager");
++        get_style_context().remove_class("background");
+         set_type_hint (Gdk.WindowTypeHint.DOCK);
+         var box = new Box (Gtk.Orientation.VERTICAL, 0);
+         var pager = new Wnck.Pager ();
+@@ -40,7 +42,7 @@
          leave_notify_event.connect (() => {
  
              dismiss ();
@@ -418,7 +429,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
          map_event.connect (() => {
-@@ -93,7 +93,7 @@
+@@ -93,7 +95,7 @@
          button_press_event.connect ((event) => {
              pager.show_all ();
              pager_shown ();
@@ -427,7 +438,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
      }
-@@ -105,7 +105,7 @@
+@@ -105,11 +107,11 @@
  
      public override void get_preferred_height (out int min, out int max) {
          // TODO
@@ -436,7 +447,12 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      }
  
      public override void get_preferred_width (out int min, out int max) {
-@@ -209,7 +209,7 @@
+-        max = min = 50;
++        max = min = 30;
+     }
+ 
+     public override bool draw (Context cr) {
+@@ -209,7 +211,7 @@
              else
                  set_tooltip_text ("");
              entered ();
@@ -445,7 +461,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
          button_press_event.connect ((event) => {
-@@ -223,7 +223,7 @@
+@@ -223,7 +225,7 @@
                  }
                  sync_window_states ();
              }
@@ -454,7 +470,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
          drag_motion.connect (() => {
-@@ -243,26 +243,26 @@
+@@ -243,26 +245,26 @@
              icon = window_info.get_icon ();
          }
      }
@@ -485,7 +501,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          update_icon ();
  
-@@ -286,7 +286,7 @@
+@@ -286,7 +288,7 @@
          menu.attach_to_widget (this, null);
  
          popup_shown = true;
@@ -494,7 +510,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      }
  
  
-@@ -317,13 +317,13 @@
+@@ -317,13 +319,13 @@
          set_type_hint (Gdk.WindowTypeHint.DOCK);
  
          set_app_paintable(true);
@@ -510,7 +526,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          anim.frame.connect (() => {
              queue_draw ();
          });
-@@ -334,7 +334,7 @@
+@@ -334,7 +336,7 @@
      }
  
      public override void get_preferred_height (out int min, out int max) {
@@ -519,7 +535,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      }
  
      public override void get_preferred_width (out int min, out int max) {
-@@ -351,32 +351,32 @@
+@@ -351,32 +353,32 @@
          }
          pango.set_font_description (style.get_font (state));
          pango.set_markup ("<big>%s</big>".printf (text), -1);
@@ -558,7 +574,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          if (icon != null) {
              Gdk.cairo_set_source_pixbuf (cr, icon, icon_x + offset, 0);
          }
-@@ -402,7 +402,7 @@
+@@ -402,7 +404,7 @@
          var state = StateFlags.NORMAL;
  
          stack.clear ();
@@ -567,7 +583,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          if (active_entry != null)  {
              var start_x = -1;
-@@ -533,7 +533,7 @@
+@@ -533,7 +535,7 @@
                next = true;
            } else {
                next = false;
@@ -576,7 +592,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          }
          if (selected == null) {
              selected = first;
-@@ -566,14 +566,15 @@
+@@ -566,14 +568,15 @@
      PanelHotkey hotkey;
      DBusProperties bus;
      Notify.Notification indicator;
@@ -593,7 +609,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
      public bool no_windows_around () {
          update (false);
-@@ -595,6 +596,7 @@
+@@ -595,6 +598,7 @@
          hotkey = new PanelHotkey();
  
          hotkey.bind("<Alt>Tab");
@@ -601,7 +617,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          hotkey.bind("Print");
          hotkey.bind("<Mod4>x");
          hotkey.bind("MonBrightnessUp");
-@@ -602,15 +604,27 @@
+@@ -602,15 +606,27 @@
          hotkey.triggered.connect((key) => {
            handleKey(key);
          });
@@ -631,7 +647,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          tray = new PanelTray ();
          tray.show ();
-@@ -647,7 +661,8 @@
+@@ -647,7 +663,8 @@
          calendar.update_position (height);
          calendar.hide ();
  
@@ -641,7 +657,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          outer_box.pack_end (clock_event, false, false, 0);
          outer_box.pack_end (tray, false, false, 0);
          outer_box.pack_start (event_box, false, false, 6);
-@@ -658,7 +673,7 @@
+@@ -658,7 +675,7 @@
          show();
          reposition ();
  
@@ -650,7 +666,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          screen_size_changed.connect (() => {
              queue_resize ();
-@@ -714,15 +729,22 @@
+@@ -714,15 +731,22 @@
          });
  
          configure_event.connect (() => {
@@ -675,7 +691,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          clock_event.button_release_event.connect(() => {
              if (calendar.visible) {
                  calendar.hide ();
-@@ -742,7 +764,7 @@
+@@ -742,7 +766,7 @@
      }
  
      public override void get_preferred_height (out int min, out int max) {
@@ -684,7 +700,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      }
  
      public void update (bool emit_change_signals) {
-@@ -758,7 +780,7 @@
+@@ -758,7 +782,7 @@
          var num_total_windows = 0;
          var num_windows = 0;
          foreach (unowned Wnck.Window w in screen.get_windows()) {
@@ -693,7 +709,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
                && (w.get_name() != "_manokwari_menu_")
                && w.is_on_workspace (workspace)) {
                  var e = entry_map [w];
-@@ -813,6 +835,9 @@
+@@ -813,6 +837,9 @@
        else if (key == "<Mod4>x") {
          menu_clicked();
        }
@@ -703,7 +719,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
        else if (key == "Print") {
          Utils.print_screen();
        }
-@@ -825,7 +850,7 @@
+@@ -825,7 +852,7 @@
      }
  
      void handleWindowCycle() {
@@ -1105,6 +1121,18 @@ diff -Naur manokwari-1.0.9.orig/system/css/bevel.css manokwari-1.0.9/system/css/
 +	width: 100%;
 +	height: 100%;
 +}
+diff -Naur manokwari-1.0.9.orig/system/css/desktop.css manokwari-1.0.9/system/css/desktop.css
+--- manokwari-1.0.9.orig/system/css/desktop.css	2016-07-31 20:10:39.000000000 +0700
++++ manokwari-1.0.9/system/css/desktop.css	2016-08-26 20:28:15.231537000 +0700
+@@ -136,7 +136,7 @@
+ 	content:"";
+     display: -webkit-box;
+ /*	background: -webkit-linear-gradient(rgba(187,187,187,0.8), rgba(34,34,34,0.8));*/
+-	background:-webkit-linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.6));
++	background:-webkit-linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.7));
+     height: 64px;
+     margin-top: 35px;
+     z-index: 12;
 diff -Naur manokwari-1.0.9.orig/system/css/style.css manokwari-1.0.9/system/css/style.css
 --- manokwari-1.0.9.orig/system/css/style.css	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/system/css/style.css	2016-08-24 12:09:02.996530599 +0700
