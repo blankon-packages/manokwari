@@ -14,14 +14,15 @@ Build-Depends: autotools-dev,
                libnotify-dev,
                libtool,
                libunique-3.0-dev,
-               libvala-0.32-dev,
+               libvala-0.28-dev,
                libwnck-3-dev,
                libwebkitgtk-3.0-dev,
                libjavascriptcoregtk-3.0-dev,
                libsoup2.4-dev,
-               valac,
+               valac-0.28,
                automake,
-               xorg-dev
+               xorg-dev,
+               libnotify-dev
 Standards-Version: 3.9.2
 Homepage: https://github.com/BlankOn/manokwari
 VCS-git: git://github.com/BlankOn/manokwari.git
@@ -29,10 +30,10 @@ VCS-Browser: https://github.com/BlankOn/manokwari
 
 Package: manokwari
 Architecture: any
-Depends: mutter, gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, gnome-session-bin, gnome-session-common, ${misc:Depends}, ${shlibs:Depends}
+Depends: gnome-session-bin, gnome-session-common, mutter, gnome-screensaver, gnome-menus, libnotify4, libnotify-bin, ${misc:Depends}, ${shlibs:Depends}
 Recommends: tebu-icon-theme
 Provides: blankon-panel
-Conflicts: blankon-panel, blankon-session
-Replaces: blankon-panel, blankon-session
+Conflicts: blankon-panel
+Replaces: blankon-panel
 Description: Manokwari Desktop
  Manokwari is a desktop shell for GNOME 3. It features combined Gtk+ and HTML5 frontend (Gtk+ is legacy here and would be replaced totally with HTML5 in the future). It is an evolution from a shell called blankon-panel

@@ -1,3 +1,9 @@
+manokwari (1.0.9-0blankon1+extra5.1) tambora; urgency=medium
+
+  * Rebuild
+
+ -- Mahyuddin <yudi.al@gmail.com>  Sat, 03 Sep 2016 11:58:10 +0700
+
 manokwari (1.0.9-0blankon1+extra5) tambora; urgency=medium
 
   * Re-patch penyesuaian resolution panel menu
@@ -53,50 +59,37 @@ manokwari (1.0.8-0blankon1) tambora; urgency=medium
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 26 Jul 2016 11:20:30 +0700
 
-manokwari (1.0.7-0blankon1+pr50) tambora; urgency=medium
+manokwari (1.0.7-0blankon1+testsession3) tambora; urgency=medium
 
-  * Rename session
-  * Add depends gnome-session-bin gnome-session-common
+  *
 
- -- dotovr <dotovr@preko>  Sat, 23 Jul 2016 10:52:01 +0700
+ -- dotovr <dotovr@preko>  Fri, 22 Jul 2016 18:28:58 +0700
 
-manokwari (1.0.7-0blankon1) tambora; urgency=medium
+manokwari (1.0.7-0blankon1+testsession1) tambora; urgency=medium
 
-  * New upstream release
-    - Handle brightness buttons
+  *
+  *
 
- -- dotovr <dotovr@preko>  Tue, 12 Jul 2016 12:53:45 +0700
+ -- dotovr <dotovr@preko>  Fri, 22 Jul 2016 01:34:14 +0700
 
-manokwari (1.0.6-0blankon1) tambora; urgency=medium
+manokwari (1.0.7-0blankon1+pr49) tambora; urgency=medium
 
-  * Remove *.css and *.js files under system since they've been united in
+  * PR #49
+  * Add build-depends libnotify-dev
 
- -- Syai Mif <syaimif@di.blankon.in>  Sat, 09 Jul 2016 07:28:37 +0700
+ -- dotovr <dotovr@preko>  Wed, 20 Jul 2016 23:01:28 +0700
 
-manokwari (1.0.5-0blankon1) tambora; urgency=medium
+manokwari (1.0.7-0blankon1+pr48) tambora; urgency=medium
 
-  * New Upstream Release
-    - Remove network locations
-  * debian/
-    - build-dep libvala-0.32-dev
-    - Copyright
+  *
 
- -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 07 Jul 2016 13:52:55 +0700
+ -- dotovr <dotovr@preko>  Wed, 20 Jul 2016 17:19:52 +0700
 
-manokwari (1.0.4-0blankon1) tambora; urgency=medium
+manokwari (1.0.2-0blankon1) tambora; urgency=medium
 
-  * New Upstream Release
-    - Correctly cycle windows after changing workspace 
+  *
 
- -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 05 Jul 2016 08:01:46 +0700
-
-manokwari (1.0.3-0blankon1) tambora; urgency=medium
-
-  * New upstream release
-    - Grab keys with PanelHotkey
-    - Execute Manokwari before Mutter.
-
- -- dotovr <dotovr@preko>  Sun, 03 Jul 2016 06:36:42 +0700
+ -- dotovr <dotovr@preko>  Sat, 02 Jul 2016 22:51:12 +0700
 
 manokwari (1.0.2-0blankon1) tambora; urgency=medium
 
@@ -119,7 +112,7 @@ manokwari (1.0.0-0blankon1) tambora; urgency=medium
 manokwari (0.2.1.78) tambora; urgency=medium
 
   * Rebuild for armhf
-  
+
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 12 Sep 2015 05:57:31 +0700
 
 manokwari (0.2.1.77) tambora; urgency=medium
@@ -194,7 +187,7 @@ manokwari (0.2.1.68) tambora; urgency=medium
 
 manokwari (0.2.1.67) tambora; urgency=medium
 
-  * Reorder Geo.BlankOn menu 
+  * Reorder Geo.BlankOn menu
 
  -- Mahyuddin <yudi.al@gmail.com>  Thu, 28 May 2015 15:10:53 +0700
 
@@ -234,7 +227,7 @@ manokwari (0.2.1.61) tambora; urgency=medium
 
   * Add New Weather Style:
     - Data link to http://openweathermap.org  #Arsi Winardi
-  * Add New slider Button Play and Pause #Azis Ws 
+  * Add New slider Button Play and Pause #Azis Ws
 
  -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Mon, 25 May 2015 05:37:07 +0700
 
@@ -285,14 +278,14 @@ manokwari (0.2.1.54) tambora; urgency=medium
 
 manokwari (0.2.1.53) tambora; urgency=medium
 
-  * Add LANG in session 
+  * Add LANG in session
 
  -- Mahyuddin <yudi.al@gmail.com>  Wed, 29 Apr 2015 23:41:55 +0700
 
 manokwari (0.2.1.52) tambora; urgency=medium
 
   * Change in upstream:
-    - Make symbolic icons show-desktop 
+    - Make symbolic icons show-desktop
 
  -- Mahyuddin <yudi.al@gmail.com>  Wed, 29 Apr 2015 13:17:23 +0700
 
@@ -310,7 +303,7 @@ manokwari (0.2.1.50) tambora; urgency=medium
 
 manokwari (0.2.1.48) tambora; urgency=medium
 
-  * added widget weather 
+  * added widget weather
 
  -- Mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sat, 04 Apr 2015 12:43:55 +0700
 
@@ -325,7 +318,7 @@ manokwari (0.2.1.46) tambora; urgency=medium
   * debian/control
     - remove muter
     - added gala
-  * system/js/menu.js 
+  * system/js/menu.js
     - disble shutdowndialog
     - used gnome-session-quit
 
@@ -431,19 +424,19 @@ manokwari (0.2.1.33) suroboyo; urgency=medium
 
 manokwari (0.2.1.32) suroboyo; urgency=low
 
-  * Changes: xml background states and transitions  
+  * Changes: xml background states and transitions
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 06 Feb 2014 17:31:10 +0700
 
 manokwari (0.2.1.31) suroboyo; urgency=low
 
-  * Changes: Flattened menu structure 
+  * Changes: Flattened menu structure
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 06 Feb 2014 12:19:36 +0700
 
 manokwari (0.2.1.30) suroboyo; urgency=medium
 
-  * system/menu.js 
+  * system/menu.js
     - change line 382 "manokwari-applications.menu" to "applications.menu"
 
  -- mijortsa <azis.astrojim@surabaya.di.blankon.in>  Sat, 04 Jan 2014 21:30:28 +0700
@@ -457,7 +450,7 @@ manokwari (0.2.1.29) suroboyo; urgency=medium
 
 manokwari (0.2.1.28) suroboyo; urgency=low
 
-  * system/desktop.css revert to original 
+  * system/desktop.css revert to original
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 31 Dec 2013 07:46:41 +0700
 
@@ -471,7 +464,7 @@ manokwari (0.2.1.27) suroboyo; urgency=medium
 manokwari (0.2.1.26) suroboyo; urgency=low
 
   * Changes: Load desktop background
-    - PanelDesktopHtml.vala 
+    - PanelDesktopHtml.vala
     - system/desktop.js
     - system/desktop.css
 
@@ -513,7 +506,7 @@ manokwari (0.2.1.23) suroboyo; urgency=low
 
 manokwari (0.2.1.22) suroboyo; urgency=low
 
-  * modification 
+  * modification
     - menu.js = Utils.run_command("logoutdialog")
     - menu.js = Utils.run_command("shutdowndialog")
     - background width: 100% # icik2 :D ono sing kelewatan
@@ -558,19 +551,19 @@ manokwari (0.2.1.18) suroboyo; urgency=low
 
 manokwari (0.2.1.17) suroboyo; urgency=low
 
-  * Enable blankon-installer at session 
+  * Enable blankon-installer at session
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 30 Oct 2013 14:45:37 +0000
 
 manokwari (0.2.1.16) suroboyo; urgency=low
 
-  * update configure.ac 
+  * update configure.ac
 
  -- princeofgiri <princeofgiri@di.blankon.in>  Sun, 20 Oct 2013 19:25:47 +0700
 
 manokwari (0.2.1.15) suroboyo; urgency=low
 
-  * Update jquery into version 2.0.3 
+  * Update jquery into version 2.0.3
 
  -- princeofgiri <princeofgiri@di.blankon.in>  Sun, 20 Oct 2013 17:44:58 +0700
 
@@ -633,14 +626,14 @@ manokwari (0.1.20) rote; urgency=low
 
 manokwari (0.1.19) rote; urgency=low
 
-  * Changes: Reposition calendar and window description after monitor changes 
+  * Changes: Reposition calendar and window description after monitor changes
   * Changes: Use global monitor for /u/s/applications
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sun, 05 Aug 2012 16:11:43 +0700
 
 manokwari (0.1.18) rote; urgency=low
 
-  * Changes: Use global scope for monitors 
+  * Changes: Use global scope for monitors
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 04 Aug 2012 15:41:50 +0700
 
@@ -653,7 +646,7 @@ manokwari (0.1.17) rote; urgency=low
 manokwari (0.1.16) rote; urgency=low
 
   * Changes: Implementation of lock screen
-  * debian/control added depends gnome-screensaver for lock screen 
+  * debian/control added depends gnome-screensaver for lock screen
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 19 Jul 2012 02:14:35 +0700
 
@@ -668,7 +661,7 @@ manokwari (0.1.14) rote; urgency=low
   * New: Texture in menu
   * Changes: .ui-content shall inherit bg-color from .ui-page
   * Changes: New background colors for items and userAccount
-  * Fixes: BlankOn#1068 - tombol shutdown tidak terlihat jika sub menu te… 
+  * Fixes: BlankOn#1068 - tombol shutdown tidak terlihat jika sub menu te…
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 06 Jul 2012 06:20:03 +0700
 
@@ -699,13 +692,13 @@ manokwari (0.1.10) rote; urgency=low
 
 manokwari (0.1.9) rote; urgency=low
 
-  * Changes: Alternate window list 
+  * Changes: Alternate window list
   * New: Animated property class
   * Changes: Draw window list on the description bar
   * Changes: Get application launch context from the active display
   * Changes: Removed crufts
   * Changes: Render background with style
-  * Changes: Render all contents 
+  * Changes: Render all contents
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 03 Apr 2012 17:03:22 +0700
 
@@ -777,7 +770,7 @@ manokwari (0.1.5) rote; urgency=low
 manokwari (0.1.4) rote; urgency=low
 
   * New Upstream Release:
-    - Changes: new Makefile.am for system dir 
+    - Changes: new Makefile.am for system dir
 
  -- Aji Kisworo Mukti <adzy@di.blankon.in>  Tue, 13 Mar 2012 16:09:59 +0700
 
@@ -822,7 +815,7 @@ manokwari (0.1.3) rote; urgency=low
     - Changes: Displays user's info in menu-box
     - Changes: Dismiss menu-box when esc no longer processed
     - Changes: Simple Esc handler
-    - Changes: Removed crufts 
+    - Changes: Removed crufts
     - Changes: Animate while hidden menu-box
     - Changes: Smooth show/hide animation
     - Changes: Style for collapsible
@@ -868,7 +861,7 @@ manokwari (0.1.3) rote; urgency=low
 manokwari (0.1.2) rote; urgency=low
 
   * debian/manokwari.script:
-    - rename from blankon-panel.script 
+    - rename from blankon-panel.script
   * debian/control:
     - add libsoup2.4-dev to build-dep
 
@@ -890,7 +883,7 @@ blankon-panel (0.4.5) rote; urgency=low
 
   * New upstream release:
     - Changes: Register panel to GNOME session manager
-  
+
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 05 Jan 2012 22:17:15 +0700
 
 blankon-panel (0.4.4) rote; urgency=low
@@ -909,13 +902,13 @@ blankon-panel (0.4.4) rote; urgency=low
 
 blankon-panel (0.4.3) rote; urgency=low
 
-  * Fixes: BlankOn#948: blankon-panel gagal dibangun di irgsh 
+  * Fixes: BlankOn#948: blankon-panel gagal dibangun di irgsh
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sun, 01 Jan 2012 07:49:36 +0700
 
 blankon-panel (0.4.2) rote; urgency=low
 
-  * Changes: Using the correct gnome-session's keyword    
+  * Changes: Using the correct gnome-session's keyword
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 06 Dec 2011 05:34:42 +0700
 
@@ -936,7 +929,7 @@ blankon-panel (0.3.5) pattimura; urgency=low
 
 blankon-panel (0.3.4) pattimura; urgency=low
 
-  * Workaround ticket #843 
+  * Workaround ticket #843
 
  -- Mohammad Anwari <mdamt@di.blankon.in>  Sun, 14 Aug 2011 21:59:51 +0300
 
@@ -982,13 +975,13 @@ blankon-panel (0.2.18) pattimura; urgency=low
 
 blankon-panel (0.2.17) pattimura; urgency=low
 
-  * Changes: Show menu box without tricks 
-  * Changes: Properly show the widgets 
-  * Changes: Regrab device after dismissing popup menu from menu content 
+  * Changes: Show menu box without tricks
+  * Changes: Properly show the widgets
+  * Changes: Regrab device after dismissing popup menu from menu content
   * Fixes: BlankOn#703
-  * Changes: Keyboard interaction on menu box 
+  * Changes: Keyboard interaction on menu box
   * Fixes: BlankOn#814
-  * Changes: transform into themable panel 
+  * Changes: transform into themable panel
 
  -- Aji Kisworo Mukti <adzy@di.blankon.in>  Sun, 07 Aug 2011 01:15:17 +0700
 
@@ -1018,24 +1011,24 @@ blankon-panel (0.2.15) pattimura; urgency=low
 
 blankon-panel (0.2.14) pattimura; urgency=low
 
-  * Changes: Shorter window list height 
+  * Changes: Shorter window list height
   * Changes: Update Indonesian translation
   * Changes: Update Javanese translation
   * Changes: Bring back device grabbing instead of having a big invisible bo...
-  * Changes: Move tray to window list 
-  * Changes: Animation on showing menu box 
-  * Changes: Added padding for tray 
-  * Changes: Handling windows asking attention 
+  * Changes: Move tray to window list
+  * Changes: Animation on showing menu box
+  * Changes: Added padding for tray
+  * Changes: Handling windows asking attention
   * Changes: Updated theme
   * Fixes: BlankOn#792 - Icon tidak diketahui di blankon panel
-  * Changes: Don't limit workspace+desktop combo window height 
+  * Changes: Don't limit workspace+desktop combo window height
 
  -- Aji Kisworo Mukti <adzy@di.blankon.in>  Wed, 03 Aug 2011 17:08:59 +0700
 
 blankon-panel (0.2.13) pattimura; urgency=low
 
-  * New: Add/remove to/from Favorites 
-  * Fixes: BlankOn#778 - gak ada scroll di blankon panel 
+  * New: Add/remove to/from Favorites
+  * Fixes: BlankOn#778 - gak ada scroll di blankon panel
   * Fixes: BlankOn#777 - [blankon-panel] tulisan menu dan tray aplikasi
   * New: Add to Desktop
 
@@ -1052,7 +1045,7 @@ blankon-panel (0.2.11) pattimura; urgency=low
   * Changes: Simplifications of the layouts
   * Changes: Use PanelScreen.* helper functions for window management
   * Changes: Use graphics for menu entries
-  * Changes: Reacts better on monitor changes 
+  * Changes: Reacts better on monitor changes
 
  -- Aji Kisworo Mukti <adzy@di.blankon.in>  Thu, 28 Jul 2011 18:36:42 +0700
 
@@ -1070,10 +1063,10 @@ blankon-panel (0.2.9) pattimura; urgency=low
 
 blankon-panel (0.2.8) pattimura; urgency=low
 
-  * Changes: Adding gettext in panel-clock.vala 
-  * Changes: Spinoff the xdg menu loader into a new class 
+  * Changes: Adding gettext in panel-clock.vala
+  * Changes: Spinoff the xdg menu loader into a new class
   * Changes: Fix vala's compilation warnings
-  * Fixes: BlankOn#761 - Aplikasi baru tidak tampak di blankon-panel 
+  * Fixes: BlankOn#761 - Aplikasi baru tidak tampak di blankon-panel
   * Fixes: BlankOn#763 - jendela shutdown tidak langsung aktif saat klik menu "matikan..."
   * Changes: Show workspace switcher only when pressing with mouse
   * Changes: Reacts to drag-and-drop, activating target window
@@ -1150,14 +1143,14 @@ blankon-panel (0.1.8) pattimura; urgency=low
 blankon-panel (0.1.7) pattimura; urgency=low
 
   * Added blankon-panel.desktop
-  * install 
+  * install
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 13 Jul 2011 00:17:31 +0700
 
 blankon-panel (0.1.6) pattimura; urgency=low
 
-  * debian/control 
-    - added ${shlibs:Depends}, 
+  * debian/control
+    - added ${shlibs:Depends},
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Tue, 12 Jul 2011 06:46:26 +0700
 
@@ -1170,7 +1163,7 @@ blankon-panel (0.1.5) pattimura; urgency=low
 blankon-panel (0.1.4) pattimura; urgency=low
 
   * New Updates from Author
-    - CHanges: Draw arrow instead of distribution logo on the second column 
+    - CHanges: Draw arrow instead of distribution logo on the second column
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Wed, 06 Jul 2011 16:42:25 +0700
 
@@ -1183,7 +1176,7 @@ blankon-panel (0.1.3) pattimura; urgency=low
 
 blankon-panel (0.1.2) pattimura; urgency=low
 
-  * install 
+  * install
     - blankon-panel   /usr/bin/
     - blankon-panel.css /usr/share/blankon-panel/
 
@@ -1192,13 +1185,13 @@ blankon-panel (0.1.2) pattimura; urgency=low
 blankon-panel (0.1.1) pattimura; urgency=low
 
   * New upstream update
-  
+
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Fri, 24 Jun 2011 05:39:38 +0700
 
 blankon-panel (0.1) pattimura; urgency=low
 
   * Initial release
-  
+
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 18 Apr 2011 21:28:19 +0700
 
 
