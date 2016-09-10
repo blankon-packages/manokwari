@@ -43,6 +43,34 @@ diff -Naur manokwari-1.0.9.orig/.gitignore manokwari-1.0.9/.gitignore
 -src/manokwari
 -src/manokwari_vala.stamp
 -stamp-h1
+diff -Naur manokwari-1.0.9.orig/data/lsb-release.desktop manokwari-1.0.9/data/lsb-release.desktop
+--- manokwari-1.0.9.orig/data/lsb-release.desktop	1970-01-01 07:00:00.000000000 +0700
++++ manokwari-1.0.9/data/lsb-release.desktop	2016-09-11 03:43:38.831767746 +0700
+@@ -0,0 +1,13 @@
++[Desktop Entry]
++Name=Lsb-release
++#Icon=distributor-logo
++Exec=/usr/bin/lsb-release.sh
++Type=Application
++Terminal=false
++OnlyShowIn=XFCE;GNOME;
++NotShowIn=KDE;Budgie;
++StartupNotify=false
++X-GNOME-Autostart-enabled=true
++X-GNOME-UsesNotifications=false
++
++Name[id_ID]=Lsb release
+diff -Naur manokwari-1.0.9.orig/data/lsb-release.sh manokwari-1.0.9/data/lsb-release.sh
+--- manokwari-1.0.9.orig/data/lsb-release.sh	1970-01-01 07:00:00.000000000 +0700
++++ manokwari-1.0.9/data/lsb-release.sh	2016-09-11 04:40:32.598108334 +0700
+@@ -0,0 +1,7 @@
++#!/bin/bash
++mkdir /tmp/release/
++lsb_release -i > /tmp/release/distributor.txt
++lsb_release -d > /tmp/release/description.txt
++lsb_release -r > /tmp/release/release.txt
++lsb_release -c > /tmp/release/codename.txt
++uname -v > /tmp/release/kernel.txt
 diff -Naur manokwari-1.0.9.orig/data/manokwari.css.in manokwari-1.0.9/data/manokwari.css.in
 --- manokwari-1.0.9.orig/data/manokwari.css.in	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/data/manokwari.css.in	2016-09-07 23:01:56.248499181 +0700
@@ -3541,19 +3569,10 @@ diff -Naur manokwari-1.0.9.orig/system/menu.html manokwari-1.0.9/system/menu.htm
 +
  </body>                                                                 
  </html>
-diff -Naur manokwari-1.0.9.orig/system/release/lsb.txt manokwari-1.0.9/system/release/lsb.txt
---- manokwari-1.0.9.orig/system/release/lsb.txt	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/release/lsb.txt	2016-09-10 16:35:56.359255000 +0700
-@@ -0,0 +1,5 @@
-+Distributor ID:	Blankon
-+Description:	BlankOn Tambora (Development Branch)
-+Release:	10.0
-+Codename:	tambora
-+
 diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sidebar.html
 --- manokwari-1.0.9.orig/system/sidebar.html	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/sidebar.html	2016-09-10 18:34:11.476761275 +0700
-@@ -0,0 +1,181 @@
++++ manokwari-1.0.9/system/sidebar.html	2016-09-11 04:41:14.156680491 +0700
+@@ -0,0 +1,265 @@
 +<html>
 +<head>
 +<meta charset="utf-8">
@@ -3564,7 +3583,12 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +<body>
 +<div id="sidebar-panel">
 +<div id="logo"><img src="/usr/share/icons/Tebu-Flat/places/scalable/distributor-logo-blankon.svg"></div>
-+	<div id="lsb_release"></div>
++	<div id="Desktop">Manokwari Desktop</div>
++	<div id="Distributor"></div>
++	<div id="Description"></div>
++	<div id="Release"></div>
++	<div id="Codename"></div>
++	<div id="Kernel"></div>
 +</div>
 +
 +<style type='text/css'>
@@ -3574,7 +3598,7 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +	-webkit-user-select: none;
 +	padding: 0px;
 +	margin: 0px;
-+	font-family: Cantarell, Sans-Serif;
++	font-family: 'Aurulent Sans';
 +}
 +
 +#sidebar-panel {
@@ -3594,9 +3618,42 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +	margin-top: 20px;
 +	text-align: center;
 +}
-+#lsb_release {
++#Desktop {
 +	text-align: center;
-+	margin: 0px 46px;
++	padding-bottom: 5px;
++	margin: 0px 20px;
++	cursor: default;
++	font-family: 'Aurulent Sans';
++    font-size: 0.9em;
++    border-bottom: thin solid;
++}
++#Distributor {
++	text-align: center;
++	margin: 5px 20px 0px 20px;
++	cursor: default;
++	font-family: 'Aurulent Sans';
++    font-size: 0.8em;
++}
++#Description, #Release {
++	text-align: center;
++	margin: 0px 20px;
++	cursor: default;
++	font-family: 'Aurulent Sans';
++    font-size: 0.8em;
++}
++#Codename {
++	text-align: center;
++	margin: 0px 20px 0px 20px;
++	padding-bottom: 5px;
++	cursor: default;
++	font-family: 'Aurulent Sans';
++    font-size: 0.8em;
++    border-bottom: thin solid;
++}
++#Kernel {
++	text-align: center;
++	margin: 5px 20px 0px 20px;
++	padding-bottom: 5px;
 +	cursor: default;
 +	font-family: 'Aurulent Sans';
 +    font-size: 0.8em;
@@ -3653,30 +3710,76 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +
 +<script type="text/javascript">
 +
-+<!-- // Function Lsb // -->
-+function Lsb(){Utils.run_command("mkdir -p /usr/lib/manokwari/system/release;if [-f /usr/lib/manokwari/system/release/lsb.txt]; then; rm -rf /usr/lib/manokwari/system/release/lsb.txt; lsb_release -a > /usr/lib/manokwari/system/release/lsb.txt; else; touch /usr/lib/manokwari/system/release/lsb.txt; lsb_release -a >> /usr/lib/manokwari/system/release/lsb.txt;fi");}
-+
-+function readText(){
-+  var rawFile = new XMLHttpRequest();
-+    rawFile.open("GET", "/usr/lib/manokwari/system/release/lsb.txt", true);
-+        rawFile.onreadystatechange = function (){
-+          if(rawFile.readyState === 4){
-+              var allText = rawFile.responseText;
-+              document.getElementById("lsb_release").innerHTML = allText;
++function readDistributorText(){
++  var rawFileDistributor = new XMLHttpRequest();
++    rawFileDistributor.open("GET", "/tmp/release/distributor.txt", true);
++        rawFileDistributor.onreadystatechange = function (){
++          if(rawFileDistributor.readyState === 4){
++              var allText = rawFileDistributor.responseText;
++              document.getElementById("Distributor").innerHTML = allText;
 +          }
 +        }
-+    rawFile.send();
++    rawFileDistributor.send();
 +}
 +
-+$(document).load(function(){Lsb();});
++function readDescriptionText(){
++  var rawFileDescription = new XMLHttpRequest();
++    rawFileDescription.open("GET", "/tmp/release/description.txt", true);
++        rawFileDescription.onreadystatechange = function (){
++          if(rawFileDescription.readyState === 4){
++              var allText = rawFileDescription.responseText;
++              document.getElementById("Description").innerHTML = allText;
++          }
++        }
++    rawFileDescription.send();
++}
++
++function readReleaseText(){
++  var rawFileRelease = new XMLHttpRequest();
++    rawFileRelease.open("GET", "/tmp/release/release.txt", true);
++        rawFileRelease.onreadystatechange = function (){
++          if(rawFileRelease.readyState === 4){
++              var allText = rawFileRelease.responseText;
++              document.getElementById("Release").innerHTML = allText;
++          }
++        }
++    rawFileRelease.send();
++}
++
++function readCodenameText(){
++  var rawFileCodename = new XMLHttpRequest();
++    rawFileCodename.open("GET", "/tmp/release/codename.txt", true);
++        rawFileCodename.onreadystatechange = function (){
++          if(rawFileCodename.readyState === 4){
++              var allText = rawFileCodename.responseText;
++              document.getElementById("Codename").innerHTML = allText;
++          }
++        }
++    rawFileCodename.send();
++}
++
++function readKernelText(){
++  var rawFileKernel = new XMLHttpRequest();
++    rawFileKernel.open("GET", "/tmp/release/kernel.txt", true);
++        rawFileKernel.onreadystatechange = function (){
++          if(rawFileKernel.readyState === 4){
++              var allText = rawFileKernel.responseText;
++              document.getElementById("Kernel").innerHTML = allText;
++          }
++        }
++    rawFileKernel.send();
++}
 +
 +$(document).ready(function() {
-+	readText();
++	readDistributorText();
++	readDescriptionText();
++	readReleaseText();
++	readCodenameText();
++	readKernelText();
 +});
 +
 +
 +<!-- // Slider Animation if use HTML //  -->
-+
 +var anim = (function() {
 +    var activePage = null;
 +    var prepareShow = function() {
