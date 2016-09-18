@@ -45,7 +45,7 @@ diff -Naur manokwari-1.0.9.orig/.gitignore manokwari-1.0.9/.gitignore
 -stamp-h1
 diff -Naur manokwari-1.0.9.orig/data/lsb-release.desktop manokwari-1.0.9/data/lsb-release.desktop
 --- manokwari-1.0.9.orig/data/lsb-release.desktop	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/data/lsb-release.desktop	2016-09-11 03:43:38.831767746 +0700
++++ manokwari-1.0.9/data/lsb-release.desktop	2016-09-11 03:43:38.831767000 +0700
 @@ -0,0 +1,13 @@
 +[Desktop Entry]
 +Name=Lsb-release
@@ -62,7 +62,7 @@ diff -Naur manokwari-1.0.9.orig/data/lsb-release.desktop manokwari-1.0.9/data/ls
 +Name[id_ID]=Lsb release
 diff -Naur manokwari-1.0.9.orig/data/lsb-release.sh manokwari-1.0.9/data/lsb-release.sh
 --- manokwari-1.0.9.orig/data/lsb-release.sh	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/data/lsb-release.sh	2016-09-11 04:40:32.598108334 +0700
++++ manokwari-1.0.9/data/lsb-release.sh	2016-09-11 04:40:32.598108000 +0700
 @@ -0,0 +1,7 @@
 +#!/bin/bash
 +mkdir /tmp/release/
@@ -73,7 +73,7 @@ diff -Naur manokwari-1.0.9.orig/data/lsb-release.sh manokwari-1.0.9/data/lsb-rel
 +uname -v > /tmp/release/kernel.txt
 diff -Naur manokwari-1.0.9.orig/data/manokwari.css.in manokwari-1.0.9/data/manokwari.css.in
 --- manokwari-1.0.9.orig/data/manokwari.css.in	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/data/manokwari.css.in	2016-09-07 23:01:56.248499181 +0700
++++ manokwari-1.0.9/data/manokwari.css.in	2016-09-07 23:01:56.248499000 +0700
 @@ -1,20 +1,111 @@
 -@define-color panel_bg_color #1a1a1a;
 -@define-color panel_fg_color #ededed;
@@ -200,14 +200,14 @@ diff -Naur manokwari-1.0.9.orig/data/manokwari.css.in manokwari-1.0.9/data/manok
 +}
 diff -Naur manokwari-1.0.9.orig/src/Makefile.am manokwari-1.0.9/src/Makefile.am
 --- manokwari-1.0.9.orig/src/Makefile.am	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/Makefile.am	2016-09-10 02:41:38.647541133 +0700
++++ manokwari-1.0.9/src/Makefile.am	2016-09-17 02:09:50.822714000 +0700
 @@ -1,4 +1,4 @@
 -NULL = 
 +NULL =
  
  AM_CPPFLAGS = \
  	$(WNCK_GMENU_DISCLAIMER) \
-@@ -33,9 +33,11 @@
+@@ -33,9 +33,12 @@
      panel-desktop-data.vala \
      panel-calendar.vala \
      animated-property.vala \
@@ -219,18 +219,196 @@ diff -Naur manokwari-1.0.9.orig/src/Makefile.am manokwari-1.0.9/src/Makefile.am
 +    panel-xdg-properties.vala \
 +    panel-extra-box.vala \
 +    panel-sidebar-box.vala \
++    libs/pulse.vala \
  	$(NULL)
  
  manokwari_VALAFLAGS = \
-@@ -53,5 +55,3 @@
+@@ -53,5 +56,3 @@
  
  DISTCLEANFILES = \
  	$(NULL)
 -
 -
+diff -Naur manokwari-1.0.9.orig/src/libs/pulse.vala manokwari-1.0.9/src/libs/pulse.vala
+--- manokwari-1.0.9.orig/src/libs/pulse.vala	1970-01-01 07:00:00.000000000 +0700
++++ manokwari-1.0.9/src/libs/pulse.vala	2016-09-15 12:20:35.360595000 +0700
+@@ -0,0 +1,173 @@
++namespace Pulse {
++	class Stream {
++		public int index { get; set; }
++		public string name { get; set; }
++		public string nice_name { get; set; }
++		public int volume { get; set; }
++		public bool is_default { get; set; }
++		public bool is_muted { get; set; }
++		public int relative_volume {
++			get {
++				return (int)(100 * ((double)volume / 0x10000));
++			} internal set {
++				volume = (value * 0x10000) / 100;
++			}
++		}
++	}
++
++	public enum StreamType {
++		SINK,
++		SOURCE
++	}
++
++	errordomain Error {
++		DUMP_PARSING_FAILED,
++		SET_VOLUME_FAILED,
++		SET_MUTE_FAILED,
++		SET_DEFAULT_FAILED,
++		NO_DEFAULT_STREAM
++	}
++
++	class StreamContainer {
++		private Gee.ArrayList<Stream> streams = new Gee.ArrayList<Stream>();
++		public StreamType streamType {
++			get; internal set;
++		}
++
++		public StreamContainer(StreamType type) throws Error {
++			this.streamType = type;
++			parse();
++		}
++
++		public Gee.Iterator<Stream> iterator() {
++			return streams.iterator();
++		}
++
++		public Stream get_default() throws Error {
++			Stream d = get_default_stream();
++			if(d == null)
++				throw new Error.NO_DEFAULT_STREAM("No default stream found");
++			return d;
++		}
++
++		public void set_default(Stream str) throws Error {
++			string setcmd = "set-default-" + (streamType == StreamType.SINK ? "sink" : "source");
++			string lstcmd = "list-" + (streamType == StreamType.SINK ? "sink-inputs" : "source-outputs");
++			string mvecmd = "move-" + (streamType == StreamType.SINK ? "sink-input" : "source-output");
++			foreach(Stream s in streams) {
++				if(s == str) {
++					s.is_default = true;
++					try {
++		                // set default stream
++						Process.spawn_command_line_sync(
++							"pacmd " + setcmd + " " + s.index.to_string()
++						);
++
++						// move all currently playing stuff to the new default stream
++						string output;
++						Process.spawn_command_line_sync("pacmd " + lstcmd, out output);
++						int counter = 0;
++						var inputs = new int[streams.size];
++						foreach(string line in output.split("\n")) {
++							if("index:" in line)
++								inputs[counter++] = int.parse(line.split(": ")[1]);
++						}
++						for(int i = 0; i < counter; ++i) {
++							Process.spawn_command_line_sync(
++								"pacmd " + mvecmd + " " + inputs[i].to_string() + " " + s.index.to_string()
++							);
++						}
++					}
++					catch(SpawnError e) {
++						throw new Error.SET_DEFAULT_FAILED(e.message);
++					}
++				}
++				else
++					s.is_default = false;
++			}
++		}
++
++		public void set_volume(Stream str, int percent) throws Error {
++			string setcmd = "set-" + (streamType == StreamType.SINK ? "sink" : "source") + "-volume";
++			try {
++				str.relative_volume = percent;
++				Process.spawn_command_line_sync(
++					"pacmd " + setcmd + " " + str.index.to_string() + " %#x".printf(str.volume)
++				);
++			}
++			catch(SpawnError e) {
++				throw new Error.SET_VOLUME_FAILED(e.message);
++			}
++		}
++
++		public void set_muted(Stream str, bool muted) throws Error {
++			string setcmd = "set-" + (streamType == StreamType.SINK ? "sink" : "source") + "-mute";
++			try {
++				str.is_muted = muted;
++				Process.spawn_command_line_sync(
++					"pacmd " + setcmd + " " + str.index.to_string() + " " + (str.is_muted ? "yes" : "no")
++				);
++			}
++			catch(SpawnError e) {
++				throw new Error.SET_MUTE_FAILED(e.message);
++			}
++		}
++
++		private void parse() throws Error {
++			string lstcmd = "list-" + (streamType == StreamType.SINK ? "sinks" : "sources");
++			streams.clear();
++			try {
++				Regex pattern_index		= new Regex("\\s*(\\*)?\\s*index: (\\d+)");
++				Regex pattern_name		= new Regex("\\s*name: <(.*?)>");
++				Regex pattern_desc		= new Regex("\\s*device.description = \"(.*?)\"");
++				Regex pattern_vol		= new Regex("\\s*volume: front-left:\\s*\\d+\\s*/\\s*(\\d+)%");
++				Regex pattern_muted		= new Regex("\\s*muted: (no|yes)");
++				string dump;
++				Process.spawn_command_line_sync("pacmd " + lstcmd, out dump);
++
++				Stream? str = null;
++				string[] lines = dump.split("\n");
++				foreach(string line in lines) {
++					MatchInfo info;
++					if("index: " in line) {
++						if(str != null)
++							streams.add(str);
++
++						pattern_index.match(line, 0, out info);
++						int index = int.parse(info.fetch(2));
++						str = new Stream();
++						str.index = index;
++						str.is_default = info.fetch(1) != "";
++					}
++					else if(str != null) {
++						if(pattern_name.match(line, 0, out info))
++							str.name = info.fetch(1);
++						else if(pattern_vol.match(line, 0, out info))
++							str.relative_volume = int.parse(info.fetch(1));
++						else if(pattern_muted.match(line, 0, out info))
++							str.is_muted = info.fetch(1) == "yes";
++						else if(pattern_desc.match(line, 0, out info))
++							str.nice_name = info.fetch(1);
++					}
++				}
++
++				if(str != null)
++					streams.add(str);
++			}
++			catch(SpawnError e) {
++				throw new Error.DUMP_PARSING_FAILED(e.message);
++			}
++			catch(RegexError e) {
++				throw new Error.DUMP_PARSING_FAILED(e.message);
++			}
++		}
++
++		private Stream? get_default_stream() {
++			foreach(Stream s in streams) {
++				if(s.is_default)
++					return s;
++			}
++			return null;
++		}
++	}
++}
 diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
 --- manokwari-1.0.9.orig/src/main.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/main.vala	2016-09-08 11:18:22.071825741 +0700
++++ manokwari-1.0.9/src/main.vala	2016-09-16 20:25:27.178580000 +0700
 @@ -19,14 +19,14 @@
      Intl.bind_textdomain_codeset( Config.GETTEXT_PACKAGE, "UTF-8" );
      Intl.textdomain( Config.GETTEXT_PACKAGE );
@@ -248,7 +426,7 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      }
  
      PanelSessionManager.getInstance ();
-@@ -48,7 +48,7 @@
+@@ -48,10 +48,13 @@
      var d = new PanelDesktop ();
      d.show ();
  
@@ -257,7 +435,13 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      var w = new PanelWindowHost ();
      w.show();
  
-@@ -66,7 +66,7 @@
++    //var l = new PanelWindowLauncher ();
++    //l.show();
++
+     var menu_box = new PanelMenuBox();
+     // SIGNALS
+     w.menu_clicked.connect (() => {
+@@ -66,7 +69,7 @@
      w.dialog_opened.connect (() => {
          if (menu_box.visible) {
              menu_box.try_hide ();
@@ -266,7 +450,7 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      });
  
      d.desktop_clicked.connect (() => {
-@@ -81,6 +81,24 @@
+@@ -81,6 +84,24 @@
          }
      });
  
@@ -323,7 +507,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-desktop-html.vala manokwari-1.0.9/src/
  using JSCore;
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/panel-extra-box.vala
 --- manokwari-1.0.9.orig/src/panel-extra-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-box.vala	2016-09-08 01:45:20.576336191 +0700
++++ manokwari-1.0.9/src/panel-extra-box.vala	2016-09-16 00:16:38.538843000 +0700
 @@ -0,0 +1,229 @@
 +using Gtk;
 +using WebKit;
@@ -372,7 +556,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +        button_press_event.connect((event) => {
 +        stdout.printf("xxx\n");
 +            if (event.x > get_window().get_width()) {
-+            shown (); // Emitted keep window show
++                shown (); // Emitted keep window show
 +                return true;
 +            }
 +            return false;
@@ -554,6 +738,27 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +        pack_end (separator, false, false, 10);
 +    }
 +}
+diff -Naur manokwari-1.0.9.orig/src/panel-hotkey.vala manokwari-1.0.9/src/panel-hotkey.vala
+--- manokwari-1.0.9.orig/src/panel-hotkey.vala	2016-07-31 20:10:39.000000000 +0700
++++ manokwari-1.0.9/src/panel-hotkey.vala	2016-09-18 05:35:21.588464000 +0700
+@@ -64,7 +64,7 @@
+         if (xevent->type == X.EventType.KeyPress) {
+         stderr.printf("keypress\n");
+             foreach (var binding in bindings) {
+-stderr.printf("modifier ---------- %d %d %d\n", (int) binding.key_code, (int) binding.modifiers, (int) xevent->xkey.state);
++                stderr.printf("modifier ---------- %d %d %d\n", (int) binding.key_code, (int) binding.modifiers, (int) xevent->xkey.state);
+                 if (xevent->xkey.keycode == binding.key_code &&
+                     (xevent->xkey.state &~ (lock_modifiers[7])) == binding.modifiers) {
+                     static_handler (binding.combination); 
+@@ -80,7 +80,7 @@
+         accelerator_parse (combination, out key_sym, out modifiers);
+ 
+         var key_code = display.keysym_to_keycode (key_sym);
+-stderr.printf("modifier ---------- %d %d\n", (int) key_code, (int) modifiers);
++        stderr.printf("modifier ---------- %d %d\n", (int) key_code, (int) modifiers);
+         if (key_code != 0) {
+             error_trap_push ();
+             foreach(uint lock_modifier in lock_modifiers) {    
 diff -Naur manokwari-1.0.9.orig/src/panel-item.vala manokwari-1.0.9/src/panel-item.vala
 --- manokwari-1.0.9.orig/src/panel-item.vala	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/src/panel-item.vala	2016-08-24 12:26:21.072573000 +0700
@@ -568,7 +773,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-item.vala manokwari-1.0.9/src/panel-it
          box.pack_start (image, false, false, 10);
 diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/panel-menu-box.vala
 --- manokwari-1.0.9.orig/src/panel-menu-box.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-menu-box.vala	2016-09-08 00:08:59.092432304 +0700
++++ manokwari-1.0.9/src/panel-menu-box.vala	2016-09-08 00:08:59.092432000 +0700
 @@ -2,10 +2,12 @@
  
  public class PanelMenuBox : PanelAbstractWindow {
@@ -594,8 +799,8 @@ diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/pane
  
 diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/panel-sidebar-box.vala
 --- manokwari-1.0.9.orig/src/panel-sidebar-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-sidebar-box.vala	2016-09-10 15:39:37.305142658 +0700
-@@ -0,0 +1,244 @@
++++ manokwari-1.0.9/src/panel-sidebar-box.vala	2016-09-18 17:51:20.315223896 +0700
+@@ -0,0 +1,320 @@
 +using Gtk;
 +using WebKit;
 +using JSCore;
@@ -603,15 +808,23 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +public class PanelSidebarBox : PanelAbstractWindow {
 +    public int height = Gdk.Screen.height();
 +    public int width = 265;
++    public int brightness = 100;
++    public int volume = 100;
 +    public signal void dismissed ();
 +    public signal void shown ();
 +    public signal void about_to_show_content ();
-+    AnimatedProperty anim;
 +
-+    public double offset {
-+        get; set; default = 250;
-+    }
++    Box volume_box;
++    Box brightness_box;
++    Box control_box;
++    Box html_box;
++    Image volume_icon;
++    Image brightness_icon;
++    Scale scale_volume;
++    Scale scale_brightness;
 +
++    Pulse.Stream stream;
++    Pulse.StreamContainer stream_container;
 +    Calendar calendar;
 +    Button button;
 +    PanelSidebarHTML view;
@@ -624,43 +837,82 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        set_title ("_manokwari_sidebar_");
 +        set_size_request(width, height);
 +
-+        anim = new AnimatedProperty (this);
-+        anim.set_property ("offset");
-+        anim.set_final_value (250);
-+        anim.start ();
++        PanelScreen.move_window (this, Gdk.Gravity.NORTH_EAST);
++
++        stream = new Pulse.Stream();
++        stream_container = new Pulse.StreamContainer(Pulse.StreamType.SINK);
 +
 +        calendar = new Calendar ();
 +        calendar.show_all ();
-+
 +        view = new PanelSidebarHTML ();
 +        view.show_all ();
 +
 +        var box = new Box (Gtk.Orientation.VERTICAL, 0);
-+        var start_box = new EventBox ();
-+        start_box.set_size_request(width, 200);
-+        start_box.add (calendar);
-+        start_box.show_all ();
++
++        var calender_box = new EventBox ();
++        calender_box.set_size_request(width, 190);
++        calender_box.add (calendar);
++        calender_box.show_all ();
 +
 +        var button = new Button.with_label (_("Adjust date/time"));
 +        add (box);
 +        button.show ();
 +
-+        var end_box = new EventBox ();
-+        end_box.add (view); 
-+        end_box.show_all ();
++        // Volume //
++        volume_box = new Box (Gtk.Orientation.HORIZONTAL, 10);
++        volume_box.set_margin_left (20);
++        volume_box.set_margin_right (20);
++        volume_icon = new Image.from_icon_name ("audio-volume-high-symbolic", IconSize.LARGE_TOOLBAR);
++        scale_volume = new Gtk.Scale.with_range (Gtk.Orientation.HORIZONTAL, 0, 100, 1);
++        scale_volume.set_name ("VolumeScale");
++        scale_volume.set_value (volume);
++        scale_volume.set_draw_value (false);
++        scale_volume.value_changed.connect (volume_changed);
++        volume_box.pack_start (volume_icon, false, false, 1);
++        volume_box.pack_end (scale_volume, true, true, 0);
++        volume_box.show_all ();
 +
-+        box.pack_start (start_box, false, false, 0);
++        var volbox = new EventBox ();
++        volbox.add (volume_box);
++        volbox.show_all ();
++
++        // Brightness //
++        brightness_box = new Box (Gtk.Orientation.HORIZONTAL, 10);
++        brightness_box.set_margin_left (20);
++        brightness_box.set_margin_right (20);
++        brightness_icon = new Image.from_icon_name ("display-brightness-symbolic", IconSize.LARGE_TOOLBAR);
++        scale_brightness = new Gtk.Scale.with_range (Gtk.Orientation.HORIZONTAL, 0, 100, 1);
++        scale_brightness.set_name ("BrightnessScale");
++        scale_brightness.set_value (brightness);
++        scale_brightness.set_draw_value (false);
++        //scale_brightness.value_changed.connect (brightness_changed);
++        brightness_box.pack_start(brightness_icon, false, false, 1);
++        brightness_box.pack_end (scale_brightness, true, true, 0);
++        brightness_box.show_all ();
++
++        var bribox = new EventBox ();
++        bribox.add (brightness_box);
++        bribox.show_all ();
++
++        var control_box = new EventBox ();
++        control_box.show_all ();
++
++        var html_box = new EventBox ();
++        html_box.add (view); 
++        html_box.show_all ();
++
++        box.pack_start (calender_box, false, false, 0);
 +        box.pack_start (button, false, false, 0);
-+        box.pack_end (end_box, true, true, 0);
-+
-+        PanelScreen.move_window (this, Gdk.Gravity.NORTH_EAST);
++        box.pack_start (control_box, false, false, 10);
++        box.pack_start (volbox, false, false, 10);
++        box.pack_start (bribox, false, false, 1);
++        box.pack_end (html_box, true, true, 0);
 +
 +        box.show ();
 +        view.start ();
-+
 +        hide();
 +
-+        button.clicked.connect(() => {
++        button.clicked.connect (() => {
 +            var info = new DesktopAppInfo.from_filename ("/usr/share/applications/gnome-datetime-panel.desktop");
 +            try {
 +                info.launch (null, new AppLaunchContext ());
@@ -674,35 +926,63 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +            hide ();
 +        });
 +
-+        button_press_event.connect((event) => {
-+            stdout.printf("xxx\n");
-+            if (event.x > get_window().get_width ()) {
-+                shown (); // Emitted keep window show
-+                return true;
-+            }
-+            return false;
-+        });
-+
 +        screen_size_changed.connect (() =>  {
 +            PanelScreen.move_window (this, Gdk.Gravity.NORTH_EAST);
 +            queue_resize ();
 +        });
 +
++        button_press_event.connect((event) => {
++            stdout.printf("xxx\n");
++            if (event.x > get_window().get_width ()) {
++                dismiss (); // Emitted keep window show
++                return true;
++            }
++            return false;
++        });
++
 +        map_event.connect (() => {
-+            shown ();
 +            PanelScreen.move_window (this, Gdk.Gravity.NORTH_EAST);
-+            //get_window ().raise ();
-+            //Utils.grab (this);
-+            //view.triggerShowAnimation();
-+            anim.start ();
++            get_window ().raise ();
++            Utils.grab (this);
 +            return true;
 +        });
 +
-+        leave_notify_event.connect (() => {
-+            dismiss ();
-+            return true;
++        key_press_event.connect ((e) => {
++            if (Gdk.keyval_name(e.keyval) == "Escape") {
++                if (view.handleEsc () == false) {
++                    dismiss ();
++                }
++            } else if (Gdk.keyval_name(e.keyval) == "Print") {
++                if (Utils.print_screen () == false) {
++                    stdout.printf ("Unable to take screenshot\n");
++                }
++            }
++            return false;
 +        });
 +
++    }
++
++    public void volume_changed (Gtk.Range scale) {
++        int volume = (int)scale.get_value();
++        stream_container.set_muted (stream, false);
++        stream_container.set_volume (stream, volume);
++
++        string name;
++        volume_box.remove (volume_icon);
++
++        if (volume == 0) {
++            name = "audio-volume-muted-symbolic";
++        } else if (volume > 0 && volume <= 33) {
++            name = "audio-volume-low-symbolic";
++        } else if (volume > 33 && volume <= 66) {
++            name = "audio-volume-medium-symbolic";
++        } else {
++            name = "audio-volume-high-symbolic";
++        }
++
++        volume_icon = new Image.from_icon_name (name, IconSize.LARGE_TOOLBAR);
++        volume_box.pack_start (volume_icon, false, false, 1);
++        volume_box.show_all ();
 +    }
 +
 +    public override void get_preferred_width (out int min, out int max) {
@@ -711,11 +991,11 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +
 +    public override void get_preferred_height (out int min, out int max) {
 +        min = max = PanelScreen.get_primary_monitor_geometry ().height; 
-+    }
++    } 
 +
 +    private void dismiss () {
 +        if (visible) {
-+            stdout.printf("Sidebar box dismissed \n");
++            stdout.printf("Extra box no dismissed \n");
 +            Utils.ungrab (this);
 +            try_hide ();
 +        }
@@ -728,13 +1008,16 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +
 +    public void try_hide () {
 +        //view.triggerHideAnimation();
-+        GLib.Timeout.add (250, real_hide);
++        GLib.Timeout.add (200, real_hide);
 +        dismissed ();
 +    }
 +
 +}
 +
-+///////////// PanelSidebarHTML ///////////// 
++
++
++
++
 +public class PanelSidebarHTML: WebView {
 +
 +    string translate_uri (string old) {
@@ -778,6 +1061,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        });
 +
 +        window_object_cleared.connect ((frame, context) => {
++            PanelXdgData.setup_js_class ((JSCore.GlobalContext) context);
 +            Utils.setup_js_class ((JSCore.GlobalContext) context);
 +        });
 +    }
@@ -805,14 +1089,11 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        if (r.is_boolean (context)) {
 +            return r.to_boolean (context);
 +        }
-+
 +        return false;
 +    }
 +
 +}
 +
-+///////////// PanelSidebarContent //////////
-+// This class provides a header and containter to put contents
 +
 +public class PanelSidebarContent : VBox {
 +    protected VBox bar;
@@ -842,7 +1123,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +}
 diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-window.vala
 --- manokwari-1.0.9.orig/src/panel-window.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-window.vala	2016-09-08 16:26:51.239988726 +0700
++++ manokwari-1.0.9/src/panel-window.vala	2016-09-15 12:42:28.831778000 +0700
 @@ -5,7 +5,11 @@
  using Notify;
  
@@ -855,7 +1136,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      private ToggleButton desktop;
  
      public void reset_show_desktop () {
-@@ -13,23 +17,40 @@
+@@ -13,23 +17,41 @@
      }
  
      public PanelWindowPager () {
@@ -886,6 +1167,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
 -        box.show ();
 +        var pager = new Wnck.Pager ();
 +        pager.set_orientation (Orientation.VERTICAL);
++        pager.set_tooltip_text ("");
 +        add (box);
 +        pager.show ();
 +
@@ -893,7 +1175,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
 +        add (box);
 +        end_box.show_all ();
  
-+        box.pack_start (start_box, false, false, 0);        
++        box.pack_start (start_box, false, false, 0);
 +        box.pack_start (desktop, false, false, 0);
 +        box.pack_start (pager, false, false, 0);
 +        box.pack_end (end_box, true, true, 0);
@@ -902,7 +1184,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          hide();
  
          desktop.toggled.connect (() => {
-@@ -38,9 +59,8 @@
+@@ -38,9 +60,8 @@
          });
  
          leave_notify_event.connect (() => {
@@ -914,7 +1196,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
          map_event.connect (() => {
-@@ -51,15 +71,21 @@
+@@ -51,15 +72,21 @@
          });
      }
  
@@ -941,7 +1223,14 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  }
  
  public class PanelWindowPagerEntry : DrawingArea {
-@@ -93,7 +119,7 @@
+@@ -87,13 +114,14 @@
+         } catch (Error e) {
+             stderr.printf ("Unable to load icon 'user-desktop-symbolic': %s\n", e.message);
+         }
++
+         pager = new PanelWindowPager ();
+         show ();
+ 
          button_press_event.connect ((event) => {
              pager.show_all ();
              pager_shown ();
@@ -950,7 +1239,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
      }
-@@ -105,11 +131,11 @@
+@@ -105,11 +133,11 @@
  
      public override void get_preferred_height (out int min, out int max) {
          // TODO
@@ -964,7 +1253,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      }
  
      public override bool draw (Context cr) {
-@@ -209,7 +235,7 @@
+@@ -209,7 +237,7 @@
              else
                  set_tooltip_text ("");
              entered ();
@@ -973,7 +1262,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
          button_press_event.connect ((event) => {
-@@ -223,7 +249,7 @@
+@@ -223,7 +251,7 @@
                  }
                  sync_window_states ();
              }
@@ -982,7 +1271,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          });
  
          drag_motion.connect (() => {
-@@ -243,26 +269,26 @@
+@@ -243,26 +271,26 @@
              icon = window_info.get_icon ();
          }
      }
@@ -1013,7 +1302,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          update_icon ();
  
-@@ -286,10 +312,8 @@
+@@ -286,10 +314,8 @@
          menu.attach_to_widget (this, null);
  
          popup_shown = true;
@@ -1025,7 +1314,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  }
  
  public class PanelWindowEntryDescriptions : PanelAbstractWindow {
-@@ -317,13 +341,13 @@
+@@ -317,13 +343,13 @@
          set_type_hint (Gdk.WindowTypeHint.DOCK);
  
          set_app_paintable(true);
@@ -1041,7 +1330,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          anim.frame.connect (() => {
              queue_draw ();
          });
-@@ -334,7 +358,7 @@
+@@ -334,7 +360,7 @@
      }
  
      public override void get_preferred_height (out int min, out int max) {
@@ -1050,7 +1339,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      }
  
      public override void get_preferred_width (out int min, out int max) {
-@@ -351,32 +375,32 @@
+@@ -351,32 +377,32 @@
          }
          pango.set_font_description (style.get_font (state));
          pango.set_markup ("<big>%s</big>".printf (text), -1);
@@ -1089,7 +1378,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          if (icon != null) {
              Gdk.cairo_set_source_pixbuf (cr, icon, icon_x + offset, 0);
          }
-@@ -402,7 +426,7 @@
+@@ -402,7 +428,7 @@
          var state = StateFlags.NORMAL;
  
          stack.clear ();
@@ -1098,7 +1387,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
          if (active_entry != null)  {
              var start_x = -1;
-@@ -496,7 +520,6 @@
+@@ -496,7 +522,6 @@
          hiding = true;
      }
  
@@ -1106,7 +1395,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      bool real_hide () {
          if (hiding == true) {
              hide ();
-@@ -505,7 +528,6 @@
+@@ -505,7 +530,6 @@
          return false;
      }
  
@@ -1114,7 +1403,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
      public void update_position (int y) {
          queue_resize ();
          var g = PanelScreen.get_primary_monitor_geometry ();
-@@ -533,7 +555,7 @@
+@@ -533,7 +557,7 @@
                next = true;
            } else {
                next = false;
@@ -1123,7 +1412,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          }
          if (selected == null) {
              selected = first;
-@@ -566,14 +588,16 @@
+@@ -566,14 +590,16 @@
      PanelHotkey hotkey;
      DBusProperties bus;
      Notify.Notification indicator;
@@ -1141,16 +1430,23 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
      public bool no_windows_around () {
          update (false);
-@@ -595,14 +619,16 @@
+@@ -587,7 +613,6 @@
+             stderr.printf ("Unable to connect to power manager\n");
+         }
+ 
+-
+         indicator = new Notify.Notification("Manokwari", "", Utils.get_icon_path("display-brightness"));
+         indicator.set_timeout(5);
+         Notify.init ("Manokwari");
+@@ -595,6 +620,7 @@
          hotkey = new PanelHotkey();
  
          hotkey.bind("<Alt>Tab");
 +        hotkey.bind("<Alt>Menu");
          hotkey.bind("Print");
          hotkey.bind("<Mod4>x");
-+        hotkey.bind("<Mod4>Menu");
          hotkey.bind("MonBrightnessUp");
-         hotkey.bind("MonBrightnessDown");
+@@ -602,7 +628,7 @@
          hotkey.triggered.connect((key) => {
            handleKey(key);
          });
@@ -1212,6 +1508,15 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
          screen.active_window_changed.connect (() => {
              foreach (PanelWindowEntry e in entry_map.values) {
                  e.sync_window_states ();
+@@ -705,7 +741,7 @@
+         });
+ 
+         enter_notify_event.connect (() => {
+-            activated ();
++            activated (); 
+             return false;
+         });
+ 
 @@ -714,26 +750,31 @@
          });
  
@@ -1293,7 +1598,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-window.vala manokwari-1.0.9/src/panel-
  
 diff -Naur manokwari-1.0.9.orig/system/Makefile.am manokwari-1.0.9/system/Makefile.am
 --- manokwari-1.0.9.orig/system/Makefile.am	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/system/Makefile.am	2016-09-04 14:53:48.761167153 +0700
++++ manokwari-1.0.9/system/Makefile.am	2016-09-04 14:53:48.761167000 +0700
 @@ -3,6 +3,7 @@
  system_DATA = \
  	menu.html \
@@ -1660,7 +1965,7 @@ diff -Naur manokwari-1.0.9.orig/system/css/desktop.css manokwari-1.0.9/system/cs
 +
 diff -Naur manokwari-1.0.9.orig/system/css/extra-panel.css manokwari-1.0.9/system/css/extra-panel.css
 --- manokwari-1.0.9.orig/system/css/extra-panel.css	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/css/extra-panel.css	2016-09-07 14:06:37.917033122 +0700
++++ manokwari-1.0.9/system/css/extra-panel.css	2016-09-07 14:06:37.917033000 +0700
 @@ -0,0 +1,272 @@
 +body {
 +	background-color: transparent;
@@ -2551,7 +2856,7 @@ diff -Naur manokwari-1.0.9.orig/system/desktop.html manokwari-1.0.9/system/deskt
  
 diff -Naur manokwari-1.0.9.orig/system/extra.html manokwari-1.0.9/system/extra.html
 --- manokwari-1.0.9.orig/system/extra.html	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/extra.html	2016-09-08 00:04:02.592437233 +0700
++++ manokwari-1.0.9/system/extra.html	2016-09-08 00:04:02.592437000 +0700
 @@ -0,0 +1,158 @@
 +<html>
 +<head>
@@ -3366,7 +3671,7 @@ diff -Naur manokwari-1.0.9.orig/system/js/bevel.js manokwari-1.0.9/system/js/bev
 -}
 diff -Naur manokwari-1.0.9.orig/system/js/extra-panel.js manokwari-1.0.9/system/js/extra-panel.js
 --- manokwari-1.0.9.orig/system/js/extra-panel.js	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/js/extra-panel.js	2016-09-07 22:25:21.060535674 +0700
++++ manokwari-1.0.9/system/js/extra-panel.js	2016-09-07 22:25:21.060535000 +0700
 @@ -0,0 +1,130 @@
 +function Run1() {
 +	Utils.run_command("xdg-open http://blankonlinux.or.id");
@@ -3571,8 +3876,8 @@ diff -Naur manokwari-1.0.9.orig/system/menu.html manokwari-1.0.9/system/menu.htm
  </html>
 diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sidebar.html
 --- manokwari-1.0.9.orig/system/sidebar.html	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/sidebar.html	2016-09-11 04:41:14.156680491 +0700
-@@ -0,0 +1,265 @@
++++ manokwari-1.0.9/system/sidebar.html	2016-09-12 09:23:09.397545000 +0700
+@@ -0,0 +1,270 @@
 +<html>
 +<head>
 +<meta charset="utf-8">
@@ -3603,7 +3908,7 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +
 +#sidebar-panel {
 +	background-color: #111;
-+	color: #aaa;
++	color: #aaa !important;
 +	height: 100%;
 +	width: 265px;
 +	overflow-x: hidden;
@@ -3615,7 +3920,7 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +	z-index: 150;
 +}
 +#logo {
-+	margin-top: 20px;
++	margin-top: 10px;
 +	text-align: center;
 +}
 +#Desktop {
@@ -3623,40 +3928,45 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +	padding-bottom: 5px;
 +	margin: 0px 20px;
 +	cursor: default;
++	color: #aaa !important;
 +	font-family: 'Aurulent Sans';
 +    font-size: 0.9em;
-+    border-bottom: thin solid;
++    border-bottom: thin solid #333;
 +}
 +#Distributor {
 +	text-align: center;
 +	margin: 5px 20px 0px 20px;
 +	cursor: default;
++	color: #aaa !important;
 +	font-family: 'Aurulent Sans';
-+    font-size: 0.8em;
++    font-size: 0.75em;
 +}
 +#Description, #Release {
 +	text-align: center;
 +	margin: 0px 20px;
 +	cursor: default;
++	color: #aaa !important;
 +	font-family: 'Aurulent Sans';
-+    font-size: 0.8em;
++    font-size: 0.75em;
 +}
 +#Codename {
 +	text-align: center;
 +	margin: 0px 20px 0px 20px;
 +	padding-bottom: 5px;
 +	cursor: default;
++	color: #aaa !important;
 +	font-family: 'Aurulent Sans';
-+    font-size: 0.8em;
-+    border-bottom: thin solid;
++    font-size: 0.75em;
++    border-bottom: thin solid #333;
 +}
 +#Kernel {
 +	text-align: center;
 +	margin: 5px 20px 0px 20px;
 +	padding-bottom: 5px;
 +	cursor: default;
++	color: #aaa !important;
 +	font-family: 'Aurulent Sans';
-+    font-size: 0.8em;
++    font-size: 0.75em;
 +}
 +.ui-animation-slide {
 +    -webkit-transition: all 0.2s ease-in-out;
