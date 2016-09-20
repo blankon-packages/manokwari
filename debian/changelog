@@ -1,3 +1,10 @@
+manokwari (1.0.9-0blankon1+extra6.3) tambora; urgency=medium
+
+  * set-brightness.patch
+    - add depends xbacklight
+
+ -- Mijortsa <mijortsa@localhost>  Wed, 21 Sep 2016 02:36:36 +0700
+
 manokwari (1.0.9-0blankon1+extra6.2) tambora; urgency=medium
 
   * add scale-vol.patch

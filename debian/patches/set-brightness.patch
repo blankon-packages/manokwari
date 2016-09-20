@@ -62,8 +62,8 @@ diff -Naur manokwari-1.0.9.orig/data/lsb-release.desktop manokwari-1.0.9/data/ls
 +Name[id_ID]=Lsb release
 diff -Naur manokwari-1.0.9.orig/data/lsb-release.sh manokwari-1.0.9/data/lsb-release.sh
 --- manokwari-1.0.9.orig/data/lsb-release.sh	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/data/lsb-release.sh	2016-09-11 04:40:32.598108000 +0700
-@@ -0,0 +1,7 @@
++++ manokwari-1.0.9/data/lsb-release.sh	2016-09-20 20:51:32.571161531 +0700
+@@ -0,0 +1,8 @@
 +#!/bin/bash
 +mkdir /tmp/release/
 +lsb_release -i > /tmp/release/distributor.txt
@@ -71,6 +71,7 @@ diff -Naur manokwari-1.0.9.orig/data/lsb-release.sh manokwari-1.0.9/data/lsb-rel
 +lsb_release -r > /tmp/release/release.txt
 +lsb_release -c > /tmp/release/codename.txt
 +uname -v > /tmp/release/kernel.txt
++
 diff -Naur manokwari-1.0.9.orig/data/manokwari.css.in manokwari-1.0.9/data/manokwari.css.in
 --- manokwari-1.0.9.orig/data/manokwari.css.in	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/data/manokwari.css.in	2016-09-07 23:01:56.248499000 +0700
@@ -799,8 +800,8 @@ diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/pane
  
 diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/panel-sidebar-box.vala
 --- manokwari-1.0.9.orig/src/panel-sidebar-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-sidebar-box.vala	2016-09-18 17:51:20.315223896 +0700
-@@ -0,0 +1,320 @@
++++ manokwari-1.0.9/src/panel-sidebar-box.vala	2016-09-20 21:26:04.580200175 +0700
+@@ -0,0 +1,297 @@
 +using Gtk;
 +using WebKit;
 +using JSCore;
@@ -815,13 +816,10 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +    public signal void about_to_show_content ();
 +
 +    Box volume_box;
-+    Box brightness_box;
 +    Box control_box;
 +    Box html_box;
 +    Image volume_icon;
-+    Image brightness_icon;
 +    Scale scale_volume;
-+    Scale scale_brightness;
 +
 +    Pulse.Stream stream;
 +    Pulse.StreamContainer stream_container;
@@ -848,6 +846,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        view.show_all ();
 +
 +        var box = new Box (Gtk.Orientation.VERTICAL, 0);
++        add (box);
 +
 +        var calender_box = new EventBox ();
 +        calender_box.set_size_request(width, 190);
@@ -855,7 +854,6 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        calender_box.show_all ();
 +
 +        var button = new Button.with_label (_("Adjust date/time"));
-+        add (box);
 +        button.show ();
 +
 +        // Volume //
@@ -876,24 +874,6 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        volbox.add (volume_box);
 +        volbox.show_all ();
 +
-+        // Brightness //
-+        brightness_box = new Box (Gtk.Orientation.HORIZONTAL, 10);
-+        brightness_box.set_margin_left (20);
-+        brightness_box.set_margin_right (20);
-+        brightness_icon = new Image.from_icon_name ("display-brightness-symbolic", IconSize.LARGE_TOOLBAR);
-+        scale_brightness = new Gtk.Scale.with_range (Gtk.Orientation.HORIZONTAL, 0, 100, 1);
-+        scale_brightness.set_name ("BrightnessScale");
-+        scale_brightness.set_value (brightness);
-+        scale_brightness.set_draw_value (false);
-+        //scale_brightness.value_changed.connect (brightness_changed);
-+        brightness_box.pack_start(brightness_icon, false, false, 1);
-+        brightness_box.pack_end (scale_brightness, true, true, 0);
-+        brightness_box.show_all ();
-+
-+        var bribox = new EventBox ();
-+        bribox.add (brightness_box);
-+        bribox.show_all ();
-+
 +        var control_box = new EventBox ();
 +        control_box.show_all ();
 +
@@ -905,7 +885,6 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        box.pack_start (button, false, false, 0);
 +        box.pack_start (control_box, false, false, 10);
 +        box.pack_start (volbox, false, false, 10);
-+        box.pack_start (bribox, false, false, 1);
 +        box.pack_end (html_box, true, true, 0);
 +
 +        box.show ();
@@ -1016,8 +995,6 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +
 +
 +
-+
-+
 +public class PanelSidebarHTML: WebView {
 +
 +    string translate_uri (string old) {
@@ -1093,6 +1070,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +    }
 +
 +}
++
 +
 +
 +public class PanelSidebarContent : VBox {
@@ -3016,6 +2994,22 @@ diff -Naur manokwari-1.0.9.orig/system/extra.html manokwari-1.0.9/system/extra.h
 +</body>
 +
 +</html>
+diff -Naur manokwari-1.0.9.orig/system/img/brightness.svg manokwari-1.0.9/system/img/brightness.svg
+--- manokwari-1.0.9.orig/system/img/brightness.svg	1970-01-01 07:00:00.000000000 +0700
++++ manokwari-1.0.9/system/img/brightness.svg	2016-08-28 13:00:42.000000000 +0700
+@@ -0,0 +1,12 @@
++<svg display="inline" height="16" width="16" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
++ <g inkscape:label="Icon" inkscape:groupmode="layer" transform="matrix(1 0 0 1 0 -6)">
++  <path d="M 8 0 L 7 3 L 9 3 L 8 0 z M 2.34375 2.34375 L 3.75 5.15625 L 5.15625 3.75 L 2.34375 2.34375 z M 13.65625 2.34375 L 10.84375 3.75 L 12.25 5.15625 L 13.65625 2.34375 z M 8 4 C 5.790861 4 4 5.790861 4 8 C 4 10.209139 5.790861 12 8 12 C 10.209139 12 12 10.209139 12 8 C 12 5.790861 10.209139 4 8 4 z M 8 5.5 C 9.3807119 5.5 10.5 6.6192881 10.5 8 C 10.5 9.3807119 9.3807119 10.5 8 10.5 C 6.6192881 10.5 5.5 9.3807119 5.5 8 C 5.5 6.6192881 6.6192881 5.5 8 5.5 z M 3 7 L 0 8 L 3 9 L 3 7 z M 13 7 L 13 9 L 16 8 L 13 7 z M 3.75 10.84375 L 2.34375 13.65625 L 5.15625 12.25 L 3.75 10.84375 z M 12.25 10.84375 L 10.84375 12.25 L 13.65625 13.65625 L 12.25 10.84375 z M 7 13 L 8 16 L 9 13 L 7 13 z " stroke-width="1.5" fill="#cccccc" color="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none" opacity="1" visibility="visible" transform="matrix(1 0 0 1 0 6)"/>
++  <path d="m 8,30 c -2.209139,0 -4,1.790861 -4,4 0,2.209139 1.790861,4 4,4 2.209139,0 4,-1.790861 4,-4 0,-2.209139 -1.790861,-4 -4,-4 z m 0,2 c 1.1045695,0 2,0.89543 2,2 0,1.104569 -0.8954305,2 -2,2 -1.1045695,0 -2,-0.895431 -2,-2 0,-1.10457 0.8954305,-2 2,-2 z" stroke-width="1.5" fill="#000000" color="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none" opacity="0.35" visibility="visible" inkscape:connector-curvature="0"/>
++  <path d="m 6,29 4,0 -2,-3 z" fill="#808080" stroke="none" sodipodi:nodetypes="cccc" inkscape:transform-center-y="-6.5" inkscape:connector-curvature="0"/>
++  <path d="m 11.330127,29.767949 2,3.464102 L 14.928204,30 z" fill="#808080" stroke="none" sodipodi:nodetypes="cccc" inkscape:transform-center-x="-5.1291655" inkscape:transform-center-y="-2.4999999" inkscape:connector-curvature="0"/>
++  <path d="m 13.330127,34.767949 -2,3.464102 L 14.928203,38 z" fill="#808080" stroke="none" sodipodi:nodetypes="cccc" inkscape:transform-center-x="-5.129165" inkscape:transform-center-y="2.5" inkscape:connector-curvature="0"/>
++  <path d="m 10,39 -4.0000002,0 2.0000001,3 z" fill="#808080" stroke="none" sodipodi:nodetypes="cccc" inkscape:transform-center-y="6.5" inkscape:connector-curvature="0"/>
++  <path d="M 4.6698729,38.232051 2.6698728,34.767949 1.0717967,38 z" fill="#808080" stroke="none" sodipodi:nodetypes="cccc" inkscape:transform-center-x="5.1291651" inkscape:transform-center-y="2.5" inkscape:connector-curvature="0"/>
++  <path d="M 2.6698727,33.232051 4.669873,29.767949 1.0717967,30 z" fill="#808080" stroke="none" sodipodi:nodetypes="cccc" inkscape:transform-center-x="5.129165" inkscape:transform-center-y="-2.5" inkscape:connector-curvature="0"/>
++ </g>
++</svg>
 diff -Naur manokwari-1.0.9.orig/system/img/collapsible.png manokwari-1.0.9/system/img/collapsible.png
 --- manokwari-1.0.9.orig/system/img/collapsible.png	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/system/img/collapsible.png	1970-01-01 07:00:00.000000000 +0700
@@ -3876,8 +3870,8 @@ diff -Naur manokwari-1.0.9.orig/system/menu.html manokwari-1.0.9/system/menu.htm
  </html>
 diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sidebar.html
 --- manokwari-1.0.9.orig/system/sidebar.html	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/sidebar.html	2016-09-12 09:23:09.397545000 +0700
-@@ -0,0 +1,270 @@
++++ manokwari-1.0.9/system/sidebar.html	2016-09-21 01:01:08.322036795 +0700
+@@ -0,0 +1,335 @@
 +<html>
 +<head>
 +<meta charset="utf-8">
@@ -3886,14 +3880,21 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +</head>
 +
 +<body>
++
 +<div id="sidebar-panel">
-+<div id="logo"><img src="/usr/share/icons/Tebu-Flat/places/scalable/distributor-logo-blankon.svg"></div>
-+	<div id="Desktop">Manokwari Desktop</div>
-+	<div id="Distributor"></div>
-+	<div id="Description"></div>
-+	<div id="Release"></div>
-+	<div id="Codename"></div>
-+	<div id="Kernel"></div>
++	<div id="brightness">
++		<div class="setbrightness"><img src="img/brightness.svg"><span>Brightness adjustment</span>
++		<button class="button-down" href="#" value="" onclick="BrightnessDown()">-</button>
++		<button class="button-up" href="#" value="" onclick="BrightnessUp()">+</button>
++		</div>
++	</div>
++	<div id="logo"><img src="/usr/share/icons/Tebu-Flat/places/scalable/distributor-logo-blankon.svg"></div>
++		<div id="Desktop">Manokwari Desktop</div>
++		<div id="Distributor"></div>
++		<div id="Description"></div>
++		<div id="Release"></div>
++		<div id="Codename"></div>
++		<div id="Kernel"></div>
 +</div>
 +
 +<style type='text/css'>
@@ -3933,6 +3934,54 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +    font-size: 0.9em;
 +    border-bottom: thin solid #333;
 +}
++#brightness {
++	width: 100%;
++	height: auto;
++	background: transparent;
++	color: #ccc !important;
++	font-family: 'Aurulent Sans';
++    font-size: 12px;
++}
++.setbrightness {
++	width: 100%;
++	height: auto;
++	margin-top: 5px;
++	background: transparent;
++	cursor: default;
++}
++.setbrightness img {
++	margin-top: 3px;
++	float: left;
++	margin-left: 20px;
++}
++.setbrightness span {
++	margin-top: 3px;
++	float: left;
++	margin-left: 15px;
++	margin-right: 20px;
++	color: #ccc !important;
++	font-family: 'Aurulent Sans';
++    font-size: 12px;
++    cursor: default;
++}
++#brightness button {
++	margin-top: 0px;
++	width: 25px;
++	height: auto;
++	background-color: #333;
++	border: 1px solid #000;
++	border-radius: 2px;
++	color: #fff !important;
++	font-family: 'Aurulent Sans';
++    font-size: 12px;
++    cursor: pointer;
++    -webkit-transition: all 0.2s ease-in-out;
++}
++#brightness button:hover {
++	background-color: #555;
++	color: #fff !important;
++}
++
 +#Distributor {
 +	text-align: center;
 +	margin: 5px 20px 0px 20px;
@@ -4017,6 +4066,16 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +}
 +
 +</style>
++
++<script type="text/javascript">
++function BrightnessUp() {
++	Utils.run_command("xbacklight +10");
++}
++
++function BrightnessDown() {
++	Utils.run_command("xbacklight -10");
++}
++</script>
 +
 +<script type="text/javascript">
 +
