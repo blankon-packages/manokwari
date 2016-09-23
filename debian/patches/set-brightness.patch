@@ -409,7 +409,7 @@ diff -Naur manokwari-1.0.9.orig/src/libs/pulse.vala manokwari-1.0.9/src/libs/pul
 +}
 diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
 --- manokwari-1.0.9.orig/src/main.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/main.vala	2016-09-16 20:25:27.178580000 +0700
++++ manokwari-1.0.9/src/main.vala	2016-09-23 12:55:03.560740568 +0700
 @@ -19,14 +19,14 @@
      Intl.bind_textdomain_codeset( Config.GETTEXT_PACKAGE, "UTF-8" );
      Intl.textdomain( Config.GETTEXT_PACKAGE );
@@ -427,7 +427,7 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      }
  
      PanelSessionManager.getInstance ();
-@@ -48,10 +48,13 @@
+@@ -48,25 +48,48 @@
      var d = new PanelDesktop ();
      d.show ();
  
@@ -436,13 +436,41 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      var w = new PanelWindowHost ();
      w.show();
  
-+    //var l = new PanelWindowLauncher ();
-+    //l.show();
-+
++    // SIGNAL
      var menu_box = new PanelMenuBox();
-     // SIGNALS
+-    // SIGNALS
++    var extra_box = new PanelExtraBox();
++    var sidebar_box = new PanelSidebarBox();
++
++    w.extra_clicked.connect (() => {
++        if (extra_box.visible) {
++            extra_box.try_hide ();
++        } else {
++            extra_box.show ();
++            menu_box.try_hide ();
++        }
++    });
++
++    w.sidebar_clicked.connect (() => {
++        if (sidebar_box.visible) {
++            sidebar_box.try_hide ();
++        } else {
++            sidebar_box.show ();
++            menu_box.try_hide ();
++        }
++    });
++
      w.menu_clicked.connect (() => {
-@@ -66,7 +69,7 @@
+         if (menu_box.visible) {
+             menu_box.try_hide ();
+         } else {
+             // Otherwise we want to show it
+             menu_box.show ();
++            extra_box.try_hide ();
++            sidebar_box.try_hide ();
+         }
+     });
+ 
      w.dialog_opened.connect (() => {
          if (menu_box.visible) {
              menu_box.try_hide ();
@@ -451,31 +479,14 @@ diff -Naur manokwari-1.0.9.orig/src/main.vala manokwari-1.0.9/src/main.vala
      });
  
      d.desktop_clicked.connect (() => {
-@@ -81,6 +84,24 @@
+@@ -81,7 +104,6 @@
          }
      });
  
-+    //////////// extra ////////////
-+    var extra_box = new PanelExtraBox();
-+    w.extra_clicked.connect (() => {
-+        if (extra_box.visible) {
-+            extra_box.try_hide ();
-+        } else {
-+            extra_box.show ();
-+        }
-+    });
-+
-+    var sidebar_box = new PanelSidebarBox();
-+    w.sidebar_clicked.connect (() => {
-+        if (sidebar_box.visible) {
-+            sidebar_box.try_hide ();
-+        } else {
-+            sidebar_box.show ();
-+        }
-+    });
- 
+-
      Gtk.main ();
      return 0;
+ }
 diff -Naur manokwari-1.0.9.orig/src/panel-abstract-window.vala manokwari-1.0.9/src/panel-abstract-window.vala
 --- manokwari-1.0.9.orig/src/panel-abstract-window.vala	2016-07-31 20:10:39.000000000 +0700
 +++ manokwari-1.0.9/src/panel-abstract-window.vala	2016-08-17 13:07:43.397575000 +0700
@@ -508,17 +519,15 @@ diff -Naur manokwari-1.0.9.orig/src/panel-desktop-html.vala manokwari-1.0.9/src/
  using JSCore;
 diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/panel-extra-box.vala
 --- manokwari-1.0.9.orig/src/panel-extra-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-extra-box.vala	2016-09-16 00:16:38.538843000 +0700
-@@ -0,0 +1,229 @@
++++ manokwari-1.0.9/src/panel-extra-box.vala	2016-09-23 12:13:04.385375151 +0700
+@@ -0,0 +1,213 @@
 +using Gtk;
 +using WebKit;
 +using JSCore;
 +
 +public class PanelExtraBox : PanelAbstractWindow {
-+    private const int COLUMN_WIDTH = 265;
-+    private const int TOP = 24;
-+    private bool inside;
-+
++    public int height = Gdk.Screen.height();
++    public int width = 265;
 +    public signal void dismissed ();
 +    public signal void shown ();
 +    public signal void about_to_show_content ();
@@ -526,19 +535,13 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +    PanelExtraHTML view;
 +
 +    public PanelExtraBox () {
-+        add_events(Gdk.EventMask.ENTER_NOTIFY_MASK);
-+        add_events(Gdk.EventMask.LEAVE_NOTIFY_MASK);
-+
-+        enter_notify_event.connect(mouse_entered);
-+        leave_notify_event.connect(mouse_leave);
-+
 +        view = new PanelExtraHTML ();
 +        view.show_all ();
 +        add (view);
 +
 +        set_keep_above (true);
 +        set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
-+        set_title ("_manokwari_extra_");
++        set_size_request(width, height);
 +        set_visual (this.screen.get_rgba_visual ());
 +
 +        Gdk.RGBA c = Gdk.RGBA();
@@ -590,33 +593,25 @@ diff -Naur manokwari-1.0.9.orig/src/panel-extra-box.vala manokwari-1.0.9/src/pan
 +            return false;
 +        });
 +
++		leave_notify_event.connect(() => {
++			dismiss ();
++			return false;
++		});
 +    }
 +
 +    public override void get_preferred_width (out int min, out int max) {
-+        min = max = COLUMN_WIDTH;
++        min = max = width;
 +    }
 +
 +    public override void get_preferred_height (out int min, out int max) {
 +        min = max = PanelScreen.get_primary_monitor_geometry ().height;
 +    }
 +
-+    public bool mouse_entered(Gdk.EventCrossing e) {
-+        inside = true;
-+        shown();
-+        return false;
-+    }
-+
-+    public bool mouse_leave(Gdk.EventCrossing e) {
-+        inside = false;
-+        try_hide();
-+        return false;
-+    }
-+
 +    private void dismiss () {
 +        if (visible) {
 +            stdout.printf("Extra box no dismissed \n");
 +            Utils.ungrab (this);
-+            shown ();
++            try_hide ();
 +        }
 +    }
 +
@@ -774,13 +769,15 @@ diff -Naur manokwari-1.0.9.orig/src/panel-item.vala manokwari-1.0.9/src/panel-it
          box.pack_start (image, false, false, 10);
 diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/panel-menu-box.vala
 --- manokwari-1.0.9.orig/src/panel-menu-box.vala	2016-07-31 20:10:39.000000000 +0700
-+++ manokwari-1.0.9/src/panel-menu-box.vala	2016-09-08 00:08:59.092432000 +0700
-@@ -2,10 +2,12 @@
++++ manokwari-1.0.9/src/panel-menu-box.vala	2016-09-23 03:45:53.758535607 +0700
+@@ -1,11 +1,12 @@
+ using Gtk;
  
  public class PanelMenuBox : PanelAbstractWindow {
-     private const int COLUMN_WIDTH = 265;
-+    private const int TOP = 24;
- 
+-    private const int COLUMN_WIDTH = 265;
+-
++    public int height = Gdk.Screen.height();
++    public int width = 265;
      public signal void dismissed ();
      public signal void shown ();
      public signal void about_to_show_content ();
@@ -788,20 +785,30 @@ diff -Naur manokwari-1.0.9.orig/src/panel-menu-box.vala manokwari-1.0.9/src/pane
      PanelMenuHTML view;
  
      public PanelMenuBox () {
-@@ -25,7 +27,8 @@
+@@ -25,7 +26,9 @@
          view = new PanelMenuHTML ();
          view.show_all ();
          add (view);
 -        set_type_hint (Gdk.WindowTypeHint.DOCK);
 +        set_keep_above (true);
 +        set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
++        set_size_request(width, height);
          set_title ("_manokwari_menu_");
          set_visual (this.screen.get_rgba_visual ());
  
+@@ -84,7 +87,7 @@
+     }
+ 
+     public override void get_preferred_width (out int min, out int max) {
+-        min = max = COLUMN_WIDTH;
++        min = max = width;
+     }
+ 
+     public override void get_preferred_height (out int min, out int max) {
 diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/panel-sidebar-box.vala
 --- manokwari-1.0.9.orig/src/panel-sidebar-box.vala	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/src/panel-sidebar-box.vala	2016-09-20 21:26:04.580200175 +0700
-@@ -0,0 +1,297 @@
++++ manokwari-1.0.9/src/panel-sidebar-box.vala	2016-09-23 13:09:43.823734641 +0700
+@@ -0,0 +1,296 @@
 +using Gtk;
 +using WebKit;
 +using JSCore;
@@ -816,8 +823,6 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +    public signal void about_to_show_content ();
 +
 +    Box volume_box;
-+    Box control_box;
-+    Box html_box;
 +    Image volume_icon;
 +    Scale scale_volume;
 +
@@ -832,7 +837,6 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        get_style_context().remove_class("background");
 +        set_keep_above (true);
 +        set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
-+        set_title ("_manokwari_sidebar_");
 +        set_size_request(width, height);
 +
 +        PanelScreen.move_window (this, Gdk.Gravity.NORTH_EAST);
@@ -858,33 +862,36 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +
 +        // Volume //
 +        volume_box = new Box (Gtk.Orientation.HORIZONTAL, 10);
-+        volume_box.set_margin_left (20);
-+        volume_box.set_margin_right (20);
++        volume_box.set_margin_start (20); // Ajust width, height, top, bottom, start, end to keep notify_event
++        volume_box.set_margin_end (20);
++        volume_box.set_margin_top (30);
++        volume_box.set_margin_bottom (10);
++
 +        volume_icon = new Image.from_icon_name ("audio-volume-high-symbolic", IconSize.LARGE_TOOLBAR);
 +        scale_volume = new Gtk.Scale.with_range (Gtk.Orientation.HORIZONTAL, 0, 100, 1);
 +        scale_volume.set_name ("VolumeScale");
 +        scale_volume.set_value (volume);
 +        scale_volume.set_draw_value (false);
 +        scale_volume.value_changed.connect (volume_changed);
-+        volume_box.pack_start (volume_icon, false, false, 1);
++        volume_box.pack_start (volume_icon, false, false, 0);
 +        volume_box.pack_end (scale_volume, true, true, 0);
 +        volume_box.show_all ();
 +
-+        var volbox = new EventBox ();
-+        volbox.add (volume_box);
-+        volbox.show_all ();
++        var vol_box = new EventBox ();
++        vol_box.add (volume_box);
++        vol_box.show_all ();
 +
-+        var control_box = new EventBox ();
-+        control_box.show_all ();
++        var space_box = new EventBox ();
++        space_box.show_all ();
 +
 +        var html_box = new EventBox ();
 +        html_box.add (view); 
 +        html_box.show_all ();
 +
-+        box.pack_start (calender_box, false, false, 0);
++        box.pack_start (calender_box, false, false, 0); // give poin 0 to keep notify_event
 +        box.pack_start (button, false, false, 0);
-+        box.pack_start (control_box, false, false, 10);
-+        box.pack_start (volbox, false, false, 10);
++        box.pack_start (space_box, false, false, 0);
++        box.pack_start (vol_box, true, true, 0);
 +        box.pack_end (html_box, true, true, 0);
 +
 +        box.show ();
@@ -892,17 +899,12 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        hide();
 +
 +        button.clicked.connect (() => {
-+            var info = new DesktopAppInfo.from_filename ("/usr/share/applications/gnome-datetime-panel.desktop");
-+            try {
-+                info.launch (null, new AppLaunchContext ());
-+            } catch (Error e) {
-+                var dialog = new MessageDialog (null, DialogFlags.DESTROY_WITH_PARENT, MessageType.ERROR, ButtonsType.CLOSE, _("Unable to launch date-time applet: %s"), e.message);
-+                dialog.response.connect (() => {
-+                            dialog.destroy ();
-+                        });
-+                dialog.show ();
-+            }
-+            hide ();
++			try {
++				Process.spawn_command_line_async("gnome-control-center datetime");
++			} catch (Error e) {
++				message("Error invoking gnome-control-center: %s", e.message);
++			}
++	        hide ();
 +        });
 +
 +        screen_size_changed.connect (() =>  {
@@ -939,6 +941,10 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +            return false;
 +        });
 +
++		leave_notify_event.connect(() => {
++			dismiss ();
++			return false;
++		});
 +    }
 +
 +    public void volume_changed (Gtk.Range scale) {
@@ -960,7 +966,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +        }
 +
 +        volume_icon = new Image.from_icon_name (name, IconSize.LARGE_TOOLBAR);
-+        volume_box.pack_start (volume_icon, false, false, 1);
++        volume_box.pack_start (volume_icon, false, false, 0);
 +        volume_box.show_all ();
 +    }
 +
@@ -974,7 +980,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +
 +    private void dismiss () {
 +        if (visible) {
-+            stdout.printf("Extra box no dismissed \n");
++            stdout.printf("Sidebar box no dismissed \n");
 +            Utils.ungrab (this);
 +            try_hide ();
 +        }
@@ -987,7 +993,7 @@ diff -Naur manokwari-1.0.9.orig/src/panel-sidebar-box.vala manokwari-1.0.9/src/p
 +
 +    public void try_hide () {
 +        //view.triggerHideAnimation();
-+        GLib.Timeout.add (200, real_hide);
++        GLib.Timeout.add (300, real_hide);
 +        dismissed ();
 +    }
 +
@@ -3870,8 +3876,8 @@ diff -Naur manokwari-1.0.9.orig/system/menu.html manokwari-1.0.9/system/menu.htm
  </html>
 diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sidebar.html
 --- manokwari-1.0.9.orig/system/sidebar.html	1970-01-01 07:00:00.000000000 +0700
-+++ manokwari-1.0.9/system/sidebar.html	2016-09-21 01:01:08.322036795 +0700
-@@ -0,0 +1,335 @@
++++ manokwari-1.0.9/system/sidebar.html	2016-09-22 14:54:02.679383721 +0700
+@@ -0,0 +1,336 @@
 +<html>
 +<head>
 +<meta charset="utf-8">
@@ -4017,9 +4023,9 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +	font-family: 'Aurulent Sans';
 +    font-size: 0.75em;
 +}
-+.ui-animation-slide {
++/*.ui-animation-slide {
 +    -webkit-transition: all 0.2s ease-in-out;
-+}
++}*/
 +
 +/***********************
 + * Scrollbar *
@@ -4149,6 +4155,7 @@ diff -Naur manokwari-1.0.9.orig/system/sidebar.html manokwari-1.0.9/system/sideb
 +
 +
 +<!-- // Slider Animation if use HTML //  -->
++
 +var anim = (function() {
 +    var activePage = null;
 +    var prepareShow = function() {
