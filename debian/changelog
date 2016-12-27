@@ -1,3 +1,9 @@
+manokwari (1.0.11-0blankon1) tambora; urgency=medium
+
+  * Make runin items clickable 
+
+ -- Rahman Yusri Aftian <aftian@blankon.id>  Tue, 27 Dec 2016 23:10:47 +0700
+
 manokwari (1.0.10-0blankon2) tambora; urgency=medium
 
   * New upstream release
