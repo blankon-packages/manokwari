@@ -1,3 +1,9 @@
+manokwari (1.0.13-0blankon1) tambora; urgency=medium
+
+  * Wrap URL string with quote. 
+
+ -- Rahman Yusri Aftian <aftian@blankon.id>  Wed, 28 Dec 2016 21:50:41 +0700
+
 manokwari (1.0.11-0blankon1) tambora; urgency=medium
 
   * Make runin items clickable 
