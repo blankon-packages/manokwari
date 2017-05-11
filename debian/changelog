@@ -1,3 +1,9 @@
+manokwari (1.0.13-0blankon2) uluwatu; urgency=medium
+
+  * Upload to uluwatu
+
+ -- Anto Samalona <ansamsoftdev@gmail.com>  Thu, 11 May 2017 21:25:03 +0800
+
 manokwari (1.0.13-0blankon1) tambora; urgency=medium
 
   * Wrap URL string with quote. 
