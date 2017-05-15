@@ -1,3 +1,9 @@
+manokwari (1.0.13-0blankon4) uluwatu; urgency=medium
+
+  * Up version of valac and libvala to 0.34
+
+ -- Anto Samalona <ansamsoftdev@gmail.com>  Mon, 15 May 2017 19:44:31 +0800
+
 manokwari (1.0.13-0blankon3) uluwatu; urgency=medium
 
   * Rebuild
