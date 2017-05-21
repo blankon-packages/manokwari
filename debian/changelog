@@ -1,3 +1,9 @@
+manokwari (1.0.13-0blankon6) uluwatu; urgency=medium
+
+  * Change depends from libgee-dev to libgee-dev(>=0.6.8)
+
+ -- Anto Samalona <ansamsoftdev@gmail.com>  Sun, 21 May 2017 11:39:44 +0800
+
 manokwari (1.0.13-0blankon5) uluwatu; urgency=medium
 
   * change valac and libvala to 0.26 follow in jessie repo
