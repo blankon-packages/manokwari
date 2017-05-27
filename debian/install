@@ -1,0 +1,3 @@
+system/* /usr/lib/manokwari/system
+#data/lsb-release.sh /usr/bin
+#data/lsb-release.desktop /etc/xdg/autostart
