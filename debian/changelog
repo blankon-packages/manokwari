@@ -1,3 +1,9 @@
+manokwari (1.0.13-0blankon9) uluwatu; urgency=medium
+
+  * Testing build from github
+
+ -- Anto Samalona <ansamsoftdev@gmail.com>  Sat, 27 May 2017 17:41:07 +0800
+
 manokwari (1.0.13-0blankon8) uluwatu; urgency=medium
 
   * Fix depend libvala-dev
