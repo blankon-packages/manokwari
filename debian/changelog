@@ -1,3 +1,10 @@
+manokwari (1.0.14-0blankon1) uluwatu; urgency=medium
+
+  * New release:
+    - panel-clock: replace Gtk.render_layout with StyleContext.render_layout
+
+ -- AnTo SamalonA <ansamsoftdev@gmail.com>  Fri, 29 Sep 2017 05:33:06 +0800
+
 manokwari (1.0.13-0blankon8) uluwatu; urgency=medium
 
   * Fix depend libvala-dev
