@@ -21,6 +21,7 @@ Build-Depends: autotools-dev,
                libsoup2.4-dev,
                valac (>= 0.26),
                automake,
+               autoconf,
                xorg-dev,
                libnotify-dev
 Standards-Version: 3.9.2
