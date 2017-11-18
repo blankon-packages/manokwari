@@ -1,3 +1,10 @@
+manokwari (1.0.17-0blankon2) uluwatu; urgency=medium
+
+  * update Standard-Version to 4.1.1.
+  * using meson
+
+ -- Hanhan Husna <matcherapy@gmail.com>  Sun, 19 Nov 2017 02:14:05 +0700
+
 manokwari (1.0.17-0blankon1) uluwatu; urgency=medium
 
   * Wallpaper adjustment

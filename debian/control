@@ -14,7 +14,7 @@ Build-Depends: autotools-dev,
                libnotify-dev,
                libtool,
                libunique-3.0-dev,
-               libvala-0.34-dev,
+               libvala-0.36-dev,
                libwnck-3-dev,
                libwebkitgtk-3.0-dev,
                libjavascriptcoregtk-3.0-dev,
@@ -22,9 +22,9 @@ Build-Depends: autotools-dev,
                valac (>= 0.26),
                automake,
                autoconf,
-               xorg-dev,
+               meson,
                libnotify-dev
-Standards-Version: 3.9.2
+Standards-Version: 4.1.1
 Homepage: https://github.com/BlankOn/manokwari
 VCS-git: git://github.com/BlankOn/manokwari.git
 VCS-Browser: https://github.com/BlankOn/manokwari
