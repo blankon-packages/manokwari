@@ -1,3 +1,9 @@
+manokwari (1.0.18-0blankon1) uluwatu; urgency=medium
+
+  * Fix drag & drop in Manokwari destop background
+
+ -- Hanhan Husna <matcherapy@gmail.com>  Wed, 22 Nov 2017 20:43:09 +0700
+
 manokwari (1.0.17-0blankon2) uluwatu; urgency=medium
 
   * update Standard-Version to 4.1.1.

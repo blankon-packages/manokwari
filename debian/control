@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: BlankOn Developers <BlankOn-dev@googlegroups.com>
 Build-Depends: autotools-dev,
                cdbs,
-               debhelper (>= 7.0.50),
+               debhelper (>= 9),
                gnome-common,
                libcairo2-dev,
                libgee-dev (>= 0.6.8),
@@ -23,6 +23,7 @@ Build-Depends: autotools-dev,
                automake,
                autoconf,
                meson,
+               xorg-dev,
                libnotify-dev
 Standards-Version: 4.1.1
 Homepage: https://github.com/BlankOn/manokwari
